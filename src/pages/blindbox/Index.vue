@@ -60,7 +60,9 @@
                                     :data-index="index"
                                     class="m-item"
                                 >
-                                    <img :src="item.img" />
+                                    <el-tooltip class="item" effect="dark" :content="item.name" placement="top">
+                                        <img :src="item.img" />
+                                    </el-tooltip>
                                 </a>
                                 <a
                                     :href="aLink(item)"
@@ -70,7 +72,9 @@
                                     :data-index="index"
                                     class="m-item"
                                 >
-                                    <img :src="item.img" />
+                                    <el-tooltip class="item" effect="dark" :content="item.name" placement="top">
+                                        <img :src="item.img" />
+                                    </el-tooltip>
                                 </a>
                             </div>
                         </div>
@@ -229,7 +233,7 @@ export default {
     },
     mounted() {
         this.init();
-        this.scrollInterval = setInterval(this.scroll, 100);
+        // this.scrollInterval = setInterval(this.scroll, 100);
     },
     methods: {
         // 初始化，获取活动ID,并获取活动详情
@@ -247,9 +251,10 @@ export default {
                         this.draw = zip(data.allow_once_try_count, data.allow_once_try_count_cost_points);
                         this.prizeList = data.prize.map((item) => {
                             if (item.prize_type != "mall_goods" && asset[item.vip_asset_type])
-                                return { img: asset[item.vip_asset_type] };
-                            return { id: item.mall_goods.id, img: item.mall_goods.goods_images[0] };
+                                return { img: asset[item.vip_asset_type], name: '银铛（积分）' };
+                            return { id: item.mall_goods.id, img: item.mall_goods.goods_images[0], name: item.mall_goods.title  };
                         });
+                        this.scroll(this.prizeList.length)
                         const userLevelLimit = data.user_level_limit;
                         const userLevel = User.getLevel(1)
                         if (userLevelLimit > userLevel) {
@@ -286,18 +291,33 @@ export default {
             });
         },
         // 滚动
-        scroll() {
-            let all = 0;
-            let count = this.$refs.scroll.childElementCount;
-            for (let i = 0; i < count; i++) {
-                all += this.$refs.scroll.children[i].offsetWidth;
-            }
-            let half = all >> 1;
-            if (x < 1 - half) {
-                x = 0;
-            }
-            x -= 2;
-            this.$refs.scroll.style.transform = "translateX(" + x + "px)";
+        scroll(count) {
+            console.log(count)
+            // let all = 0;
+            // let count = this.$refs.scroll.childElementCount;
+            // for (let i = 0; i < count; i++) {
+            //     all += this.$refs.scroll.children[i].offsetWidth;
+            // }
+            // let half = all >> 1;
+            // if (x < 1 - half) {
+            //     x = 0;
+            // }
+            // x -= 2;
+            // this.$refs.scroll.style.transform = "translateX(" + x + "px)";
+            const rule = `
+            @keyframes scroll_prize {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-${148*count}px);
+                }
+            }`;
+            const style = document.createElement('style');
+            style.setAttribute('type', 'text/css');
+            document.head.appendChild(style);
+            style.sheet.insertRule(rule);
+            this.$refs.scroll.style.animation = `scroll_prize ${ count * 148 / 50 }s linear infinite`;
         },
         // 刷新box
         refreshBox() {

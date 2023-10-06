@@ -179,13 +179,13 @@
             .clip;
         }
         .m-scroll {
-            .size(446px,190px);
+            .size(446px,148px);
             .clip;
             .m-scroll-box {
                 .flex;
                 .m-item {
-                    .size(190px);
-                    flex-shrink: 0; 
+                    .size(148px);
+                    flex-shrink: 0;
                     box-sizing: border-box;
                 }
             }
@@ -376,7 +376,7 @@
     }
 }
 .drop(@n, @i: 1) when (@i =< @n) {
-    .u-img-@{i} { 
+    .u-img-@{i} {
         animation: drop 1s ease-in (0.1s * @i) forwards;
     }
     .drop(@n, (@i + 1));
@@ -414,14 +414,6 @@
     }
 }
 
-@keyframes scroll_prize {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
 
 @keyframes open_history {
     from {
