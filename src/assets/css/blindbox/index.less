@@ -377,6 +377,7 @@
 }
 .drop(@n, @i: 1) when (@i =< @n) {
     .u-img-@{i} {
+        opacity: 0;
         animation: drop 1s ease-in (0.1s * @i) forwards;
     }
     .drop(@n, (@i + 1));

@@ -90,14 +90,14 @@
                         />
                         <div
                             class="m-random u-img"
-                            :class="{ disabled: !activeList.length || points < draw[0][1] }"
+                            :class="{ disabled: !activeList.length || points < draw[0][1] || isDrawing }"
                             @click="openBox"
                         >
                             <span class="u-price"> x {{ draw[0][0] }}</span>
                         </div>
                         <div
                             class="m-open u-img"
-                            :class="{ disabled: !activeList.length || points < draw[1][1] }"
+                            :class="{ disabled: activeList.length < 10 || points < draw[1][1] || isDrawing }"
                             @click="openBox('all')"
                         >
                             <span class="u-price u-discount"> x {{ draw[1][1] }}</span>
@@ -196,6 +196,8 @@ export default {
             myPrizes: [],
 
             scrollInterval: null,
+
+            isDrawing: false
         };
     },
     components: {
@@ -356,6 +358,7 @@ export default {
         hasLucky() {
             let batch = 1;
             if (this.allActive) batch = 10;
+            this.isDrawing = true;
             goodLucky(this.ID, batch).then((res) => {
                 const _id = res.data?.data.id;
                 this.showPrizes(_id, { show: true });
@@ -383,6 +386,10 @@ export default {
         // 关闭奖品弹窗
         closePrize() {
             this.hasPrize = false;
+            this.isDrawing = false;
+            if (!this.activeList.length) {
+                this.refreshBox();
+            }
             this.myPrizes = [];
         },
         openHistory() {
