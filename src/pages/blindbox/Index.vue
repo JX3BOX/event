@@ -10,7 +10,7 @@
                     <div class="logo">
                         <img :src="`${__imgRoot}logo.svg`" alt="魔盒盲盒" />
                         <el-tooltip effect="light" placement="right-start">
-                            <img class="u-info" :src="`${__imgRoot}desc.png`" alt="活动说明" />
+                            <img class="u-info" :src="`${__imgRoot}desc.svg`" alt="活动说明" />
                             <div class="m-blindbox-info" slot="content">
                                 <h2>活动说明：</h2>
                                 <span>1.点击盲盒或者右侧按钮可以打开盲盒，每次消耗一定数量的银铛；</span>
