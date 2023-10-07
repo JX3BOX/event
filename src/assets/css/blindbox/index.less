@@ -363,6 +363,10 @@
     .u-get {
         .pointer;
         .size(200px,60px);
+        &.disabled {
+            filter: grayscale(60%);
+            pointer-events: none;
+        }
     }
 }
 .m-blindbox-info {

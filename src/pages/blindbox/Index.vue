@@ -144,7 +144,7 @@
                     </template>
                 </div>
             </div>
-            <img :src="`${__imgRoot}${history ? 'ok' : 'get'}.png`" class="u-get" alt="拿下" @click="closePrize" />
+            <img :src="`${__imgRoot}${history ? 'ok' : 'get'}.png`" class="u-get" :class="{disabled: prizesInterval !== null}" alt="拿下" @click="closePrize" />
         </div>
     </div>
 </template>
@@ -152,6 +152,7 @@
 <script>
 let x = 0;
 const KEY = "blindbox";
+const COMPLETE_STATUS = [2,3]
 import User from "@jx3box/jx3box-common/js/user";
 import { getTopic } from "@/service/topic";
 import { getBlindBox, goodLucky, getMyLucky } from "@/service/pay";
@@ -196,8 +197,9 @@ export default {
             myPrizes: [],
 
             scrollInterval: null,
+            prizesInterval: null,
 
-            isDrawing: false
+            isDrawing: false,
         };
     },
     components: {
@@ -369,19 +371,34 @@ export default {
         showPrizes(id, show) {
             if (!id) return;
             if (!show) this.hasPrize = true;
-            getMyLucky(id).then((res) => {
-                this.myPrizes = res.data?.data.prizes || [];
-                if (show) {
-                    const prizeLength = res.data?.data?.prizes?.length || 0;
-                    const thanksLength = res.data?.data.chance_count - prizeLength;
-                    const thanksPrizes = new Array(thanksLength).fill({ prize_type: "thanks" });
-                    this.myPrizes = this.myPrizes.concat(thanksPrizes);
-                    // 不要随机排序就把下面这行删掉
-                    this.myPrizes.sort(function () {
-                        return 0.5 - Math.random();
-                    });
-                }
-            });
+            let count = 0;
+            const getLucky = () => {
+                getMyLucky(id).then((res) => {
+                    if (count > 5) {
+                        clearInterval(this.prizesInterval);
+                        this.prizesInterval = null;
+                        return this.$alert('请前往开盒记录查看，如无结果请联系网站管理人员','开盒出现异常',{type:"error"});
+                    }
+                    if (COMPLETE_STATUS.indexOf(res.data?.data.status) !== -1) {
+                        this.myPrizes = res.data?.data.prizes || [];
+                        if (show) {
+                            const prizeLength = res.data?.data?.prizes?.length || 0;
+                            const thanksLength = res.data?.data.chance_count - prizeLength;
+                            const thanksPrizes = new Array(thanksLength).fill({ prize_type: "thanks" });
+                            this.myPrizes = this.myPrizes.concat(thanksPrizes);
+                            // 不要随机排序就把下面这行删掉
+                            this.myPrizes.sort(function () {
+                                return 0.5 - Math.random();
+                            });
+                        }
+                        clearInterval(this.prizesInterval);
+                        this.prizesInterval = null;
+                    } else {
+                        count++;
+                    }
+                });
+            }
+            this.prizesInterval = setInterval(getLucky, 1000);
         },
         // 关闭奖品弹窗
         closePrize() {
