@@ -97,7 +97,6 @@
                         </div>
                         <div
                             class="m-open u-img"
-                            :class="{ disabled: activeList.length < 10 || points < draw[1][1] || isDrawing }"
                             @click="openBox('all')"
                         >
                             <span class="u-price u-discount"> x {{ draw[1][1] }}</span>
@@ -105,19 +104,18 @@
                         </div>
                         <!-- 中奖记录 -->
                         <div class="m-history box u-img" :class="history ? 'history' : 'close'">
-                            <div class="m-title">
+                            <div class="m-title" @click="openHistory">
                                 <img
                                     :src="`${__imgRoot}history.png`"
                                     class="u-history"
                                     alt="开盒记录"
-                                    @click="openHistory"
                                 />
                                 <img
                                     :src="`${__imgRoot}close.png`"
                                     width="42px"
                                     class="u-close"
                                     alt="关闭"
-                                    @click="closeHistory"
+                                    @click.stop="closeHistory"
                                 />
                             </div>
                             <div class="m-mark" @click="toLogin" v-if="!isLogin"></div>
@@ -162,7 +160,7 @@ const COMPLETE_STATUS = [2, 3];
 import User from "@jx3box/jx3box-common/js/user";
 import { getTopic } from "@/service/topic";
 import { getBlindBox, goodLucky, getMyLucky } from "@/service/pay";
-import { cloneDeep, debounce, zip } from "lodash";
+import { cloneDeep, debounce, throttle, zip } from "lodash";
 import History from "./History.vue";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
@@ -330,7 +328,7 @@ export default {
             this.replay++;
         },
         // 打开盒子
-        openBox: debounce(function (key) {
+        openBox: throttle(function (key) {
             if (key === "all") {
                 this.allActive = true;
                 setTimeout(() => {
@@ -342,7 +340,7 @@ export default {
                 const number = this.activeList[Math.floor(Math.random() * this.activeList.length)];
                 this.change(number);
             }
-        }, 1000),
+        }, 3000),
         // 选择盒子抽奖
         change(number) {
             this.active = number;
@@ -396,7 +394,7 @@ export default {
                     }
                 });
             };
-            this.prizesInterval = setInterval(getLucky, 1000);
+            this.prizesInterval = setInterval(getLucky(), 1000);
         },
         // 关闭奖品弹窗
         closePrize() {

@@ -70,6 +70,7 @@
         .size(980px,460px);
         .lb(88px,0);
         &.active .u-box .u-img {
+            opacity: 1;
             animation: active_flash 2s;
         }
         .u-box {
@@ -182,11 +183,11 @@
             .size(446px,148px);
             .clip;
             .m-scroll-box {
-                .flex; 
-                .u-item { 
+                .flex;
+                .u-item {
                     .size(148px);
                     flex-shrink: 0;
-                    background-color:#24292e; 
+                    background-color:#24292e;
                 }
             }
             img {
@@ -308,6 +309,10 @@
             }
             &.close {
                 animation: close_history 1s;
+                //&:hover {
+                //    transform: scale(1);
+                //    filter: brightness(100%);
+                //}
             }
         }
     }
@@ -434,11 +439,14 @@
 }
 @keyframes close_history {
     from {
+        transform: scale(1);
+        filter: brightness(100%);
         left: -700px;
         width: 680px;
         height: 565px;
     }
     to {
+        transform: scale(1);
         left: -188px;
         width: 168px;
         height: 50px;
