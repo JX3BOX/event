@@ -58,7 +58,7 @@
                                     :key="index"
                                     target="_blank"
                                     :data-index="index"
-                                    class="m-item"
+                                    class="u-item"
                                 >
                                     <el-tooltip class="item" effect="dark" :content="item.name" placement="top">
                                         <img :src="item.img" />
@@ -70,7 +70,7 @@
                                     :key="'v' + index"
                                     target="_blank"
                                     :data-index="index"
-                                    class="m-item"
+                                    class="u-item"
                                 >
                                     <el-tooltip class="item" effect="dark" :content="item.name" placement="top">
                                         <img :src="item.img" />
@@ -144,7 +144,13 @@
                     </template>
                 </div>
             </div>
-            <img :src="`${__imgRoot}${history ? 'ok' : 'get'}.png`" class="u-get" :class="{disabled: prizesInterval !== null}" alt="拿下" @click="closePrize" />
+            <img
+                :src="`${__imgRoot}${history ? 'ok' : 'get'}.png`"
+                class="u-get"
+                :class="{ disabled: prizesInterval !== null }"
+                alt="拿下"
+                @click="closePrize"
+            />
         </div>
     </div>
 </template>
@@ -152,7 +158,7 @@
 <script>
 let x = 0;
 const KEY = "blindbox";
-const COMPLETE_STATUS = [2,3]
+const COMPLETE_STATUS = [2, 3];
 import User from "@jx3box/jx3box-common/js/user";
 import { getTopic } from "@/service/topic";
 import { getBlindBox, goodLucky, getMyLucky } from "@/service/pay";
@@ -237,7 +243,6 @@ export default {
     },
     mounted() {
         this.init();
-        // this.scrollInterval = setInterval(this.scroll, 100);
     },
     methods: {
         // 初始化，获取活动ID,并获取活动详情
@@ -253,18 +258,25 @@ export default {
                             boxcoin: `${this.__imgRoot}boxcoin.png`,
                         };
                         this.draw = zip(data.allow_once_try_count, data.allow_once_try_count_cost_points);
+
                         this.prizeList = data.prize.map((item) => {
                             if (item.prize_type != "mall_goods" && asset[item.vip_asset_type])
-                                return { img: asset[item.vip_asset_type], name: '银铛（积分）' };
-                            return { id: item.mall_goods.id, img: item.mall_goods.goods_images[0], name: item.mall_goods.title  };
+                                return { img: asset[item.vip_asset_type], name: "银铛（积分）" };
+                            return {
+                                id: item.mall_goods.id,
+                                img: item.mall_goods.goods_images[0],
+                                name: item.mall_goods.title,
+                            };
                         });
-                        this.scroll(this.prizeList.length)
+
+                        this.scroll(this.prizeList.length);
+
                         const userLevelLimit = data.user_level_limit;
-                        const userLevel = User.getLevel(1)
+                        const userLevel = User.getLevel(1);
                         if (userLevelLimit > userLevel) {
-                            this.$alert('很抱歉，您的用户等级不足','无法进行当前活动',{
+                            this.$alert("很抱歉，您的用户等级不足", "无法进行当前活动", {
                                 type: "error",
-                            })
+                            });
                         }
                         this.refreshBox();
                     });
@@ -296,32 +308,20 @@ export default {
         },
         // 滚动
         scroll(count) {
-            console.log(count)
-            // let all = 0;
-            // let count = this.$refs.scroll.childElementCount;
-            // for (let i = 0; i < count; i++) {
-            //     all += this.$refs.scroll.children[i].offsetWidth;
-            // }
-            // let half = all >> 1;
-            // if (x < 1 - half) {
-            //     x = 0;
-            // }
-            // x -= 2;
-            // this.$refs.scroll.style.transform = "translateX(" + x + "px)";
             const rule = `
             @keyframes scroll_prize {
                 0% {
                     transform: translateX(0);
                 }
                 100% {
-                    transform: translateX(-${148*count}px);
+                    transform: translateX(-${148 * count}px);
                 }
             }`;
-            const style = document.createElement('style');
-            style.setAttribute('type', 'text/css');
+            const style = document.createElement("style");
+            style.setAttribute("type", "text/css");
             document.head.appendChild(style);
             style.sheet.insertRule(rule);
-            this.$refs.scroll.style.animation = `scroll_prize ${ count * 148 / 50 }s linear infinite`;
+            this.$refs.scroll.style.animation = `scroll_prize ${(count * 148) / 50}s linear infinite`;
         },
         // 刷新box
         refreshBox() {
@@ -335,7 +335,6 @@ export default {
                 this.allActive = true;
                 setTimeout(() => {
                     this.activeList = [];
-                    this.hasPrize = true;
                     this.allActive = false;
                 }, 1600);
                 this.hasLucky();
@@ -350,7 +349,6 @@ export default {
             this.mark = true;
             setTimeout(() => {
                 this.activeList = this.activeList.filter((item) => item !== number);
-                this.hasPrize = true;
                 this.mark = false;
                 this.active = "";
             }, 1600);
@@ -363,41 +361,41 @@ export default {
             this.isDrawing = true;
             goodLucky(this.ID, batch).then((res) => {
                 const _id = res.data?.data.id;
-                this.showPrizes(_id, { show: true });
+                this.showPrizes(_id);
                 this.myPoints();
             });
         },
         // 查询中奖
-        showPrizes(id, show) {
+        showPrizes(id) {
             if (!id) return;
-            if (!show) this.hasPrize = true;
             let count = 0;
             const getLucky = () => {
                 getMyLucky(id).then((res) => {
                     if (count > 5) {
                         clearInterval(this.prizesInterval);
                         this.prizesInterval = null;
-                        return this.$alert('请前往开盒记录查看，如无结果请联系网站管理人员','开盒出现异常',{type:"error"});
+                        return this.$alert("请前往开盒记录查看，如无结果请联系网站管理人员", "开盒出现异常", {
+                            type: "error",
+                        });
                     }
                     if (COMPLETE_STATUS.indexOf(res.data?.data.status) !== -1) {
                         this.myPrizes = res.data?.data.prizes || [];
-                        if (show) {
-                            const prizeLength = res.data?.data?.prizes?.length || 0;
-                            const thanksLength = res.data?.data.chance_count - prizeLength;
-                            const thanksPrizes = new Array(thanksLength).fill({ prize_type: "thanks" });
-                            this.myPrizes = this.myPrizes.concat(thanksPrizes);
-                            // 不要随机排序就把下面这行删掉
-                            this.myPrizes.sort(function () {
-                                return 0.5 - Math.random();
-                            });
-                        }
+                        const prizeLength = res.data?.data?.prizes?.length || 0;
+                        const thanksLength = res.data?.data.chance_count - prizeLength;
+                        const thanksPrizes = new Array(thanksLength).fill({ prize_type: "thanks" });
+                        this.myPrizes = this.myPrizes.concat(thanksPrizes);
+                        // 不要随机排序就把下面这行删掉
+                        this.myPrizes.sort(function () {
+                            return 0.5 - Math.random();
+                        });
+                        this.hasPrize = true;
                         clearInterval(this.prizesInterval);
                         this.prizesInterval = null;
                     } else {
                         count++;
                     }
                 });
-            }
+            };
             this.prizesInterval = setInterval(getLucky, 1000);
         },
         // 关闭奖品弹窗
