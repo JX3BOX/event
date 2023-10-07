@@ -97,6 +97,7 @@
                         </div>
                         <div
                             class="m-open u-img"
+                            :class="{ disabled: activeList.length < 10 || points < draw[1][1] || isDrawing }"
                             @click="openBox('all')"
                         >
                             <span class="u-price u-discount"> x {{ draw[1][1] }}</span>
@@ -359,12 +360,12 @@ export default {
             this.isDrawing = true;
             goodLucky(this.ID, batch).then((res) => {
                 const _id = res.data?.data.id;
-                this.showPrizes(_id);
+                this.showPrizes(_id, true);
                 this.myPoints();
             });
         },
         // 查询中奖
-        showPrizes(id) {
+        showPrizes(id, isDraw) {
             if (!id) return;
             let count = 0;
             const getLucky = () => {
@@ -378,14 +379,17 @@ export default {
                     }
                     if (COMPLETE_STATUS.indexOf(res.data?.data.status) !== -1) {
                         this.myPrizes = res.data?.data.prizes || [];
-                        const prizeLength = res.data?.data?.prizes?.length || 0;
-                        const thanksLength = res.data?.data.chance_count - prizeLength;
-                        const thanksPrizes = new Array(thanksLength).fill({ prize_type: "thanks" });
-                        this.myPrizes = this.myPrizes.concat(thanksPrizes);
-                        // 不要随机排序就把下面这行删掉
-                        this.myPrizes.sort(function () {
-                            return 0.5 - Math.random();
-                        });
+                        // 如果是抽奖就随机插入谢谢惠顾
+                        if (isDraw) {
+                            const prizeLength = res.data?.data?.prizes?.length || 0;
+                            const thanksLength = res.data?.data.chance_count - prizeLength;
+                            const thanksPrizes = new Array(thanksLength).fill({ prize_type: "thanks" });
+                            this.myPrizes = this.myPrizes.concat(thanksPrizes);
+                            // 不要随机排序就把下面这行删掉
+                            this.myPrizes.sort(function () {
+                                return 0.5 - Math.random();
+                            });
+                        }
                         this.hasPrize = true;
                         clearInterval(this.prizesInterval);
                         this.prizesInterval = null;
@@ -394,7 +398,7 @@ export default {
                     }
                 });
             };
-            this.prizesInterval = setInterval(getLucky(), 1000);
+            this.prizesInterval = setInterval(getLucky, 1000);
         },
         // 关闭奖品弹窗
         closePrize() {

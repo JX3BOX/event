@@ -81,16 +81,21 @@ export default {
 <style lang="less">
 .m-history-content {
     padding: 0px 40px;
-    .has-gutter {
+    thead {
         th {
             &:last-child{
                 .cell {
                     text-align: right;
                 }
             }
-        }
-        .cell {
-            text-align: left;
+            .cell {
+                text-align: center;
+            }
+            &:first-child{
+                .cell {
+                    text-align: left;
+                }
+            }
         }
     }
     tbody {
@@ -100,9 +105,14 @@ export default {
                     text-align: right;
                 }
             }
-        }
-        .cell {
-            text-align: left;
+            .cell {
+                text-align: center;
+            }
+            &:first-child{
+                .cell {
+                    text-align: left;
+                }
+            }
         }
     }
     .cell,.m-archive-pages {
