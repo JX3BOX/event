@@ -398,7 +398,11 @@ export default {
                     }
                 });
             };
-            this.prizesInterval = setInterval(getLucky, 1000);
+            if(!isDraw) {
+                getLucky();
+            } else {
+                this.prizesInterval = setInterval(getLucky, 1000);
+            }
         },
         // 关闭奖品弹窗
         closePrize() {
