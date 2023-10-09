@@ -477,11 +477,29 @@
 }
 @media screen and(max-width:@phone) {
     .mobile {
-        .w(1980px);
+        .w(100vmax);
+        .h(100vmin);
+        zoom: 1;
         transform-origin: 0 0;
         transform: rotateZ(90deg) translateY(-100%);
+        .p-event-content{
+            zoom: 0.4;
+            .h(calc(100% - 64px));
+            top: 64px;
+        }
     }
-    .p-event-content {
-        height: 100vh !important;
+}
+@media screen and(max-width:@ip5) {
+    .mobile {
+        .w(100vmax);
+        .h(100vmin);
+        zoom: 1;
+        transform-origin: 0 0;
+        transform: rotateZ(90deg) translateY(-100%);
+        .p-event-content{
+            zoom: 0.3;
+            .h(calc(100% - 64px));
+            top: 64px;
+        }
     }
 }
