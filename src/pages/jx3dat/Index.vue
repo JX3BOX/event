@@ -21,6 +21,7 @@
                         frameborder="no"
                         framespacing="0"
                         allowfullscreen="true"
+                        sandbox="allow-top-navigation allow-same-origin allow-scripts"
                     >
                     </iframe>
                 </div>
@@ -133,6 +134,8 @@ export default {
             video: [],
             document: [],
             index: 0,
+
+            bilibiliPlayer: null,
         };
     },
     directives: {
@@ -178,7 +181,6 @@ export default {
             return this.video.length && this.video[this.index].link;
         },
     },
-
     methods: {
         init() {
             getTopic(KEY).then((res) => {
