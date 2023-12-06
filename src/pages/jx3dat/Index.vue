@@ -134,8 +134,6 @@ export default {
             video: [],
             document: [],
             index: 0,
-
-            bilibiliPlayer: null,
         };
     },
     directives: {
