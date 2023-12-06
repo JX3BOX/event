@@ -71,10 +71,12 @@
                 <!-- 实物奖励 -->
                 <h3 class="u-title">2.实物大奖</h3>
                 <div class="m-prize">
-                    <a class="u-prize" :href="item.link" target="_blank" v-for="(item, i) in prize" :key="i">
-                        <img class="u-img" :src="item.img" :alt="item.title" />
-                        <span>{{ item.title }}</span>
-                    </a>
+                    <div class="m-clip" v-for="(item, i) in prize" :key="i">
+                        <a class="u-prize" :href="item.link" target="_blank">
+                            <img class="u-img" :src="item.img" :alt="item.title" />
+                            <span>{{ item.title }}</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="m-clip">
                     <div class="m-box center">同时提供社区勋章、社区称号、社群红包（含正式服与怀旧服）</div>
