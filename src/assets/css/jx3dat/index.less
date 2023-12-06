@@ -9,9 +9,8 @@
     justify-content: center;
 }
 .wp {
-    .auto(x);
-    .w(100%);
     max-width: 1920px;
+    .auto(x);
 }
 .bbx {
     box-sizing: border-box;
@@ -21,19 +20,21 @@
 // 首屏
 .m-top {
     .pr;
-    .size(100%,980px);
+    .size(100%,100vh);
+    min-height: 980px;
     .mp4,
     .logo,
     .title {
         .pa;
     }
     .mp4 {
-        .size(100%,980px);
+        .size(100%);
         .lt(0);
     }
     .logo {
-        .lt(50px);
+        .lt(50%,50px);
         .w(328px);
+        .ml(-800px);
     }
     .m-title {
         .full;
@@ -43,7 +44,7 @@
         .size(900px,500px);
     }
 }
-
+// 视频
 .m-video {
     .flex;
     .w(1400px);
@@ -88,7 +89,7 @@
         }
     }
 }
-
+// 内容
 h2.title {
     .size(100%,130px);
     margin: 278px 0 60px 0;
@@ -100,10 +101,24 @@ h2.title {
 }
 .m-box {
     .bbx;
+    .wp;
     .r(20px);
     padding: 100px;
-    background: linear-gradient(transparent, rgba(255, 255, 255, 0.1));
+    background: linear-gradient(#66e7ec00, rgba(255, 255, 255, 0.1));
+    p {
+        margin: 0 0 40px 0;
+        span {
+            .db;
+        }
+        b {
+            color: #66e7ec;
+        }
+        a {
+            color: #f6ff52;
+        }
+    }
 }
+// 流程
 .m-steps {
     .m-links {
         .flex;
@@ -116,7 +131,7 @@ h2.title {
             .bbx;
             .r(10px);
             .color(#fff);
-            background: linear-gradient(transparent, rgba(102, 231, 236, 0.2));
+            background: linear-gradient(#66e7ec00, #66e7ec33);
             &:hover {
                 filter: brightness(1.1);
             }
@@ -148,4 +163,62 @@ h2.title {
             }
         }
     }
+}
+.m-section {
+    .mt(450px);
+    .pt(334px);
+    background: linear-gradient(#394d4dff, #394d4d00);
+    .m-content {
+        .wp;
+        h3.u-title {
+            .h(65px);
+            .pl(58px);
+            .fz(40px,65px);
+            .mt(200px);
+            .color(#fff);
+            background: url("@{kv_jx3dat}title.svg") top left no-repeat;
+            &:first-child {
+                .mt(72px);
+            }
+        }
+        .m-box {
+            .fz(24px);
+            color: #fff;
+            padding: 48px 100px;
+            &.center {
+                .fz(40px);
+                .x;
+            }
+            &.table {
+                padding: 100px;
+            }
+        }
+    }
+}
+// 奖品
+.m-prize {
+    .flex;
+    .mb(58px);
+    gap: 60px;
+    .u-prize {
+        .fz(40px);
+        .x;
+        .color(#fff);
+        .r(20px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: linear-gradient(#ffffff1a, #ffffff00);
+        box-sizing: border-box;
+        padding: 50px 60px;
+        filter: brightness(0.9);
+        .u-img {
+            .mb(20px);
+        }
+        &:hover {
+            filter: brightness(1);
+        }
+    }
+}
+.m-safe {
+    .fz(24px);
+    color: #fff;
 }

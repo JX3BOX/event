@@ -1,62 +1,128 @@
 <template>
     <div class="p-event-content p-jx3dat">
-        <div class="wp">
-            <div class="m-top">
-                <video class="mp4" playsinline="" autoplay="" muted="" loop="" :poster="`${__imgRoot}top.jpg`">
-                    <source :src="`${__imgRoot}top.mp4`" type="video/mp4" />
-                </video>
-                <img class="logo p-animation" v-animate="'bounceIn'" :src="`${__imgRoot}logo.svg`" />
-                <div class="m-title">
-                    <img class="title p-animation" v-animate="'bounceIn'" :src="`${__imgRoot}video-title.svg`" />
-                </div>
+        <div class="m-top">
+            <video class="mp4" playsinline="" autoplay="" muted="" loop="" :poster="`${__imgRoot}top.jpg`">
+                <source :src="`${__imgRoot}top.mp4`" type="video/mp4" />
+            </video>
+            <img class="logo p-animation" v-animate="'bounceIn'" :src="`${__imgRoot}logo.svg`" />
+            <div class="m-title">
+                <img class="title p-animation" v-animate="'bounceIn'" :src="`${__imgRoot}video-title.svg`" />
             </div>
-            <!-- 视频轮播 -->
-            <div class="m-video">
-                <div class="m-play" v-if="currentVideo">
-                    <div class="u-play"></div>
-                    <img class="u-img" :src="`${__imgRoot}video-title.svg`" />
+        </div>
+        <!-- 视频轮播 -->
+
+        <div class="m-video">
+            <div class="m-play" v-if="currentVideo">
+                <div class="u-play">
+                    <iframe
+                        :src="currentVideo"
+                        scrolling="no"
+                        border="0"
+                        frameborder="no"
+                        framespacing="0"
+                        allowfullscreen="true"
+                    >
+                    </iframe>
                 </div>
-                <div class="m-video-list">
-                    <img
-                        class="u-img"
-                        v-for="(video, index) in video"
-                        :key="index"
-                        :src="video.img"
-                        @click="playVideo(index)"
-                    />
-                </div>
+                <img class="u-img" :src="`${__imgRoot}video-title.svg`" />
             </div>
-            <!-- 活动流程 -->
-            <h2 class="title" :style="{ backgroundImage: `url(${title[0]})` }">活动流程</h2>
-            <div class="m-box m-steps">
-                <div class="m-links">
-                    <a class="u-link" :href="item.link" target="_blank" v-for="(item, i) in document" :key="i">
-                        <span>
-                            《{{ item.title }}<b :style="{ color: item.color }">{{ item.desc }}</b
-                            >》
-                        </span>
+            <div class="m-video-list">
+                <img
+                    class="u-img"
+                    v-for="(video, index) in video"
+                    :key="index"
+                    :src="video.img"
+                    @click="playVideo(index)"
+                />
+            </div>
+        </div>
+        <!-- 活动流程 -->
+        <h2 class="title" :style="{ backgroundImage: `url(${title[0]})` }">活动流程</h2>
+        <div class="m-box m-steps">
+            <div class="m-links">
+                <a class="u-link" :href="item.link" target="_blank" v-for="(item, i) in document" :key="i">
+                    <span>
+                        《{{ item.title }}<b :style="{ color: item.color }">{{ item.desc }}</b
+                        >》
+                    </span>
+                </a>
+            </div>
+            <div class="m-step" v-for="(item, i) in step" :key="i">
+                <h3 class="u-title" v-html="item.title"></h3>
+                <div class="u-time" v-html="item.link"></div>
+                <div class="u-desc" v-html="item.desc"></div>
+            </div>
+        </div>
+        <!-- 活动奖励 -->
+        <div class="m-section">
+            <h2 class="title" :style="{ backgroundImage: `url(${title[1]})` }">活动奖励</h2>
+            <div class="m-content">
+                <!-- 现金奖励 -->
+                <h3 class="u-title">1.现金奖励</h3>
+                <div class="m-box">发布会当晚（11.8日晚8点30）将在晚会直播间通过抽奖送出千元现金红包大奖！</div>
+                <!-- 实物奖励 -->
+                <h3 class="u-title">2.实物大奖</h3>
+                <div class="m-prize">
+                    <a class="u-prize" :href="item.link" target="_blank" v-for="(item, i) in prize" :key="i">
+                        <img class="u-img" :src="item.img" :alt="item.title" />
+                        <span>{{ item.title }}</span>
                     </a>
                 </div>
-                <div class="m-step" v-for="(item, i) in step" :key="i">
-                    <h3 class="u-title" v-html="item.title"></h3>
-                    <div class="u-time" v-html="item.link"></div>
-                    <div class="u-desc" v-html="item.desc"></div>
+                <div class="m-box center">同时提供社区勋章、社区称号、社群红包（含正式服与怀旧服）</div>
+                <!-- 通宝奖励 -->
+                <h3 class="u-title">3.通宝奖项</h3>
+                <div class="m-box table"><BoxcoinTable /></div>
+                <!-- 基础包 -->
+                <h3 class="u-title">4.基础包贡献</h3>
+                <div class="m-box table">
+                    <p>
+                        <span>
+                            基础包针对的是<b>普通玩家无人去翻新制作旧副本数据</b>，而这些<b
+                                >对休闲或成就党、外观党仍具有必要性。</b
+                            >
+                        </span>
+                    </p>
+                    <p>
+                        魔盒对外公开征集所有旧副本数据包，它们将作为<b>依赖包</b>的形式提供给其他玩家使用。且任何玩家基于此数据包进行的修改等<b>无需特别署名或声明</b>。
+                    </p>
+                    <p>
+                        被魔盒征集选用后，魔盒将对应包会作为依赖包的形式加入到魔盒官号的包中，并<b>一次性支付</b>对应通宝，但不包括后续迭代。<b
+                            >如对应作者后续有任何更新，推荐大家去关注原始包。</b
+                        >
+                    </p>
+                    <p>
+                        <span style="color: #f6ff52">所有基础包征集范围：</span>
+                        团队副本数据将按每个副本一个独立数据包。五人副本则按年代集合为一个数据包。
+                    </p>
+
+                    <BoxcoinTable />
+                </div>
+                <!-- 教程征集 -->
+                <h3 class="u-title">5.数据构建教程征集</h3>
+                <div class="m-box table">
+                    <p>
+                        我们鼓励玩家创作适用于在线数据构建应用的教程内容（包括但不限于文字、视频内容），旨在帮助更多玩家上手与灵活使用此应用。
+                    </p>
+                    <p>参与此部分同样可获得一定数量的盒币奖励，其规则适用于工具版面打赏制度。</p>
                 </div>
             </div>
-            <!-- 活动奖励 -->
-            <h2 class="title" :style="{ backgroundImage: `url(${title[1]})` }">活动奖励</h2>
-            <!-- 安全与风险 -->
-            <h2 class="title" :style="{ backgroundImage: `url(${title[2]})` }">安全与风险</h2>
         </div>
+
+        <!-- 安全与风险 -->
+
+        <h2 class="title" :style="{ backgroundImage: `url(${title[2]})` }">安全与风险</h2>
+        <div class="m-box m-safe" v-html="safe"></div>
     </div>
 </template>
 
 <script>
 const KEY = "jx3dat";
+import BoxcoinTable from "./table/boxcoin-table.vue";
 import { getTopic } from "@/service/topic";
 export default {
     name: "Index",
     inject: ["__imgRoot"],
+    components: { BoxcoinTable },
     data: function () {
         return {
             raw: [],
