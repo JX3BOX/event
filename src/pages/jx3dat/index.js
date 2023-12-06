@@ -15,7 +15,7 @@ import "@jx3box/jx3box-common/css/normalize.css";
 Vue.use(JX3BOX_UI);
 // import Comments from "@jx3box/jx3box-comment-ui"
 // Vue.use(Comments)
-import "video.js/dist/video-js.css";
+
 // 全局过滤器
 import * as filters from "@/utils/filters.js";
 Object.keys(filters).forEach((key) => {
