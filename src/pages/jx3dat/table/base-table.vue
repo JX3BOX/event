@@ -72,7 +72,6 @@
                 </td>
                 <td style="width: 446.641px" colspan="1" rowspan="6">
                     <span data-font-family='"PingFang SC"'>团队副本按每一个副本的全难度集合一个包</span>
-                    &nbsp;
                 </td>
             </tr>
             <tr style="height: 39px">
@@ -129,5 +128,9 @@ table {
 }
 td {
     .x;
+    span {
+        .dbi;
+        padding: 0 20px;
+    }
 }
 </style>

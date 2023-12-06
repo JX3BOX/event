@@ -26,7 +26,7 @@
                     <span data-font-family='"PingFang SC"'>数据</span>
                 </td>
                 <td style="width: 14.140625%; height: 144px" rowspan="3">
-                    <span data-font-family='"PingFang SC"'>pve&nbsp;</span>
+                    <span data-font-family='"PingFang SC"'>pve</span>
                 </td>
                 <td style="width: 21.953125%; height: 48px">
                     <span data-font-family='"PingFang SC"'>状元（1名）</span>
@@ -53,7 +53,7 @@
             </tr>
             <tr style="height: 39px">
                 <td style="width: 14.140625%; height: 144px" rowspan="3">
-                    <span data-font-family='"PingFang SC"'>pvp&nbsp;</span>
+                    <span data-font-family='"PingFang SC"'>pvp</span>
                 </td>
                 <td style="width: 21.953125%; height: 48px">
                     <span data-font-family='"PingFang SC"'>状元（1名）</span>

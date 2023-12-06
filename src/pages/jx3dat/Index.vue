@@ -100,7 +100,7 @@
                             团队副本数据将按每个副本一个独立数据包。五人副本则按年代集合为一个数据包。
                         </p>
 
-                        <BoxcoinTable />
+                        <BaseTable />
                     </div>
                 </div>
                 <!-- 教程征集 -->
@@ -128,11 +128,12 @@
 <script>
 const KEY = "jx3dat";
 import BoxcoinTable from "./table/boxcoin-table.vue";
+import BaseTable from "./table/base-table.vue";
 import { getTopic } from "@/service/topic";
 export default {
     name: "Index",
     inject: ["__imgRoot"],
-    components: { BoxcoinTable },
+    components: { BoxcoinTable ,BaseTable},
     data: function () {
         return {
             raw: [],
