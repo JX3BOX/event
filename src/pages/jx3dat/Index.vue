@@ -13,18 +13,7 @@
 
         <div class="m-video">
             <div class="m-play" v-if="currentVideo">
-                <div class="u-play">
-                    <iframe
-                        :src="currentVideo"
-                        scrolling="no"
-                        border="0"
-                        frameborder="no"
-                        framespacing="0"
-                        allowfullscreen="true"
-                        sandbox="allow-top-navigation allow-same-origin allow-scripts"
-                    >
-                    </iframe>
-                </div>
+                <div class="u-play" v-html="currentVideo"></div>
                 <img class="u-img" :src="`${__imgRoot}video-title.svg`" />
             </div>
             <div class="m-video-list">
