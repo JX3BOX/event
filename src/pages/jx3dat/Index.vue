@@ -126,23 +126,18 @@
         <!-- 获奖名单 -->
 
         <h2 class="title" :style="{ backgroundImage: `url(${title[3]})` }">获奖名单</h2>
-        <div class="m-content" v-for="(item, key) in rank" :key="key">
-            <h3 class="u-title">{{ `${client[key]}赛道` }}</h3>
-            <template v-if="item.pve">
-                <div class="m-rank" v-for="rank in item.pve" :key="rank.id"></div>
-            </template>
-            <template v-if="item.pvp">
-                <div class="m-rank" v-for="rank in item.pvp" :key="rank.id"></div>
-            </template>
-            <template v-if="item.vpk">
-                <div class="m-rank" v-for="rank in item.vpk" :key="rank.id"></div>
-            </template>
-            <template v-if="item.dbm">
-                <div class="m-rank" v-for="rank in item.dbm" :key="rank.id"></div>
-            </template>
-            <template v-if="item.other">
-                <div class="m-rank" v-for="rank in item.other" :key="rank.id"></div>
-            </template>
+        <div class="m-content" v-for="(client, key) in rank" :key="key">
+            <h3 class="u-title">{{ `${clients[key]}赛道` }}</h3>
+            <div class="m-rank" v-for="(rank, i) in showItem(client)" :key="i">
+                <div class="m-clip" v-for="item in rank" :key="item.id">
+                    <div class="m-box">
+                        <div class="m-title"> 
+                            <span class="u-rank">{{ item.title }}</span>
+                        </div>
+                        <!-- <div class="m-desc" v-html="rank.desc"></div> -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -172,7 +167,7 @@ export default {
                 all: {},
             },
 
-            client: {
+            clients: {
                 std: "正式服",
                 origin: "怀旧服",
                 all: "双端",
@@ -247,18 +242,22 @@ export default {
                 return prev;
             }, {});
             Object.keys(obj).forEach((key) => {
-                const _rank = obj[key].reduce((prev, cur) => {
+                this.rank[key] = obj[key].reduce((prev, cur) => {
                     const targetLink = cur.link || "other";
                     prev[targetLink] = prev[targetLink] || [];
                     prev[targetLink].push(cur);
                     return prev;
-                }, {}); 
-                const _list = ["pve", "pvp", "vpk", "dbm", "other"]; 
-                _list.forEach((type) => {
-                    this.rank[key][type] = _rank[type]; 
-                });
+                }, {});
             });
-            console.log(this.rank);
+        },
+        showItem(obj) {
+            let _obj = {};
+            const type = ["pve", "pvp", "vpk", "dbm", "other"];
+            type.forEach((item) => {
+                if (obj[item]) _obj[item] = obj[item];
+            });
+            console.log(_obj);
+            return _obj;
         },
         playVideo(i) {
             this.index = i;

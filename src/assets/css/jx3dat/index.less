@@ -262,6 +262,32 @@ h2.title {
     .wp;
     .r(20px);
 }
+
+.m-rank {
+    .flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 25px;
+    .m-clip {
+        width: calc(33% - 18px);
+        margin-left: initial;
+        margin-right: initial;
+    }
+    .m-box {
+        padding: 10px;
+        box-sizing: border-box;
+        .size(100%,100px);
+        &.gold {
+     
+        }
+        &.popularity {
+     
+        }
+    }
+}
+.m-rank + .m-rank {
+    .mt(50px);
+}
 // 手机适配
 @media screen and(max-width:@ipad) {
     .m-top {
