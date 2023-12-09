@@ -134,7 +134,7 @@
                         :href="authorLink(item.author)"
                         target="_blank"
                         class="m-box"
-                        :class="item.img"
+                        :class="item.color"
                         v-if="users[item.author]"
                     >
                         <Avatar class="u-avatar" :url="users[item.author].avatar" size="60"> </Avatar>
@@ -249,15 +249,16 @@ export default {
         },
         loadUser(list) {
             const users = uniq(list.map((item) => item.author).filter(Boolean)).join(",");
-            getUsers({ list: users }).then((res) => {
-                this.users = res.data.data.reduce((acc, cur) => {
-                    acc[cur.ID] = {
-                        name: cur.display_name,
-                        avatar: cur.user_avatar,
-                    };
-                    return acc;
-                }, {});
-            });
+            users &&
+                getUsers({ list: users }).then((res) => {
+                    this.users = res.data.data.reduce((acc, cur) => {
+                        acc[cur.ID] = {
+                            name: cur.display_name,
+                            avatar: cur.user_avatar,
+                        };
+                        return acc;
+                    }, {});
+                });
         },
         changeRank(list) {
             const obj = list.reduce((prev, cur) => {
