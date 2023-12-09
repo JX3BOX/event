@@ -10,4 +10,9 @@ function getTopic(topic) {
     });
 }
 
-export { getTopic };
+function getUsers(params) {
+    return $cms().get("/api/cms/user/list/info", {
+        params
+    });
+}
+export { getTopic, getUsers };

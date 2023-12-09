@@ -1,5 +1,5 @@
 <template>
-    <div class="p-event-content p-jx3dat">
+    <div class="p-event-content p-jx3dat" >
         <div class="m-top">
             <video class="mp4" playsinline="" autoplay="" muted="" loop="" :poster="`${__imgRoot}top.jpg`">
                 <source :src="`${__imgRoot}top.mp4`" type="video/mp4" />
@@ -129,13 +129,20 @@
         <div class="m-content" v-for="(client, key) in rank" :key="key">
             <h3 class="u-title">{{ `${clients[key]}赛道` }}</h3>
             <div class="m-rank" v-for="(rank, i) in showItem(client)" :key="i">
-                <div class="m-clip" v-for="item in rank" :key="item.id">
-                    <div class="m-box">
-                        <div class="m-title"> 
-                            <span class="u-rank">{{ item.title }}</span>
+                <div class="m-clip" v-for="(item, k) in rank" :key="k">
+                    <a
+                        :href="authorLink(item.author)"
+                        target="_blank"
+                        class="m-box"
+                        :class="item.img"
+                        v-if="users[item.author]"
+                    >
+                        <Avatar class="u-avatar" :url="users[item.author].avatar" size="60"> </Avatar>
+                        <div class="m-info">
+                            <span class="u-name">{{ users[item.author].name }}</span>
+                            <span>{{ item.title }}</span>
                         </div>
-                        <!-- <div class="m-desc" v-html="rank.desc"></div> -->
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -146,7 +153,9 @@
 const KEY = "jx3dat";
 import BoxcoinTable from "./table/boxcoin-table.vue";
 import BaseTable from "./table/base-table.vue";
-import { getTopic } from "@/service/topic";
+import { getTopic, getUsers } from "@/service/topic";
+import { uniq } from "lodash";
+import { authorLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "Index",
     inject: ["__imgRoot"],
@@ -172,6 +181,7 @@ export default {
                 origin: "怀旧服",
                 all: "双端",
             },
+            users: {},
         };
     },
     directives: {
@@ -218,6 +228,7 @@ export default {
         },
     },
     methods: {
+        authorLink,
         init() {
             getTopic(KEY).then((res) => {
                 this.raw = res.data.data;
@@ -232,7 +243,20 @@ export default {
 
                 this.title = title.map((item) => item.img);
                 this.document = document;
+                this.loadUser(rank);
                 this.changeRank(rank);
+            });
+        },
+        loadUser(list) {
+            const users = uniq(list.map((item) => item.author).filter(Boolean)).join(",");
+            getUsers({ list: users }).then((res) => {
+                this.users = res.data.data.reduce((acc, cur) => {
+                    acc[cur.ID] = {
+                        name: cur.display_name,
+                        avatar: cur.user_avatar,
+                    };
+                    return acc;
+                }, {});
             });
         },
         changeRank(list) {
@@ -256,7 +280,6 @@ export default {
             type.forEach((item) => {
                 if (obj[item]) _obj[item] = obj[item];
             });
-            console.log(_obj);
             return _obj;
         },
         playVideo(i) {

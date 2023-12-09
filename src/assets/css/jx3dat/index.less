@@ -1,11 +1,13 @@
 body {
-    background: #000;
+    background-color: #000;
 }
 .p-jx3dat {
     .pt(54px);
     .pb(200px);
-    background: url("@{kv_jx3dat}bg.png") top center;
-    background-size: 100%;
+    background-image: url("@{kv_jx3dat}bg.jpeg");
+    background-color: #000;
+    background-position: center top;
+    background-size: contain;
 }
 .flex-x() {
     .flex;
@@ -274,14 +276,37 @@ h2.title {
         margin-right: initial;
     }
     .m-box {
-        padding: 10px;
-        box-sizing: border-box;
         .size(100%,100px);
+        .flex;
+        align-items: center;
+        gap: 20px;
+        padding: 10px 20px;
+        background: linear-gradient(to right, #ffffff33, transparent);
+        border: 1px solid #ffffff33;
+        .m-info {
+            .flex;
+            .fz(20px);
+            flex-direction: column;
+            .u-name {
+                .bold;
+                .nobreak;
+                .fz(24px);
+                color: #5fe3ff;
+            }
+        }
         &.gold {
-     
+            background: linear-gradient(to right, #ffff0033, transparent);
+            border: 1px solid #ffff0033;
+            .u-name {
+                color: #ffee83;
+            }
         }
         &.popularity {
-     
+            background: linear-gradient(to right, #d44fff33, transparent);
+            border: 1px solid #d44fff33;
+            .u-name {
+                color: #faadff;
+            }
         }
     }
 }
@@ -316,9 +341,11 @@ h2.title {
         zoom: 0.7;
     }
     .m-steps,
-    .m-section,
     .m-safe {
         .ml(20px);
         .mr(20px);
+    }
+    .m-content {
+        padding: 0 10px;
     }
 }
