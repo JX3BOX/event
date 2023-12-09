@@ -1,5 +1,5 @@
 <template>
-    <div class="p-event-content p-jx3dat" >
+    <div class="p-event-content p-jx3dat">
         <div class="m-top">
             <video class="mp4" playsinline="" autoplay="" muted="" loop="" :poster="`${__imgRoot}top.jpg`">
                 <source :src="`${__imgRoot}top.mp4`" type="video/mp4" />
@@ -129,7 +129,7 @@
         <div class="m-content" v-for="(client, key) in rank" :key="key">
             <h3 class="u-title">{{ `${clients[key]}赛道` }}</h3>
             <div class="m-rank" v-for="(rank, i) in showItem(client)" :key="i">
-                <div class="m-clip" v-for="(item, k) in rank" :key="k">
+                <div class="m-clip" :class="{ none: !users[item.author] }" v-for="(item, k) in rank" :key="k">
                     <a
                         :href="authorLink(item.author)"
                         target="_blank"
