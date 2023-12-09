@@ -122,6 +122,28 @@
         <div class="m-clip">
             <div class="m-box m-safe" v-html="safe"></div>
         </div>
+
+        <!-- 获奖名单 -->
+
+        <h2 class="title" :style="{ backgroundImage: `url(${title[3]})` }">获奖名单</h2>
+        <div class="m-content" v-for="(item, key) in rank" :key="key">
+            <h3 class="u-title">{{ `${client[key]}赛道` }}</h3>
+            <template v-if="item.pve">
+                <div class="m-rank" v-for="rank in item.pve" :key="rank.id"></div>
+            </template>
+            <template v-if="item.pvp">
+                <div class="m-rank" v-for="rank in item.pvp" :key="rank.id"></div>
+            </template>
+            <template v-if="item.vpk">
+                <div class="m-rank" v-for="rank in item.vpk" :key="rank.id"></div>
+            </template>
+            <template v-if="item.dbm">
+                <div class="m-rank" v-for="rank in item.dbm" :key="rank.id"></div>
+            </template>
+            <template v-if="item.other">
+                <div class="m-rank" v-for="rank in item.other" :key="rank.id"></div>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -133,7 +155,7 @@ import { getTopic } from "@/service/topic";
 export default {
     name: "Index",
     inject: ["__imgRoot"],
-    components: { BoxcoinTable ,BaseTable},
+    components: { BoxcoinTable, BaseTable },
     data: function () {
         return {
             raw: [],
@@ -144,6 +166,17 @@ export default {
             video: [],
             document: [],
             index: 0,
+            rank: {
+                std: {},
+                origin: {},
+                all: {},
+            },
+
+            client: {
+                std: "正式服",
+                origin: "怀旧服",
+                all: "双端",
+            },
         };
     },
     directives: {
@@ -193,7 +226,7 @@ export default {
         init() {
             getTopic(KEY).then((res) => {
                 this.raw = res.data.data;
-                const { prize, safe, step, video, title, document } = this.data;
+                const { prize, safe, step, video, title, document, rank } = this.data;
                 this.prize = prize;
                 this.safe = safe[0].desc;
                 this.step = step;
@@ -204,7 +237,28 @@ export default {
 
                 this.title = title.map((item) => item.img);
                 this.document = document;
+                this.changeRank(rank);
             });
+        },
+        changeRank(list) {
+            const obj = list.reduce((prev, cur) => {
+                prev[cur.desc] = prev[cur.desc] || [];
+                prev[cur.desc].push(cur);
+                return prev;
+            }, {});
+            Object.keys(obj).forEach((key) => {
+                const _rank = obj[key].reduce((prev, cur) => {
+                    const targetLink = cur.link || "other";
+                    prev[targetLink] = prev[targetLink] || [];
+                    prev[targetLink].push(cur);
+                    return prev;
+                }, {}); 
+                const _list = ["pve", "pvp", "vpk", "dbm", "other"]; 
+                _list.forEach((type) => {
+                    this.rank[key][type] = _rank[type]; 
+                });
+            });
+            console.log(this.rank);
         },
         playVideo(i) {
             this.index = i;
