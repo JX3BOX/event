@@ -13,8 +13,8 @@
                             <img class="u-info" :src="`${__imgRoot}desc.svg`" alt="活动说明" />
                             <div class="m-blindbox-info" slot="content">
                                 <h2>活动说明：</h2>
-                                <span>1.点击盲盒或者右侧按钮可以打开盲盒，每次消耗一定数量的银铛；</span>
-                                <span>2.虚拟奖品奖励将实时到账，请注意查收站内信息；</span>
+                                <span>1.点击盲盒或者右侧开盒按钮可以打开盲盒，每次消耗一定数量的银铛；</span>
+                                <span>2.商城奖品请注意查收站内信息；</span>
                                 <span>3.实体奖品需要填写收件信息，并在中奖后7个工作日内发货，请耐心等待；</span>
                                 <span>4.本活动最终解释权归魔盒团队所有。</span>
                             </div>
@@ -106,11 +106,7 @@
                         <!-- 中奖记录 -->
                         <div class="m-history box u-img" :class="history ? 'history' : 'close'">
                             <div class="m-title" @click="openHistory">
-                                <img
-                                    :src="`${__imgRoot}history.png`"
-                                    class="u-history"
-                                    alt="开盒记录"
-                                />
+                                <img :src="`${__imgRoot}history.png`" class="u-history" alt="开盒记录" />
                                 <img
                                     :src="`${__imgRoot}close.png`"
                                     width="42px"
@@ -156,12 +152,12 @@
 
 <script>
 let x = 0;
-const KEY = "blindbox";
+const KEY = "blindboxID";
 const COMPLETE_STATUS = [2, 3];
 import User from "@jx3box/jx3box-common/js/user";
-import { getTopic } from "@/service/topic";
+import { getBreadcrumb } from "@/service/topic";
 import { getBlindBox, goodLucky, getMyLucky } from "@/service/pay";
-import { cloneDeep, debounce, throttle, zip } from "lodash";
+import { cloneDeep, throttle, zip } from "lodash";
 import History from "./History.vue";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
@@ -246,9 +242,8 @@ export default {
     methods: {
         // 初始化，获取活动ID,并获取活动详情
         init() {
-            getTopic(KEY).then((res) => {
-                this.raw = res.data.data;
-                this.ID = ~~this.data.ID[0].title;
+            getBreadcrumb(KEY).then((res) => {
+                this.ID = res;
                 this.ID &&
                     getBlindBox(this.ID).then((res) => {
                         const data = res.data.data;
@@ -257,7 +252,6 @@ export default {
                             boxcoin: `${this.__imgRoot}boxcoin.png`,
                         };
                         this.draw = zip(data.allow_once_try_count, data.allow_once_try_count_cost_points);
-
                         this.prizeList = data.prize.map((item) => {
                             if (item.prize_type != "mall_goods" && asset[item.vip_asset_type])
                                 return { img: asset[item.vip_asset_type], name: "银铛（积分）" };
@@ -267,9 +261,7 @@ export default {
                                 name: item.mall_goods.title,
                             };
                         });
-
                         this.scroll(this.prizeList.length);
-
                         const userLevelLimit = data.user_level_limit;
                         const userLevel = User.getLevel(1);
                         if (userLevelLimit > userLevel) {
@@ -398,7 +390,7 @@ export default {
                     }
                 });
             };
-            if(!isDraw) {
+            if (!isDraw) {
                 getLucky();
             } else {
                 this.prizesInterval = setInterval(getLucky, 1000);

@@ -10,9 +10,15 @@ function getTopic(topic) {
     });
 }
 
+async function getBreadcrumb(key) {
+    const res = await $cms()
+        .get(`/api/cms/breadcrumb/${key}`);
+    return res.data.data.html || "";
+}
+
 function getUsers(params) {
     return $cms().get("/api/cms/user/list/info", {
         params
     });
 }
-export { getTopic, getUsers };
+export { getTopic, getUsers, getBreadcrumb };
