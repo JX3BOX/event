@@ -149,7 +149,6 @@ export default {
                 source_type: this.type == "all" ? "" : this.type,
                 page: this.page,
                 per: this.per,
-                status: 1,
             };
             return _params;
         },
@@ -208,17 +207,16 @@ export default {
         },
         loadMyData() {
             this.loading = true;
-            const { source_type, page, per, status } = this.params;
+            const { source_type, page, per } = this.params;
             const params = this.removeEmpty({
                 key: this.search,
                 source_type,
                 page,
-                limit: per,
-                status,
+                per: per,
             });
             getNamespace(params)
                 .then((res) => {
-                    const list = res.data.data.data || [];
+                    const list = res.data.data.list || [];
                     this.list = list.map((item) => {
                         item._link = cloneDeep(item.link);
                         item.user.display_name = item.user.nickname;
