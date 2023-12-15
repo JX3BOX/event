@@ -209,7 +209,7 @@ export default {
             this.loading = true;
             const { source_type, page, per } = this.params;
             const params = this.removeEmpty({
-                key: this.search,
+                _search: this.search,
                 source_type,
                 page,
                 per: per,
