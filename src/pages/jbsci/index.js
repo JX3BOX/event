@@ -19,18 +19,19 @@ Vue.use(JX3BOX_UI);
 // 全局过滤器
 import * as filters from "@/utils/filters.js";
 Object.keys(filters).forEach((key) => {
-	Vue.filter(key, filters[key]);
+    Vue.filter(key, filters[key]);
 });
 import reporter from "@jx3box/jx3box-common/js/reporter";
 reporter.install(Vue);
 
 // 数据与路由
 import router from "./router.js";
+import "@/assets/css/jbsci/font.css";
 // import store from "../../store";
 
 import App from "./App.vue";
 new Vue({
-	router,
-	// store,
-	render: (h) => h(App),
+    router,
+    // store,
+    render: (h) => h(App),
 }).$mount("#app");

@@ -1,16 +1,27 @@
 <template>
-    <div class="p-event-content"></div>
+    <div class="p-event-content">
+        <Mark v-if="mark" @close="closeMark" />
+    </div>
 </template>
 
 <script>
+import Mark from "./components/mark.vue";
 export default {
     name: "Index",
     inject: ["__imgRoot"],
+    components: { Mark },
     data: function () {
-        return {};
+        return {
+            mark: true,
+        };
     },
-
-    methods: {},
+    methods: {
+        closeMark() {
+            setTimeout(() => {
+                this.mark = false;
+            }, 1000);
+        },
+    },
 };
 </script>
 
