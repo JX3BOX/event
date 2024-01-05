@@ -1,8 +1,8 @@
 <template>
     <transition name="fade">
         <div class="index-mark" @click="close" :class="{ click }">
-            <h2>JX3BOX SCIENCE CITATION INDEX</h2>
-            <h3>探索 JBSCI <i class="el-icon-right"></i></h3>
+            <h2 class="p-animation" v-animate="'bounceIn'">JX3BOX SCIENCE CITATION INDEX</h2>
+            <h3 class="p-animation" v-animate="'bounceIn'">探索 JBSCI <i class="el-icon-right"></i></h3>
         </div>
     </transition>
 </template>
