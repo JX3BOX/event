@@ -63,12 +63,11 @@ export default {
             immediate: true,
             handler: function ({ authors }) {
                 if (authors && authors.length) {
-                    this.year = uniq(authors.map((item) => this.yearFormat(item.time)));
+                    this.year = uniq(authors.map((item) => item.icon));
                     this.authors = authors.reduce((acc, cur) => {
-                        const { time } = cur;
-                        let _time = this.yearFormat(time);
-                        if (!acc[_time]) acc[_time] = [];
-                        acc[_time].push(cur);
+                        const { icon } = cur;
+                        if (!acc[icon]) acc[icon] = [];
+                        acc[icon].push(cur);
                         return acc;
                     }, {});
                     this.loadUser(authors);
@@ -97,11 +96,7 @@ export default {
                         return acc;
                     }, {});
                 });
-        },
-        yearFormat(time) {
-            const date = new Date(time);
-            return date.getFullYear();
-        },
+        }, 
         dataFormat(val) {
             return showDate(val);
         },
