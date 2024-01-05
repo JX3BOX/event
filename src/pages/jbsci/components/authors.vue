@@ -26,7 +26,7 @@
                         <div class="u-info">
                             <h4>
                                 <span> {{ users[item.author].name }}</span>
-                                <label>{{ dataFormat(item.time) }} 加入魔盒</label>
+                                <label>{{ dataFormat(users[item.author].time) }} 加入魔盒</label>
                             </h4>
                             <div class="u-sci">
                                 <label>入选作品：</label>
@@ -63,11 +63,12 @@ export default {
             immediate: true,
             handler: function ({ authors }) {
                 if (authors && authors.length) {
-                    this.year = uniq(authors.map((item) => item.icon));
+                    this.year = uniq(authors.map((item) => this.yearFormat(item.time)));
                     this.authors = authors.reduce((acc, cur) => {
-                        const { icon } = cur;
-                        if (!acc[icon]) acc[icon] = [];
-                        acc[icon].push(cur);
+                        const { time } = cur;
+                        let _time = this.yearFormat(time);
+                        if (!acc[_time]) acc[_time] = [];
+                        acc[_time].push(cur);
                         return acc;
                     }, {});
                     this.loadUser(authors);
@@ -91,10 +92,15 @@ export default {
                             name: cur.display_name,
                             avatar: cur.user_avatar,
                             link: __Root + "author/" + cur.ID,
+                            time: cur.user_registered,
                         };
                         return acc;
                     }, {});
                 });
+        },
+        yearFormat(time) {
+            const date = new Date(time);
+            return date.getFullYear();
         },
         dataFormat(val) {
             return showDate(val);
