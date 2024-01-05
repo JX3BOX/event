@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="index-mark" @click="close" :class="{ click }">
+        <div class="m-mark" @click="close" :class="{ click }">
             <h2 class="p-animation" v-animate="'bounceIn'">JX3BOX SCIENCE CITATION INDEX</h2>
             <h3 class="p-animation" v-animate="'bounceIn'">探索 JBSCI <i class="el-icon-right"></i></h3>
         </div>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="less">
-.index-mark {
+.m-mark {
     .pf;
     .lt(0,0);
     .full;

@@ -1,5 +1,5 @@
 <template>
-    <div class="index">
+    <div class="m-slider">
         <el-carousel height="680px">
             <el-carousel-item v-for="(item, i) in slider" :key="i">
                 <a :href="item.link" target="_blank">
@@ -7,26 +7,16 @@
                 </a>
             </el-carousel-item>
         </el-carousel>
-        <div class="footer">
-            <div class="u-item" v-for="(item, i) in footer" :key="i">
-                <h3>{{ item.label }}</h3>
-                <span>{{ item.name }}</span>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "index",
+    name: "slider",
     props: ["data"],
     data: function () {
         return {
             slider: [],
-            footer: [
-                { label: "ABOUT JBSCI", name: "关于JBSCI" },
-                { label: "PROCESS", name: "特约/入选" },
-            ],
         };
     },
     watch: {
@@ -43,7 +33,7 @@ export default {
 };
 </script>
 <style lang="less">
-.index {
+.m-slider {
     .el-carousel__indicators--horizontal {
         left: 20px;
     }
@@ -61,26 +51,6 @@ export default {
         background: #ba9624;
         border: 1px solid #ba9624;
         opacity: 1;
-    }
-    .footer {
-        .flex;
-        .h(70px);
-        padding: 0 20px;
-        box-sizing: border-box;
-        gap: 20px;
-        align-items: center;
-        .u-item {
-            .flex;
-            .pointer;
-            .fz(10px);
-            color: #ba9624;
-            flex-direction: column;
-            h3 {
-                .fz(13px);
-                .tm(0.6);
-                color: #000;
-            }
-        }
     }
 }
 </style>

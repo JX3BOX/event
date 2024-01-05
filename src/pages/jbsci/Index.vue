@@ -2,7 +2,12 @@
     <div class="p-event-content">
         <Mark v-if="mark" @close="closeMark" />
         <Tabs @update="showComponent" />
-        <component :is="active" :data="componentData" />
+        <div class="m-main" :class="key">
+            <div class="wp">
+                <component :is="active" :data="componentData" />
+            </div>
+            <Footer />
+        </div>
     </div>
 </template>
 
@@ -11,23 +16,25 @@ const KEY = "jbsci";
 import { getTopic } from "@/service/topic";
 
 import Mark from "./components/mark.vue";
+import Footer from "./components/footer.vue";
 import Tabs from "./components/tabs.vue";
-import INDEX from "./components/index.vue";
+import SLIDER from "./components/slider.vue";
 import ARTICLES from "./components/articles.vue";
 import AUTHORS from "./components/authors.vue";
 
 export default {
     name: "Index",
     inject: ["__imgRoot"],
-    components: { Mark, Tabs },
+    components: { Mark, Tabs, Footer, ARTICLES, AUTHORS, SLIDER },
     data: function () {
         return {
             raw: [],
             mark: false,
-            active: INDEX,
-            key: "INDEX",
+            active: SLIDER,
+            key: "SLIDER",
 
             slider: [],
+            authors: [],
         };
     },
     computed: {
@@ -47,8 +54,10 @@ export default {
         componentData() {
             const _data = {
                 ARTICLES: {},
-                AUTHORS: {},
-                INDEX: {
+                AUTHORS: {
+                    authors: this.authors,
+                },
+                SLIDER: {
                     slider: this.slider,
                 },
             };
@@ -59,8 +68,9 @@ export default {
         init() {
             getTopic(KEY).then((res) => {
                 this.raw = res.data.data;
-                const { slider } = this.data;
+                const { slider, authors } = this.data;
                 this.slider = slider;
+                this.authors = authors;
             });
         },
         closeMark() {
@@ -72,7 +82,7 @@ export default {
             const data = {
                 ARTICLES,
                 AUTHORS,
-                INDEX,
+                SLIDER,
             };
             this.key = name;
             this.active = data[name];

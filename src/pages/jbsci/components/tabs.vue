@@ -1,8 +1,8 @@
 <template>
-    <div class="common-tabs">
+    <div class="m-tabs">
         <div class="title">JBSCI<i>·</i>JX3BOX SCIENCE CITATION INDEX</div>
         <div class="logo">
-            <img class="u-logo" src="@/assets/img/jbsci.svg" svg-inline @click="change('INDEX')" />
+            <img class="u-logo" src="@/assets/img/jbsci.svg" svg-inline @click="change('SLIDER')" />
         </div>
         <div class="tabs">
             <span class="u-tab" v-for="(item, i) in tabs" :key="i" @click="change(item.label)">
@@ -21,7 +21,7 @@ export default {
                 { name: "精选作品", label: "ARTICLES" },
                 { name: "特约作者", label: "AUTHORS" },
             ],
-            active: "INDEX",
+            active: "SLIDER",
         };
     },
     methods: {
@@ -37,7 +37,7 @@ export default {
 };
 </script>
 <style lang="less">
-.common-tabs {
+.m-tabs {
     .flex;
     flex-direction: column;
     .title {
