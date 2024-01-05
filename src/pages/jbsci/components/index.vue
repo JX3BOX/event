@@ -7,7 +7,12 @@
                 </a>
             </el-carousel-item>
         </el-carousel>
-        <div class="footer"></div>
+        <div class="footer">
+            <div class="u-item" v-for="(item, i) in footer" :key="i">
+                <h3>{{ item.label }}</h3>
+                <span>{{ item.name }}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -18,6 +23,10 @@ export default {
     data: function () {
         return {
             slider: [],
+            footer: [
+                { label: "ABOUT JBSCI", name: "关于JBSCI" },
+                { label: "PROCESS", name: "特约/入选" },
+            ],
         };
     },
     watch: {
@@ -52,6 +61,26 @@ export default {
         background: #ba9624;
         border: 1px solid #ba9624;
         opacity: 1;
+    }
+    .footer {
+        .flex;
+        .h(70px);
+        padding: 0 20px;
+        box-sizing: border-box;
+        gap: 20px;
+        align-items: center;
+        .u-item {
+            .flex;
+            .pointer;
+            .fz(10px);
+            color: #ba9624;
+            flex-direction: column;
+            h3 {
+                .fz(13px);
+                .tm(0.6);
+                color: #000;
+            }
+        }
     }
 }
 </style>

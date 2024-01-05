@@ -27,22 +27,19 @@ export default {
 
 <style lang="less">
 .index-mark {
+    .pf;
+    .lt(0,0);
+    .full;
+    .z(9);
     .flex;
-    padding: 74px 0 0 0;
+    padding: 0;
     flex-direction: column;
-    box-sizing: border-box;
     height: 100%;
     justify-content: center;
     align-items: center;
     gap: 165px;
     color: #fff;
     background: #000;
-    h2,
-    h3 {
-        padding: 0;
-        margin: 0;
-        font-weight: 400;
-    }
     h2 {
         .fz(20px);
     }
