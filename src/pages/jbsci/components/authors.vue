@@ -11,7 +11,7 @@
         <div class="m-content">
             <div class="m-content-title">
                 <h2>AUTHORS</h2>
-                <h3>特约作者</h3>
+                <h3>入选名单</h3>
             </div>
             <template v-for="(item, i) in list">
                 <a
@@ -30,11 +30,10 @@
                             </h4>
                             <div class="u-sci">
                                 <label>入选作品：</label>
-                                <span v-html="item.title"></span>
+                                <span v-html="item.desc"></span>
                             </div>
                         </div>
                     </div>
-                    <span class="u-desc" v-html="item.desc"></span>
                 </a>
             </template>
         </div>
@@ -63,7 +62,7 @@ export default {
             immediate: true,
             handler: function ({ authors }) {
                 if (authors && authors.length) {
-                    this.year = uniq(authors.map((item) => item.icon));
+                    this.year = uniq(authors.map((item) => item.icon)).sort((a, b) => a - b);
                     this.authors = authors.reduce((acc, cur) => {
                         const { icon } = cur;
                         if (!acc[icon]) acc[icon] = [];
@@ -96,7 +95,7 @@ export default {
                         return acc;
                     }, {});
                 });
-        }, 
+        },
         dataFormat(val) {
             return showDate(val);
         },
@@ -178,6 +177,9 @@ export default {
                     h4 span {
                         .fz(16px);
                     }
+                }
+                .u-avatar{
+                    flex-shrink: 0;
                 }
             }
             .u-desc {
