@@ -99,6 +99,7 @@ module.exports = {
     //         },
     //     };
     // },
+    outputDir: process.env["BUILD_MODE"] == "preview" ? path.resolve(__dirname, pkg.name) : 'dist',
 
     //❤️ define path for static files ~
     publicPath:
