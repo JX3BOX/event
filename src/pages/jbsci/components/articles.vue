@@ -25,10 +25,30 @@
             </div>
         </div>
         <div class="m-content">
+            <div class="m-content-header">
+                <div class="m-cover">
+                    <span class="u-label">JBSCI</span>
+                    <div class="u-time">
+                        <span>{{ filter.year }} </span>
+                        <div class="u-season">
+                            <span>SEAS</span>
+                            <img class="u-img" src="@/assets/img/jbsci.svg" svg-inline />
+                            <span> N {{ filter.season }} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-content-title">
+                    <h2>JBSCI {{ filter.year }} SEASON {{ filter.season }}</h2>
+                    <h3>JBSCI {{ filter.year }}年度 第{{ filter.season }}季 期刊</h3>
+                    <div class="u-desc">{{ "暂无介绍" }}</div>
+                </div>
+            </div>
+
             <div class="m-content-title">
                 <h2>ARTICLES</h2>
                 <h3>精选文章</h3>
             </div>
+
             <div class="m-content-list">
                 <div class="m-item" v-for="(item, i) in list" :key="i">
                     <div class="cover">
@@ -214,6 +234,53 @@ export default {
                         .mt(10px);
                         .break(4);
                         height: 52px;
+                    }
+                }
+            }
+        }
+        &-header {
+            .flex;
+            .h(114px);
+            .pb(20px);
+            gap: 20px;
+            .m-content-title {
+                h2 {
+                    .fz(20px);
+                }
+                h3 {
+                    .fz(13px);
+                }
+                .u-desc {
+                    .mt(10px);
+                    .fz(10px);
+                    .break(4);
+                    color: rgba(0, 0, 0, 0.6);
+                }
+            }
+            .m-cover {
+                .flex;
+                .w(287px);
+                color: #fff;
+                background-color: #075060;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 10px;
+                .u-label {
+                    .fz(48px);
+                }
+                .u-time {
+                    .flex;
+                    .fz(26px);
+                    gap: 8px;
+                }
+                .u-season {
+                    .flex;
+                    align-items: center;
+                    .u-img {
+                        .x;
+                        .size(20px);
+                        margin: 0 2px;
+                        fill: #fff;
                     }
                 }
             }

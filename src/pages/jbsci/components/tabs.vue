@@ -1,7 +1,7 @@
 <template>
     <div class="m-tabs">
         <div class="title">JBSCI<i>·</i>JX3BOX SCIENCE CITATION INDEX</div>
-        <div class="logo" :class="{ active: active == 'SLIDER' }">
+        <div class="logo">
             <img class="u-logo" src="@/assets/img/jbsci.svg" svg-inline @click="change('SLIDER')" />
         </div>
         <div class="tabs">
@@ -86,9 +86,7 @@ export default {
         .u-logo {
             .pointer;
             .size(66px);
-            fill: rgba(0, 0, 0, 0.6);
-        }
-        &.active .u-logo {
+          
             fill: #ba9624;
         }
     }
@@ -101,7 +99,7 @@ export default {
         font-weight: 400;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         .u-tab {
@@ -111,7 +109,8 @@ export default {
             user-select: none;
             &:hover,
             &.active {
-                color: #ba9624;
+                color: #fff;
+                background: #ba9624;
             }
         }
         i {
