@@ -128,6 +128,9 @@ export default {
                 border-right: 4px solid #ba9624;
                 gap: 10px;
                 background: rgba(0, 0, 0, 0.02);
+                .u-avatar{
+                    flex-shrink: 0
+                }
                 .u-info {
                     .flex;
                     padding: 10px 0;
