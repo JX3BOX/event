@@ -14,7 +14,7 @@
 <script>
 const KEY = "jbsci";
 import { getTopic } from "@/service/topic";
-
+import { groupBy, mapValues } from "lodash";
 import Mark from "./components/mark.vue";
 import Footer from "./components/footer.vue";
 import Tabs from "./components/tabs.vue";
@@ -35,42 +35,67 @@ export default {
 
             slider: [],
             authors: [],
+            SCI: {},
         };
     },
     computed: {
         data() {
             let _data = {};
             this.raw.forEach((item) => {
-                if (!_data[item.subtype]) {
+                if (!item.subtype.includes("SCI") && !_data[item.subtype]) {
                     _data[item.subtype] = [];
                 }
-                _data[item.subtype].push(item);
+                if (_data[item.subtype]) {
+                    _data[item.subtype].push(item);
+                }
             });
             Object.keys(_data).forEach((key) => {
                 _data[key] = _data[key].sort((a, b) => a.power - b.power);
+            });
+
+            const list = this.raw.filter((item) => item.subtype.includes("SCI"));
+            const groupedByYear = groupBy(list, (item) => item.subtype.replace("SCI", ""));
+            _data.SCI = mapValues(groupedByYear, (group) => {
+                return groupBy(group, "icon");
             });
             return _data;
         },
         componentData() {
             const _data = {
-                ARTICLES: {},
-                AUTHORS: {
-                    authors: this.authors,
-                },
-                SLIDER: {
-                    slider: this.slider,
-                },
+                ARTICLES: this.SCI,
+                AUTHORS: this.authors,
+                SLIDER: this.slider,
             };
             return _data[this.key];
+        },
+        linkKey() {
+            return this.$route.params.key;
+        },
+    },
+    watch: {
+        linkKey: {
+            immediate: true,
+            handler: function (val) {
+                if (val) {
+                    const key = {
+                        sci: "ARTICLES",
+                        authors: "AUTHORS",
+                    };
+                    this.showComponent(key[val]);
+                } else { 
+                    this.showComponent("SLIDER");
+                }
+            },
         },
     },
     methods: {
         init() {
             getTopic(KEY).then((res) => {
                 this.raw = res.data.data;
-                const { slider, authors } = this.data;
+                const { slider, authors, SCI } = this.data;
                 this.slider = slider;
                 this.authors = authors;
+                this.SCI = SCI;
             });
         },
         closeMark() {

@@ -1,8 +1,8 @@
 <template>
     <div class="m-authors">
-        <div class="m-year">
+        <div class="m-filter">
             <h3>YEAR</h3>
-            <div class="m-year-list">
+            <div class="m-filter-list">
                 <span v-for="item in year" :key="item" :class="{ active: active === item }" @click="active = item">
                     {{ item }}
                 </span>
@@ -30,11 +30,11 @@
                             </h4>
                             <div class="u-sci">
                                 <label>入选作品：</label>
-                                <span v-html="item.title"></span>
+                                <span>{{ item.desc || "暂无作品" }}</span>
                             </div>
                         </div>
                     </div>
-                    <span class="u-desc" v-html="item.desc"></span>
+                    <span class="u-desc">{{ item.title || "暂无介绍" }}</span>
                 </a>
             </template>
         </div>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import Avatar from "@jx3box/jx3box-common-ui/src/author/Avatar.vue";
 import { uniq } from "lodash";
 import { getUsers } from "@/service/topic";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
@@ -49,6 +50,7 @@ import { showDate } from "@jx3box/jx3box-common/js/moment";
 export default {
     name: "authors",
     props: ["data"],
+    components: { Avatar },
     data: function () {
         return {
             authors: {},
@@ -61,9 +63,9 @@ export default {
         data: {
             deep: true,
             immediate: true,
-            handler: function ({ authors }) {
+            handler: function (authors) {
                 if (authors && authors.length) {
-                    this.year = uniq(authors.map((item) => item.icon));
+                    this.year = uniq(authors.map((item) => item.icon)).sort((a, b) => b - a);
                     this.authors = authors.reduce((acc, cur) => {
                         const { icon } = cur;
                         if (!acc[icon]) acc[icon] = [];
@@ -96,7 +98,7 @@ export default {
                         return acc;
                     }, {});
                 });
-        }, 
+        },
         dataFormat(val) {
             return showDate(val);
         },
@@ -109,46 +111,13 @@ export default {
     .c-avatar-pic {
         .r(0);
     }
-    .m-year {
-        .flex;
-        .fz(14px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px;
-        h3 {
-            color: #ba9624;
-        }
-        &-list {
-            .flex;
-            flex-wrap: wrap;
-            color: #000;
-            gap: 10px;
-            span {
-                .pointer;
-                .tm(0.4);
-                &.active {
-                    .tm(1);
-                }
-            }
-        }
-    }
     .m-content {
         .flex;
         padding: 20px;
         flex-wrap: wrap;
         gap: 20px;
         box-sizing: border-box;
-        &-title {
-            .w(100%);
-            h2 {
-                .fz(20px);
-                color: #ba9624;
-            }
-            h3 {
-                .fz(16px);
-            }
-        }
+
         &-item {
             .fz(10px,20px);
             color: #000;
@@ -183,6 +152,9 @@ export default {
             .u-desc {
                 .mt(20px);
                 .tm(0.6);
+                .break(2);
+                height: 40px;
+                .none;
             }
         }
     }

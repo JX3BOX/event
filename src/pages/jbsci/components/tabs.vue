@@ -1,11 +1,17 @@
 <template>
     <div class="m-tabs">
         <div class="title">JBSCI<i>·</i>JX3BOX SCIENCE CITATION INDEX</div>
-        <div class="logo">
+        <div class="logo" :class="{ active: active == 'SLIDER' }">
             <img class="u-logo" src="@/assets/img/jbsci.svg" svg-inline @click="change('SLIDER')" />
         </div>
         <div class="tabs">
-            <span class="u-tab" v-for="(item, i) in tabs" :key="i" @click="change(item.label)">
+            <span
+                class="u-tab"
+                :class="{ active: active == item.label }"
+                v-for="(item, i) in tabs"
+                :key="i"
+                @click="change(item.label)"
+            >
                 {{ item.label }}<i>{{ item.name }}</i>
             </span>
         </div>
@@ -24,14 +30,35 @@ export default {
             active: "SLIDER",
         };
     },
+    computed: {
+        key() {
+            return this.$route.params.key;
+        },
+    },
     methods: {
         change(name) {
             this.active = name;
         },
     },
     watch: {
+        key: {
+            immediate: true,
+            handler: function () {
+                const key = {
+                    sci: "ARTICLES",
+                    authors: "AUTHORS",
+                };
+                this.active = key[this.key] || "SLIDER";
+            },
+        },
         active() {
             this.$emit("update", this.active);
+            const key = {
+                SLIDER: "",
+                ARTICLES: "sci",
+                AUTHORS: "authors",
+            };
+            this.$router.push({ params: { key: key[this.active] } });
         },
     },
 };
@@ -59,6 +86,9 @@ export default {
         .u-logo {
             .pointer;
             .size(66px);
+            fill: rgba(0, 0, 0, 0.6);
+        }
+        &.active .u-logo {
             fill: #ba9624;
         }
     }
@@ -79,7 +109,8 @@ export default {
             .x;
             .pointer;
             user-select: none;
-            &:hover {
+            &:hover,
+            &.active {
                 color: #ba9624;
             }
         }

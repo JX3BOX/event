@@ -23,7 +23,7 @@ export default {
         data: {
             deep: true,
             immediate: true,
-            handler: function ({ slider }) {
+            handler: function (slider) {
                 if (slider) {
                     this.slider = slider;
                 }
