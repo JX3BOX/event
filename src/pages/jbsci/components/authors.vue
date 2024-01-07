@@ -11,7 +11,7 @@
         <div class="m-content">
             <div class="m-content-title">
                 <h2>AUTHORS</h2>
-                <h3>特约作者</h3>
+                <h3>入选名单</h3>
             </div>
             <template v-for="(item, i) in list">
                 <a
@@ -65,7 +65,7 @@ export default {
             immediate: true,
             handler: function (authors) {
                 if (authors && authors.length) {
-                    this.year = uniq(authors.map((item) => item.icon)).sort((a, b) => b - a);
+                    this.year = uniq(authors.map((item) => item.icon)).sort((a, b) => a - b);
                     this.authors = authors.reduce((acc, cur) => {
                         const { icon } = cur;
                         if (!acc[icon]) acc[icon] = [];
