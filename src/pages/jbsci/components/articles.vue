@@ -51,12 +51,12 @@
 
             <div class="m-content-list">
                 <div class="m-item" v-for="(item, i) in list" :key="i">
-                    <div class="cover">
-                        <img :src="showImg(item.type)" />
+                    <a :href="showLink(item.link)" target="_blank" class="cover">
+                        <img class="u-img" :src="showImg(item.type)" />
                         <div class="u-title">{{ item.title }}</div>
-                    </div>
+                    </a>
                     <div class="info">
-                        <a :href="showLink(item.link)" class="u-title">
+                        <a :href="showLink(item.link)" target="_blank" class="u-title">
                             <span>{{ item.title }}</span>
                             <img :src="`${__imgRoot}arr.svg`" />
                         </a>
@@ -186,6 +186,7 @@ export default {
 
                 .cover {
                     .pr;
+                    .db;
                     .size(100%,300px);
                     &::before {
                         content: "";
