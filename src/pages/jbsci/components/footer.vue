@@ -1,26 +1,44 @@
 <template>
-    <div class="m-footer">
+    <div class="m-footer" v-if="jbsci.length">
         <div class="wp">
-            <div class="u-item" v-for="(item, i) in footer" :key="i">
+            <div class="u-item" v-for="(item, i) in jbsci" :key="i" @click="change(i)">
                 <h3>{{ item.label }}</h3>
                 <span>{{ item.name }}</span>
             </div>
         </div>
+        <el-dialog class="m-dialog" :visible.sync="visible" width="840px">
+            <div slot="title" class="dialog-title">
+                <span class="u-label">{{ showData.label }}</span>
+                <span>{{ showData.name }}</span>
+            </div>
+            <div class="u-content" v-html="showData.desc"></div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+import jbsci from "@/assets/data/jbsci.json";
 export default {
     name: "sciFooter",
     props: ["data"],
     data: function () {
         return {
             slider: [],
-            footer: [
-                { label: "ABOUT JBSCI", name: "关于JBSCI" },
-                { label: "PROCESS", name: "特约/入选" },
-            ],
+            jbsci,
+            active: 0,
+            visible: false,
         };
+    },
+    computed: {
+        showData() {
+            return this.jbsci[this.active];
+        },
+    },
+    methods: {
+        change(i) {
+            this.visible = true;
+            this.active = i;
+        },
     },
 };
 </script>
@@ -48,6 +66,30 @@ export default {
             .tm(0.6);
             color: #000;
         }
+    }
+}
+.m-dialog {
+    .el-dialog__header {
+        .pt(40px);
+    }
+    .dialog-title {
+        .flex;
+        .fz(24px);
+        color: #000;
+        flex-direction: column;
+        align-items: center;
+        .u-label {
+            .fz(20px);
+            color: #ba9624;
+        }
+    }
+    .u-content {
+        .w(760px);
+        .auto(x);
+        .scrollbar;
+        overflow: auto;
+        min-height: 120px;
+        max-height: 240px;
     }
 }
 </style>

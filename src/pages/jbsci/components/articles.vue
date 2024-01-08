@@ -14,57 +14,53 @@
             </div>
             <h3>SEASON</h3>
             <div class="m-filter-list">
-                <span
+                <a
                     v-for="item in season"
                     :key="item"
                     :class="{ active: filter.season === item }"
-                    @click="filter.season = item"
+                    :href="`#m-season-${item}`"
                 >
                     {{ item }}
-                </span>
+                </a>
             </div>
         </div>
         <div class="m-content">
             <div class="m-content-header">
-                <div class="m-cover">
-                    <span class="u-label">JBSCI</span>
-                    <div class="u-time">
-                        <span>{{ filter.year }} </span>
-                        <div class="u-season">
-                            <span>SEAS</span>
-                            <img class="u-img" src="@/assets/img/jbsci.svg" svg-inline />
-                            <span> N {{ filter.season }} </span>
-                        </div>
-                    </div>
-                </div>
+                <img class="u-cover" :src="`${__imgRoot}cover.jpg`" />
                 <div class="m-content-title">
-                    <h2>JBSCI {{ filter.year }} SEASON {{ filter.season }}</h2>
-                    <h3>JBSCI {{ filter.year }}年度 第{{ filter.season }}季 期刊</h3>
+                    <h2>JBSCI 2020 - 2023</h2>
+                    <h3>JBSCI 2020 - 2023 年度 期刊</h3>
                     <div class="u-desc">{{ "暂无介绍" }}</div>
                 </div>
             </div>
+            <div :id="`m-season-${s}`" v-for="(season, s) in list" :key="s">
+                <div class="m-content-title">
+                    <h2>SEASON{{ s }} ARTICLES</h2>
+                    <h3>第{{ s }}季度 精选文章</h3>
+                </div>
 
-            <div class="m-content-title">
-                <h2>ARTICLES</h2>
-                <h3>精选文章</h3>
-            </div>
-
-            <div class="m-content-list">
-                <div class="m-item" v-for="(item, i) in list" :key="i">
-                    <a :href="showLink(item.link)" target="_blank" class="cover">
-                        <img class="u-img" :src="showImg(item.type)" />
-                        <div class="u-title">{{ item.title }}</div>
-                    </a>
-                    <div class="info">
-                        <a :href="showLink(item.link)" target="_blank" class="u-title">
-                            <span>{{ item.title }}</span>
-                            <img :src="`${__imgRoot}arr.svg`" />
+                <div class="m-content-list">
+                    <div class="m-item" v-for="item in season" :key="item.id">
+                        <a :href="showLink(item.link)" target="_blank" class="cover">
+                            <img class="u-img" :src="showImg(item.type)" />
+                            <div class="u-title">{{ item.title }}</div>
                         </a>
-                        <a :href="users[item.author].link" v-if="users[item.author]" class="u-author">
-                            <Avatar class="u-avatar" :uid="item.author" :url="users[item.author].avatar" size="15" />
-                            <span>{{ users[item.author].name }}</span>
-                        </a>
-                        <span class="u-desc">{{ item.desc || "暂无介绍" }}</span>
+                        <div class="info">
+                            <a :href="showLink(item.link)" target="_blank" class="u-title">
+                                <span>{{ item.title }}</span>
+                                <img :src="`${__imgRoot}arr.svg`" />
+                            </a>
+                            <a :href="users[item.author].link" v-if="users[item.author]" class="u-author">
+                                <Avatar
+                                    class="u-avatar"
+                                    :uid="item.author"
+                                    :url="users[item.author].avatar"
+                                    size="15"
+                                />
+                                <span>{{ users[item.author].name }}</span>
+                            </a>
+                            <span class="u-desc">{{ item.desc || "暂无介绍" }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,7 +98,7 @@ export default {
                     const list = this.resultArray(sci);
                     this.loadUser(list);
                     this.sci = sci;
-                    this.year = uniq(Object.keys(sci).sort((a, b) => b - a));
+                    this.year = uniq(Object.keys(sci).sort((a, b) => a - b));
                     this.filter.year = this.year[0];
                 }
             },
@@ -120,18 +116,7 @@ export default {
             return (this.sci[this.filter.year] && Object.keys(this.sci[this.filter.year]).sort((a, b) => a - b)) || [];
         },
         list() {
-            const { year, season } = this.filter;
-            let list = year ? this.sci[~~year][season] : [];
-            if (list.length)
-                list = list.map((item) => {
-                    const type = item.link.split("/")[0];
-                    console.log(item);
-                    return {
-                        ...item,
-                        type,
-                    };
-                });
-            return list;
+            return this.filter.year ? this.sci[~~this.filter.year] : {};
         },
     },
     methods: {
@@ -155,6 +140,7 @@ export default {
                     if (isObject(value) && !isArray(value)) {
                         return flatMapDeep(value);
                     } else {
+                        console.log(value);
                         return value;
                     }
                 }) || []
@@ -266,6 +252,9 @@ export default {
                 flex-direction: column;
                 box-sizing: border-box;
                 padding: 10px;
+                .u-cover {
+                    .size(auto,114px);
+                }
                 .u-label {
                     .fz(48px);
                 }

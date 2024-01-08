@@ -82,7 +82,7 @@ export default {
                         authors: "AUTHORS",
                     };
                     this.showComponent(key[val]);
-                } else { 
+                } else {
                     this.showComponent("SLIDER");
                 }
             },
@@ -91,7 +91,10 @@ export default {
     methods: {
         init() {
             getTopic(KEY).then((res) => {
-                this.raw = res.data.data;
+                this.raw = res.data.data.map((item) => {
+                    if (item.link) item.type = item.link.split("/")[0];
+                    return item;
+                });
                 const { slider, authors, SCI } = this.data;
                 this.slider = slider;
                 this.authors = authors;
@@ -101,7 +104,7 @@ export default {
         closeMark() {
             setTimeout(() => {
                 this.mark = false;
-            }, 1000);
+            }, 500);
         },
         showComponent(name) {
             const data = {
