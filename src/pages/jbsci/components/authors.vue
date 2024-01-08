@@ -29,7 +29,7 @@
                                 <label>{{ dataFormat(users[item.author].time) }} 加入魔盒</label>
                             </h4>
                             <div class="u-sci">
-                                <label>入选作品：</label>
+                                <label>入围作品：</label>
                                 <span>{{ item.desc || "暂无作品" }}</span>
                             </div>
                         </div>
