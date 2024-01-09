@@ -10,31 +10,31 @@ h4 {
     padding: 0;
     font-weight: 400;
 }
-
-.p-event-content {
+.p-event {
     .pt(64px);
-    min-height: 300px;
-    height: 100vh;
+}
+.m-footer {
+    padding: 0 20px;
+}
+.wp {
+    .w(940px);
+    .auto(x);
+}
+.p-event-content {
+    .scrollbar(0);
+    min-height: calc(100vh - 64px - 71px);
+    overflow: auto;
     box-sizing: border-box;
     background-color: #fff;
+
     .m-main {
         &.SLIDER {
-            .wp {
-                width: 100%;
-            }
-            .m-footer {
-                padding: 0 20px;
-            }
-        }
-        .wp {
-            .w(940px);
-            .auto(x);
+            width: 100%;
         }
     }
     .m-filter {
         .flex;
         .fz(14px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         flex-direction: column;
         gap: 10px;
         padding: 20px;
@@ -47,7 +47,7 @@ h4 {
             color: #000;
             gap: 10px;
             a {
-                color: rgba(0, 0, 0, 0.6);
+                .color(rgba(0, 0, 0, 0.6),#000);
             }
             span {
                 .pointer;

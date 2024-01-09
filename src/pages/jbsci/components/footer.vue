@@ -1,5 +1,5 @@
 <template>
-    <div class="m-footer" v-if="jbsci.length">
+    <div class="m-footer" v-if="jbsci.length" :class="{ index: !linkKey || linkKey == 'index' }">
         <div class="wp">
             <div class="u-item" v-for="(item, i) in jbsci" :key="i" @click="change(i)">
                 <h3>{{ item.label }}</h3>
@@ -30,6 +30,9 @@ export default {
         };
     },
     computed: {
+        linkKey() {
+            return this.$route.params.key;
+        },
         showData() {
             return this.jbsci[this.active];
         },
@@ -48,8 +51,12 @@ export default {
     .h(70px);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     align-items: center;
+    &.index {
+        .wp {
+            .w(100%);
+        }
+    }
     .wp {
-        .w(100%);
         .auto(x);
         .flex;
         gap: 20px;

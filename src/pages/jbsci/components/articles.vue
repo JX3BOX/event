@@ -14,35 +14,31 @@
             </div>
             <h3>SEASON</h3>
             <div class="m-filter-list">
-                <a
-                    v-for="item in season"
-                    :key="item"
-                    :class="{ active: filter.season === item }"
-                    :href="`#m-season-${item}`"
-                >
+                <a v-for="item in season" :key="item" :href="`${linkKey}#m-season-${item}`">
                     {{ item }}
                 </a>
             </div>
         </div>
         <div class="m-content">
-            <div class="m-content-header">
-                <img class="u-cover" :src="`${__imgRoot}cover.jpg`" />
-                <div class="m-content-title">
-                    <h2>JBSCI 2020 - 2023</h2>
-                    <h3>JBSCI 2020 - 2023 年度 期刊</h3>
-                    <div class="u-desc">{{ "暂无介绍" }}</div>
-                </div>
-            </div>
             <div :id="`m-season-${s}`" v-for="(season, s) in list" :key="s">
+                <div class="m-content-header" v-if="seasons[filter.year][s]">
+                    <img class="u-cover" :src="seasons[filter.year][s].img" />
+                    <div class="m-content-title">
+                        <h2>{{ seasons[filter.year][s].title }} SEASON {{ s }}</h2>
+                        <h3>{{ seasons[filter.year][s].title }}年度 第{{ s }}季 期刊</h3>
+                        <div class="u-desc">{{ seasons[filter.year][s].desc }}</div>
+                    </div>
+                </div>
                 <div class="m-content-title">
-                    <h2>SEASON{{ s }} ARTICLES</h2>
-                    <h3>第{{ s }}季度 精选文章</h3>
+                    <h2>ARTICLES</h2>
+                    <h3>精选文章</h3>
                 </div>
 
                 <div class="m-content-list">
                     <div class="m-item" v-for="item in season" :key="item.id">
                         <a :href="showLink(item.link)" target="_blank" class="cover">
                             <img class="u-img" :src="showImg(item.type)" />
+                            <i class="u-mark" :class="item.type">{{ s }}</i>
                             <div class="u-title">{{ item.title }}</div>
                         </a>
                         <div class="info">
@@ -51,12 +47,7 @@
                                 <img :src="`${__imgRoot}arr.svg`" />
                             </a>
                             <a :href="users[item.author].link" v-if="users[item.author]" class="u-author">
-                                <Avatar
-                                    class="u-avatar"
-                                    :uid="item.author"
-                                    :url="users[item.author].avatar"
-                                    size="15"
-                                />
+                                <user-avatar class="u-avatar" :src="users[item.author].avatar" :size="20" />
                                 <span>{{ users[item.author].name }}</span>
                             </a>
                             <span class="u-desc">{{ item.desc || "暂无介绍" }}</span>
@@ -69,7 +60,7 @@
 </template>
 
 <script>
-import Avatar from "@jx3box/jx3box-common-ui/src/author/Avatar.vue";
+import userAvatar from "../../../components/avatar.vue";
 import { getUsers } from "@/service/topic";
 import { uniq, flatMapDeep, isObject, isArray } from "lodash";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
@@ -77,10 +68,12 @@ export default {
     name: "articles",
     props: ["data"],
     inject: ["__imgRoot"],
-    components: { Avatar },
+    components: { userAvatar },
     data: function () {
         return {
             sci: {},
+            cover: {},
+            seasons: {},
             year: [],
             filter: {
                 year: null,
@@ -93,12 +86,24 @@ export default {
         data: {
             deep: true,
             immediate: true,
-            handler: function (sci) {
+            handler: function ({ sci, cover, season }) {
                 if (sci) {
                     const list = this.resultArray(sci);
                     this.loadUser(list);
                     this.sci = sci;
-                    this.year = uniq(Object.keys(sci).sort((a, b) => a - b));
+                    this.seasons = season.reduce((acc, cur) => {
+                        const { power, icon } = cur;
+                        if (!acc[icon]) {
+                            acc[icon] = {};
+                        }
+                        acc[icon][power] = cur;
+                        return acc;
+                    }, {});
+                    this.cover = cover.reduce((acc, cur) => {
+                        acc[cur.title] = cur.img;
+                        return acc;
+                    }, {});
+                    this.year = uniq(Object.keys(sci).sort((a, b) => b - a));
                     this.filter.year = this.year[0];
                 }
             },
@@ -112,6 +117,9 @@ export default {
         },
     },
     computed: {
+        linkKey() {
+            return this.$route.params.key;
+        },
         season() {
             return (this.sci[this.filter.year] && Object.keys(this.sci[this.filter.year]).sort((a, b) => a - b)) || [];
         },
@@ -147,22 +155,21 @@ export default {
             );
         },
         showImg(key) {
-            return key ? this.__imgRoot + key + ".jpg" : "";
+            return this.cover[key] || "";
         },
         showLink(link) {
             return __Root + link;
         },
     },
-    components: { Avatar },
 };
 </script>
 <style lang="less">
 .m-articles {
     .pb(20px);
     .m-content {
-        padding: 20px;
+        padding: 0 20px;
         &-list {
-            .mt(20px);
+            margin: 20px 0 40px 0;
             .flex;
             flex-wrap: wrap;
             gap: 20px;
@@ -179,14 +186,41 @@ export default {
                         .pa;
                         .lb(0);
                         .size(100%,230px);
-                        background-color: rgba(0, 0, 0, 0.5);
+                        background-color: rgba(0, 0, 0, 0.4);
+                    }
+                    .u-mark {
+                        .pa;
+                        .rt(10px);
+                        .fz(36px,40px);
+                        .size(40px);
+                        .x;
+                        font-style: normal;
+                        color: #fff;
+                        &.bbs {
+                            background-color: #1b824a;
+                        }
+                        &.fb {
+                            background-color: #2d2a3d;
+                        }
+                        &.tool {
+                            background-color: #156772;
+                        }
+                        &.bps {
+                            background-color: #9a305e;
+                        }
+                        &.macro {
+                            background-color: #00b7c7;
+                        }
+                        &.pvp {
+                            background-color: #b05600;
+                        }
                     }
                     .u-title {
                         .pa;
                         .lb(0,10px);
                         .full;
                         .flex;
-                        .fz(32px);
+                        .fz(24px);
                         .break(2);
                         padding: 10px 10px 0 10px;
                         box-sizing: border-box;
@@ -196,7 +230,7 @@ export default {
                     }
                 }
                 .info {
-                    .fz(10px);
+                    .fz(12px);
                     color: rgba(0, 0, 0, 0.6);
                     .u-title {
                         .w(100%);
@@ -225,11 +259,13 @@ export default {
                 }
             }
         }
+
         &-header {
             .flex;
             .h(114px);
-            .pb(20px);
             gap: 20px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
             .m-content-title {
                 h2 {
                     .fz(20px);
@@ -239,39 +275,9 @@ export default {
                 }
                 .u-desc {
                     .mt(10px);
-                    .fz(10px);
-                    .break(4);
+                    .fz(12px);
+                    .break(3);
                     color: rgba(0, 0, 0, 0.6);
-                }
-            }
-            .m-cover {
-                .flex;
-                .w(287px);
-                color: #fff;
-                background-color: #075060;
-                flex-direction: column;
-                box-sizing: border-box;
-                padding: 10px;
-                .u-cover {
-                    .size(auto,114px);
-                }
-                .u-label {
-                    .fz(48px);
-                }
-                .u-time {
-                    .flex;
-                    .fz(26px);
-                    gap: 8px;
-                }
-                .u-season {
-                    .flex;
-                    align-items: center;
-                    .u-img {
-                        .x;
-                        .size(20px);
-                        margin: 0 2px;
-                        fill: #fff;
-                    }
                 }
             }
         }

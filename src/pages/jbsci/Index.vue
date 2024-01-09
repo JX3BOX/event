@@ -2,11 +2,8 @@
     <div class="p-event-content">
         <Mark v-if="mark" @close="closeMark" />
         <Tabs @update="showComponent" />
-        <div class="m-main" :class="key">
-            <div class="wp">
-                <component :is="active" :data="componentData" />
-            </div>
-            <Footer />
+        <div class="m-main wp" :class="key">
+            <component :is="active" :data="componentData" />
         </div>
     </div>
 </template>
@@ -16,7 +13,6 @@ const KEY = "jbsci";
 import { getTopic } from "@/service/topic";
 import { groupBy, mapValues } from "lodash";
 import Mark from "./components/mark.vue";
-import Footer from "./components/footer.vue";
 import Tabs from "./components/tabs.vue";
 import SLIDER from "./components/slider.vue";
 import ARTICLES from "./components/articles.vue";
@@ -25,7 +21,7 @@ import AUTHORS from "./components/authors.vue";
 export default {
     name: "Index",
     inject: ["__imgRoot"],
-    components: { Mark, Tabs, Footer, ARTICLES, AUTHORS, SLIDER },
+    components: { Mark, Tabs, ARTICLES, AUTHORS, SLIDER },
     data: function () {
         return {
             raw: [],
@@ -36,6 +32,8 @@ export default {
             slider: [],
             authors: [],
             SCI: {},
+            season: [],
+            cover: [],
         };
     },
     computed: {
@@ -62,7 +60,11 @@ export default {
         },
         componentData() {
             const _data = {
-                ARTICLES: this.SCI,
+                ARTICLES: {
+                    sci: this.SCI,
+                    season: this.season,
+                    cover: this.cover,
+                },
                 AUTHORS: this.authors,
                 SLIDER: this.slider,
             };
@@ -71,6 +73,9 @@ export default {
         linkKey() {
             return this.$route.params.key;
         },
+        isOpen() {
+            return sessionStorage.getItem("jbsci-mark") || this.linkKey;
+        },
     },
     watch: {
         linkKey: {
@@ -78,12 +83,19 @@ export default {
             handler: function (val) {
                 if (val) {
                     const key = {
+                        index: "SLIDER",
                         sci: "ARTICLES",
                         authors: "AUTHORS",
                     };
                     this.showComponent(key[val]);
-                } else {
-                    this.showComponent("SLIDER");
+                }
+            },
+        },
+        isOpen: {
+            immediate: true,
+            handler: function (val) {
+                if (val) {
+                    this.mark = false;
                 }
             },
         },
@@ -95,15 +107,18 @@ export default {
                     if (item.link) item.type = item.link.split("/")[0];
                     return item;
                 });
-                const { slider, authors, SCI } = this.data;
+                const { slider, authors, SCI, season, cover } = this.data;
                 this.slider = slider;
                 this.authors = authors;
                 this.SCI = SCI;
+                this.season = season;
+                this.cover = cover;
             });
         },
         closeMark() {
             setTimeout(() => {
                 this.mark = false;
+                sessionStorage.setItem("jbsci-mark", "true");
             }, 500);
         },
         showComponent(name) {

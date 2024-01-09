@@ -54,7 +54,7 @@ export default {
         active() {
             this.$emit("update", this.active);
             const key = {
-                SLIDER: "",
+                SLIDER: "index",
                 ARTICLES: "sci",
                 AUTHORS: "authors",
             };
@@ -111,8 +111,7 @@ export default {
                 background: #ba9624;
             }
         }
-        i {
-            .fz(11px);
+        i { 
             .ml(10px);
             font-style: normal;
         }

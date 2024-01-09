@@ -22,11 +22,11 @@
                     v-if="users[item.author]"
                 >
                     <div class="m-info">
-                        <Avatar class="u-avatar" :uid="item.author" :url="users[item.author].avatar" size="120" />
+                        <user-avatar class="u-avatar" :src="users[item.author].avatar" :size="120" />
                         <div class="u-info">
                             <h4>
                                 <span> {{ users[item.author].name }}</span>
-                                <label>{{ dataFormat(users[item.author].time) }} 加入魔盒</label>
+                                <label>Join in {{ dataFormat(users[item.author].time) }}</label>
                             </h4>
                             <div class="u-sci">
                                 <label>入围作品：</label>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import Avatar from "@jx3box/jx3box-common-ui/src/author/Avatar.vue";
+import userAvatar from "../../../components/avatar.vue";
 import { uniq } from "lodash";
 import { getUsers } from "@/service/topic";
 import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
@@ -50,7 +50,7 @@ import { showDate } from "@jx3box/jx3box-common/js/moment";
 export default {
     name: "authors",
     props: ["data"],
-    components: { Avatar },
+    components: { userAvatar },
     data: function () {
         return {
             authors: {},
@@ -108,7 +108,7 @@ export default {
 <style lang="less">
 .m-authors {
     .pb(20px);
-    .c-avatar-pic {
+    .el-avatar--circle {
         .r(0);
     }
     .m-content {
@@ -119,7 +119,7 @@ export default {
         box-sizing: border-box;
 
         &-item {
-            .fz(10px,20px);
+            .fz(12px,20px);
             color: #000;
             width: calc(50% - 10px);
             .m-info {
@@ -128,8 +128,8 @@ export default {
                 border-right: 4px solid #ba9624;
                 gap: 10px;
                 background: rgba(0, 0, 0, 0.02);
-                .u-avatar{
-                    flex-shrink: 0
+                .u-avatar {
+                    flex-shrink: 0;
                 }
                 .u-info {
                     .flex;
