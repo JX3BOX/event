@@ -1,8 +1,13 @@
 <template>
     <div class="m-slider">
-        <el-carousel height="680px">
+        <el-carousel :height="height">
             <el-carousel-item v-for="(item, i) in slider" :key="i">
-                <a :href="item.link" target="_blank" class="u-item" :style="{ backgroundColor: item.color }">
+                <a
+                    :href="item.link"
+                    target="_blank"
+                    class="u-item"
+                    :style="{ backgroundColor: item.color, height: height }"
+                >
                     <el-image :src="item.img" fit="cover"></el-image>
                 </a>
             </el-carousel-item>
@@ -30,6 +35,12 @@ export default {
             },
         },
     },
+    computed: {
+        height() {
+            const h = window.innerHeight - 64 - 160 - 70;
+            return h < 680 ? "680px" : `${h}px`;
+        },
+    },
 };
 </script>
 <style lang="less">
@@ -37,10 +48,9 @@ export default {
     .u-item,
     .el-image__inner {
         .db;
-        .h(680px);
     }
     .u-item {
-        .flex; 
+        .flex;
         align-items: center;
         justify-content: center;
     }
