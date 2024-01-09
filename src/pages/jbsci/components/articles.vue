@@ -39,11 +39,11 @@
                         <a :href="showLink(item.link)" target="_blank" class="cover">
                             <img class="u-img" :src="showImg(item.type)" />
                             <i class="u-mark" :class="item.type">{{ s }}</i>
-                            <div class="u-title">{{ item.title }}</div>
+                            <div class="u-title" v-html="showTitle(item.title)"></div>
                         </a>
                         <div class="info">
                             <a :href="showLink(item.link)" target="_blank" class="u-title">
-                                <span>{{ item.title }}</span>
+                                <span>{{ showTitle(item.title, "title") }}</span>
                                 <img :src="`${__imgRoot}arr.svg`" />
                             </a>
                             <a :href="users[item.author].link" v-if="users[item.author]" class="u-author">
@@ -160,6 +160,12 @@ export default {
         showLink(link) {
             return __Root + link;
         },
+        showTitle(title, str) {
+            title = title.split("$$$");
+            const cover = title[1] ? `<span>${title[0]}</span><span>${title[1]}</span>` : title[0];
+            const _title = title[1] ? title[1] : title[0];
+            return str ? _title : cover;
+        },
     },
 };
 </script>
@@ -221,12 +227,16 @@ export default {
                         .full;
                         .flex;
                         .fz(24px);
-                        .break(2);
+                        gap: 5px;
+                        flex-direction: column;
                         padding: 10px 10px 0 10px;
                         box-sizing: border-box;
                         justify-content: flex-end;
-                        align-items: flex-end;
                         color: #fff;
+                        span:last-child {
+                            .break(2);
+                            .fz(18px);
+                        }
                     }
                 }
                 .info {
