@@ -39,18 +39,18 @@
                         <a :href="showLink(item.link)" target="_blank" class="cover">
                             <img class="u-img" :src="showImg(item.type)" />
                             <i class="u-mark" :class="item.type">{{ s }}</i>
-                            <div class="u-title" v-html="showTitle(item.title)"></div>
+                            <div class="u-title" v-html="getCoverTitle(item.title)"></div>
                         </a>
                         <div class="info">
                             <a :href="showLink(item.link)" target="_blank" class="u-title">
-                                <span>{{ showTitle(item.title, "title") }}</span>
+                                <span>{{ getTextTitle(item.desc) }}</span>
                                 <img :src="`${__imgRoot}arr.svg`" />
                             </a>
                             <a :href="users[item.author].link" v-if="users[item.author]" class="u-author">
                                 <user-avatar class="u-avatar" :src="users[item.author].avatar" :size="20" />
                                 <span>{{ users[item.author].name }}</span>
                             </a>
-                            <span class="u-desc">{{ item.desc || "暂无介绍" }}</span>
+                            <span class="u-desc">{{ getTextDesc(item.desc) }}</span>
                         </div>
                     </div>
                 </div>
@@ -160,11 +160,14 @@ export default {
         showLink(link) {
             return __Root + link;
         },
-        showTitle(title, str) {
-            title = title.split("$$$");
-            const cover = title[1] ? `<span>${title[0]}</span><span>${title[1]}</span>` : title[0];
-            const _title = title[1] ? title[1] : title[0];
-            return str ? _title : cover;
+        getCoverTitle(str){
+            return str?.replace(/\|/g,'<br/>') || 'JBSCI'
+        },
+        getTextTitle(str){
+            return str?.split('|')?.[0] || 'Unknown'
+        },
+        getTextDesc(str){
+            return str?.split('|')?.[1] || 'Unknown'
         },
         navigateToSeason(item) {
             const targetElement = document.getElementById(`m-season-${item}`);
@@ -184,7 +187,7 @@ export default {
             margin: 20px 0 40px 0;
             .flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px 20px;
             .m-item {
                 .w(286px);
                 box-sizing: border-box;
@@ -269,8 +272,8 @@ export default {
                     }
                     .u-desc {
                         .mt(10px);
-                        .break(4);
-                        height: 52px;
+                        .break(5);
+                        //height: 52px;
                     }
                 }
             }
