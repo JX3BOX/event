@@ -32,7 +32,7 @@ export default {
     },
     computed: {
         key() {
-            return this.$route.params.key;
+            return this.$route.query.tab;
         },
     },
     methods: {
@@ -58,7 +58,7 @@ export default {
                 ARTICLES: "sci",
                 AUTHORS: "authors",
             };
-            this.$router.push({ params: { key: key[this.active] } });
+            this.$router.push({ query: { tab: key[this.active] } });
         },
     },
 };
@@ -92,7 +92,7 @@ export default {
     .tabs {
         .flex;
         .h(26px);
-        .fz(13px,26px); 
+        .fz(13px,26px);
         color: rgba(0, 0, 0, 0.6);
         font-weight: 400;
         justify-content: center;
@@ -106,12 +106,12 @@ export default {
             .pointer;
             user-select: none;
             &:hover,
-            &.active { 
+            &.active {
                 color: #fff;
                 background: #ba9624;
             }
         }
-        i { 
+        i {
             .ml(10px);
             font-style: normal;
         }

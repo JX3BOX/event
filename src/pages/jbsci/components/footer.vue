@@ -31,7 +31,7 @@ export default {
     },
     computed: {
         linkKey() {
-            return this.$route.params.key;
+            return this.$route.query.tab;
         },
         showData() {
             return this.jbsci[this.active];

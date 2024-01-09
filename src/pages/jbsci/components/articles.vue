@@ -14,7 +14,7 @@
             </div>
             <h3>SEASON</h3>
             <div class="m-filter-list">
-                <a v-for="item in season" :key="item" :href="`${linkKey}#m-season-${item}`">
+                <a v-for="item in season" :key="item" @click="navigateToSeason(item)">
                     {{ item }}
                 </a>
             </div>
@@ -118,7 +118,7 @@ export default {
     },
     computed: {
         linkKey() {
-            return this.$route.params.key;
+            return this.$route.query.tab;
         },
         season() {
             return (this.sci[this.filter.year] && Object.keys(this.sci[this.filter.year]).sort((a, b) => a - b)) || [];
@@ -165,6 +165,12 @@ export default {
             const cover = title[1] ? `<span>${title[0]}</span><span>${title[1]}</span>` : title[0];
             const _title = title[1] ? title[1] : title[0];
             return str ? _title : cover;
+        },
+        navigateToSeason(item) {
+            const targetElement = document.getElementById(`m-season-${item}`);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: "smooth" });
+            }
         },
     },
 };

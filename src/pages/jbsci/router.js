@@ -6,12 +6,10 @@ const Index = () => import("./Index.vue");
 Vue.use(VueRouter);
 
 const routes = [
-    { name: "index", path: "/:key?", component: Index, props: true },
+    { name: "index", path: "/", component: Index },
 ];
 
-const router = new VueRouter({
-    mode: 'history',
-    base: '/event/jbsci/',
+const router = new VueRouter({  
     routes,
 });
 

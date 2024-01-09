@@ -1,8 +1,8 @@
 <template>
-    <div class="p-event-content">
+    <div class="p-event-content" :class="key">
         <Mark v-if="mark" @close="closeMark" />
         <Tabs @update="showComponent" />
-        <div class="m-main wp" :class="key">
+        <div class="m-main wp">
             <component :is="active" :data="componentData" />
         </div>
     </div>
@@ -71,7 +71,7 @@ export default {
             return _data[this.key];
         },
         linkKey() {
-            return this.$route.params.key;
+            return this.$route.query.tab;
         },
         isOpen() {
             return sessionStorage.getItem("jbsci-mark") || this.linkKey;

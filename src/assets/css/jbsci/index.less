@@ -22,13 +22,13 @@ h4 {
 }
 .p-event-content {
     .scrollbar(0);
-    min-height: calc(100vh - 64px - 71px);
+    height: calc(100vh - 135px);
     overflow: auto;
     box-sizing: border-box;
     background-color: #fff;
 
-    .m-main {
-        &.SLIDER {
+    &.SLIDER { 
+        .m-main {
             width: 100%;
         }
     }
@@ -47,6 +47,7 @@ h4 {
             color: #000;
             gap: 10px;
             a {
+                .pointer;
                 .color(rgba(0, 0, 0, 0.6),#000);
             }
             span {
