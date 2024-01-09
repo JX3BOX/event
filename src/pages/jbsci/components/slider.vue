@@ -2,8 +2,8 @@
     <div class="m-slider">
         <el-carousel height="680px">
             <el-carousel-item v-for="(item, i) in slider" :key="i">
-                <a :href="item.link" target="_blank">
-                    <el-image :src="item.img" fit="fill"></el-image>
+                <a :href="item.link" target="_blank" class="u-item" :style="{ backgroundColor: item.color }">
+                    <el-image :src="item.img" fit="cover"></el-image>
                 </a>
             </el-carousel-item>
         </el-carousel>
@@ -34,6 +34,16 @@ export default {
 </script>
 <style lang="less">
 .m-slider {
+    .u-item,
+    .el-image__inner {
+        .db;
+        .h(680px);
+    }
+    .u-item {
+        .flex; 
+        align-items: center;
+        justify-content: center;
+    }
     .el-carousel__indicators--horizontal {
         left: 20px;
     }
