@@ -21,7 +21,7 @@
         </div>
         <div class="m-content">
             <div :id="`m-season-${s}`" v-for="(season, s) in list" :key="s">
-                <div class="m-content-header" v-if="seasons[filter.year][s]">
+                <div class="m-content-header" v-if="seasons[filter.year] && seasons[filter.year][s]">
                     <img class="u-cover" :src="seasons[filter.year][s].img" />
                     <div class="m-content-title">
                         <h2>{{ seasons[filter.year][s].title }} SEASON {{ s }}</h2>
@@ -37,10 +37,14 @@
                 <div class="m-content-list">
                     <div class="m-item" v-for="item in season" :key="item.id">
                         <a :href="showLink(item.link)" target="_blank" class="cover">
-                            <img class="u-img" :src="showImg(item.type)" />
-                            <i class="u-mark" :class="item.type">{{ s }}</i>
+                            <img class="u-img" :src="showImg(item)" />
+                            <i class="u-mark" :class="[`${item.type}`, { hasImg: item.img }]">{{ s }}</i>
                             <div class="u-title" v-html="getCoverTitle(item.title)"></div>
                         </a>
+                        <div class="m-xf" v-if="showIcon(item.color)">
+                            <img class="u-icon" :src="showIcon(item.color)" />
+                            <span>{{ showXf(item.color) }}</span>
+                        </div>
                         <div class="info">
                             <a :href="showLink(item.link)" target="_blank" class="u-title">
                                 <span>{{ getTextTitle(item.desc) }}</span>
@@ -63,7 +67,8 @@
 import userAvatar from "../../../components/avatar.vue";
 import { getUsers } from "@/service/topic";
 import { uniq, flatMapDeep, isObject, isArray } from "lodash";
-import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __Root, __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import xf from "@jx3box/jx3box-data/data/xf/xf.json";
 export default {
     name: "articles",
     props: ["data"],
@@ -80,6 +85,7 @@ export default {
                 season: 1,
             },
             users: {},
+            xf,
         };
     },
     watch: {
@@ -148,26 +154,35 @@ export default {
                     if (isObject(value) && !isArray(value)) {
                         return flatMapDeep(value);
                     } else {
-                        console.log(value);
                         return value;
                     }
                 }) || []
             );
         },
-        showImg(key) {
-            return this.cover[key] || "";
+        showIcon(icon) {
+            if (!icon) return;
+            const key = Object.keys(this.xf).find((key) => key.includes(icon));
+            const id = key ? this.xf[key].id : "0";
+            return id ? __cdn + "design/vector/mount/" + id + ".svg" : "";
+        },
+        showXf(icon) {
+            const key = Object.keys(this.xf).find((key) => key.includes(icon));
+            return key ? this.xf[key].name : icon;
+        },
+        showImg({ type, img }) {
+            return img ? img : this.cover[type] || "";
         },
         showLink(link) {
             return __Root + link;
         },
-        getCoverTitle(str){
-            return str?.replace(/\|/g,'<br/>') || 'JBSCI'
+        getCoverTitle(str) {
+            return str?.replace(/\|/g, "<br/>") || "JBSCI";
         },
-        getTextTitle(str){
-            return str?.split('|')?.[0] || 'Unknown'
+        getTextTitle(str) {
+            return str?.split("|")?.[0] || "Unknown";
         },
-        getTextDesc(str){
-            return str?.split('|')?.[1] || 'Unknown'
+        getTextDesc(str) {
+            return str?.split("|")?.[1] || "Unknown";
         },
         navigateToSeason(item) {
             const targetElement = document.getElementById(`m-season-${item}`);
@@ -189,6 +204,7 @@ export default {
             flex-wrap: wrap;
             gap: 30px 20px;
             .m-item {
+                .pr;
                 .w(286px);
                 box-sizing: border-box;
 
@@ -229,7 +245,11 @@ export default {
                         &.pvp {
                             background-color: #b05600;
                         }
+                        &.hasImg {
+                            background: transparent;
+                        }
                     }
+
                     .u-title {
                         .pa;
                         .lb(0,10px);
@@ -238,7 +258,7 @@ export default {
                         .fz(24px);
                         gap: 5px;
                         flex-direction: column;
-                        padding: 10px 10px 0 10px;
+                        padding: 120px 10px 0 10px;
                         box-sizing: border-box;
                         justify-content: flex-end;
                         color: #fff;
@@ -246,6 +266,19 @@ export default {
                             .break(2);
                             .fz(18px);
                         }
+                    }
+                }
+                .m-xf {
+                    .pa;
+                    .lt(10px,80px);
+                    .flex;
+                    .fz(20px);
+                    align-items: center;
+                    color: #fff;
+                    gap: 3px;
+                    .u-icon {
+                        .size(30px);
+                        filter: invert(100%);
                     }
                 }
                 .info {
