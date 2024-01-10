@@ -41,10 +41,10 @@
                             <i class="u-mark" :class="[`${item.type}`, { hasImg: item.img }]">{{ s }}</i>
                             <div class="u-title" v-html="getCoverTitle(item.title)"></div>
                         </a>
-                        <div class="m-xf" v-if="showIcon(item.color)">
+                        <a :href="xfLink(item.color)" target="_blank" class="m-xf" v-if="showIcon(item.color)">
                             <img class="u-icon" :src="showIcon(item.color)" />
                             <span>{{ showXf(item.color) }}</span>
-                        </div>
+                        </a>
                         <div class="info">
                             <a :href="showLink(item.link)" target="_blank" class="u-title">
                                 <span>{{ getTextTitle(item.desc) }}</span>
@@ -159,15 +159,20 @@ export default {
                 }) || []
             );
         },
+
+        activeXf(icon) {
+            return Object.keys(this.xf).find((key) => key.includes(icon));
+        },
+        xfLink(icon) {
+            return `${__Root}bps/?subtype=${this.activeXf(icon)}`;
+        },
         showIcon(icon) {
             if (!icon) return;
-            const key = Object.keys(this.xf).find((key) => key.includes(icon));
-            const id = key ? this.xf[key].id : "0";
+            const id = this.activeXf(icon) ? this.xf[this.activeXf(icon)].id : "0";
             return id ? __cdn + "design/vector/mount/" + id + ".svg" : "";
         },
         showXf(icon) {
-            const key = Object.keys(this.xf).find((key) => key.includes(icon));
-            return key ? this.xf[key].name : icon;
+            return this.activeXf(icon) ? this.xf[this.activeXf(icon)].name : icon;
         },
         showImg({ type, img }) {
             return img ? img : this.cover[type] || "";
@@ -270,12 +275,14 @@ export default {
                 }
                 .m-xf {
                     .pa;
+                    .pointer;
                     .lt(10px,80px);
                     .flex;
                     .fz(20px);
                     align-items: center;
                     color: #fff;
                     gap: 3px;
+                    user-select: none;
                     .u-icon {
                         .size(30px);
                         filter: invert(100%);
