@@ -6,7 +6,7 @@
                 <span>{{ item.name }}</span>
             </div>
         </div>
-        <el-dialog class="m-dialog" :visible.sync="visible" width="840px">
+        <el-dialog class="m-dialog m-jbsci-dialog" :visible.sync="visible" width="840px">
             <div slot="title" class="dialog-title">
                 <span class="u-label">{{ showData.label }}</span>
                 <span>{{ showData.name }}</span>
@@ -51,6 +51,7 @@ export default {
         },
         init() {
             this.jbsci.forEach((item) => {
+                console.log(1);
                 this.loadData(item.key);
             });
         },
@@ -116,6 +117,12 @@ export default {
         overflow: auto;
         min-height: 120px;
         max-height: 240px;
+
+        white-space: pre-line;
+
+        font-size: 13px;
+        line-height: 1.8;
+        font-weight: 300;
     }
 }
 </style>
