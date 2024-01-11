@@ -142,7 +142,7 @@ export default {
                         acc[cur.ID] = {
                             name: cur.display_name,
                             avatar: cur.user_avatar,
-                            link: __Root + "author/" + cur.ID,
+                            link: "/author/" + cur.ID,
                         };
                         return acc;
                     }, {});
@@ -164,7 +164,7 @@ export default {
             return Object.keys(this.xf).find((key) => key.includes(icon));
         },
         xfLink(icon) {
-            return `${__Root}bps/?subtype=${this.activeXf(icon)}`;
+            return `/bps/?subtype=${this.activeXf(icon)}`;
         },
         showIcon(icon) {
             if (!icon) return;
@@ -178,7 +178,7 @@ export default {
             return img ? img : this.cover[type] || "";
         },
         showLink(link) {
-            return __Root + link;
+            return link;
         },
         getCoverTitle(str) {
             return str?.replace(/\|/g, "<br/>") || "JBSCI";

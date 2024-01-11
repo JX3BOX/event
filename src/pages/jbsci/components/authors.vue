@@ -92,7 +92,7 @@ export default {
                         acc[cur.ID] = {
                             name: cur.display_name,
                             avatar: cur.user_avatar,
-                            link: __Root + "author/" + cur.ID,
+                            link: "/author/" + cur.ID,
                             time: cur.user_registered,
                         };
                         return acc;
