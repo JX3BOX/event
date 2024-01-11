@@ -85,7 +85,7 @@ export default {
         align-items: center;
         .u-logo {
             .pointer;
-            .size(66px);
+            .size(80px);
             fill: #ba9624;
         }
     }

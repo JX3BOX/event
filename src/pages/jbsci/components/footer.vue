@@ -17,14 +17,17 @@
 </template>
 
 <script>
-import jbsci from "@/assets/data/jbsci.json";
+import { getBreadcrumb } from "@/service/topic";
 export default {
     name: "sciFooter",
     props: ["data"],
     data: function () {
         return {
             slider: [],
-            jbsci,
+            jbsci: [
+                { label: "ABOUT JBSCI", name: "关于JBSCI", key: "event_jbsci_about", desc: "" },
+                { label: "PROCESS", name: "特约/入选", key: "event_jbsci_author", desc: "" },
+            ],
             active: 0,
             visible: false,
         };
@@ -38,10 +41,26 @@ export default {
         },
     },
     methods: {
+        loadData(key) {
+            getBreadcrumb(key).then((res) => {
+                this.jbsci = this.jbsci.map((item) => {
+                    if (item.key === key) item.desc = res;
+                    return item;
+                });
+            });
+        },
+        init() {
+            this.jbsci.forEach((item) => {
+                this.loadData(item.key);
+            });
+        },
         change(i) {
             this.visible = true;
             this.active = i;
         },
+    },
+    mounted() {
+        this.init();
     },
 };
 </script>

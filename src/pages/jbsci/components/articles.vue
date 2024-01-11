@@ -67,7 +67,7 @@
 import userAvatar from "../../../components/avatar.vue";
 import { getUsers } from "@/service/topic";
 import { uniq, flatMapDeep, isObject, isArray } from "lodash";
-import { __Root, __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 import xf from "@jx3box/jx3box-data/data/xf/xf.json";
 export default {
     name: "articles",
@@ -178,7 +178,7 @@ export default {
             return img ? img : this.cover[type] || "";
         },
         showLink(link) {
-            return link;
+            return "/" + link;
         },
         getCoverTitle(str) {
             return str?.replace(/\|/g, "<br/>") || "JBSCI";
