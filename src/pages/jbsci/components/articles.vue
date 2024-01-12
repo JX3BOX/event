@@ -37,8 +37,12 @@
                 <div class="m-content-list">
                     <div class="m-item" v-for="item in season" :key="item.id">
                         <a :href="showLink(item.link)" target="_blank" class="cover">
-                            <img class="u-img" :src="showImg(item)" />
-                            <i class="u-mark" :class="[`${item.type}`, { hasImg: item.img }]">{{ s }}</i>
+                            <img class="u-img" :src="showImg({ ...item, year: filter.year })" />
+                            <i
+                                class="u-mark"
+                                :class="[`${item.type}`, { hasImg: item.img, cover2024: filter.year == '2024' }]"
+                                >{{ s }}</i
+                            >
                             <div class="u-title" v-html="getCoverTitle(item.title)"></div>
                         </a>
                         <a :href="xfLink(item.color)" target="_blank" class="m-xf" v-if="showIcon(item.color)">
@@ -96,7 +100,7 @@ export default {
                 if (sci) {
                     const list = this.resultArray(sci);
                     this.loadUser(list);
-                    this.sci = sci;
+                    this.sci = sci; 
                     this.seasons = season.reduce((acc, cur) => {
                         const { power, icon } = cur;
                         if (!acc[icon]) {
@@ -174,8 +178,17 @@ export default {
         showXf(icon) {
             return this.activeXf(icon) ? this.xf[this.activeXf(icon)].name : icon;
         },
-        showImg({ type, img }) {
-            return img ? img : this.cover[type] || "";
+        showImg({ type, img, year, bgcolor }) {
+            if (img) return img;
+            let cover = "";
+            if (year <= 2023) {
+                cover = this.cover[type];
+            } else {
+                const school =
+                    (bgcolor && Object.keys(this.cover).filter((item) => item.includes(bgcolor))[0]) || "通用";
+                cover = this.cover[school];
+            }
+            return cover;
         },
         showLink(link) {
             return "/" + link;
@@ -227,7 +240,7 @@ export default {
                     .u-mark {
                         .pa;
                         .rt(10px);
-                        .fz(36px,40px);
+                        .fz(38px,40px);
                         .size(40px);
                         .x;
                         font-style: normal;
@@ -252,6 +265,12 @@ export default {
                         }
                         &.hasImg {
                             background: transparent;
+                        }
+                        &.cover2024 {
+                            .rt(12px,13px);
+                            .fz(38px,45px);
+                            .size(45px);
+                            border: 2px solid rgba(255, 255, 255, 0.6);
                         }
                     }
 
