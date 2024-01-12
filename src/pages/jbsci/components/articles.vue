@@ -37,10 +37,10 @@
                 <div class="m-content-list">
                     <div class="m-item" v-for="item in season" :key="item.id">
                         <a :href="showLink(item.link)" target="_blank" class="cover">
-                            <img class="u-img" :src="showImg({ ...item, year: filter.year })" />
+                            <img class="u-img" :src="showImg({ ...item, year: filter.year }) || ''" />
                             <i
                                 class="u-mark"
-                                :class="[`${item.type}`, { hasImg: item.img, cover2024: filter.year == '2024' }]"
+                                :class="[`${item.type}`, { hasImg: item.img, coverYear: filter.year >= '2024' }]"
                                 >{{ s }}</i
                             >
                             <div class="u-title" v-html="getCoverTitle(item.title)"></div>
@@ -90,6 +90,7 @@ export default {
             },
             users: {},
             xf,
+            coverYear: false,
         };
     },
     watch: {
@@ -100,7 +101,7 @@ export default {
                 if (sci) {
                     const list = this.resultArray(sci);
                     this.loadUser(list);
-                    this.sci = sci; 
+                    this.sci = sci;
                     this.seasons = season.reduce((acc, cur) => {
                         const { power, icon } = cur;
                         if (!acc[icon]) {
@@ -110,9 +111,13 @@ export default {
                         return acc;
                     }, {});
                     this.cover = cover.reduce((acc, cur) => {
-                        acc[cur.title] = cur.img;
+                        if (cur.icon && acc[cur.icon]) {
+                            acc[cur.icon][cur.title] = cur.img;
+                        } else {
+                            acc[cur.icon] = {};
+                        }
                         return acc;
-                    }, {});
+                    }, {}); 
                     this.year = uniq(Object.keys(sci).sort((a, b) => b - a));
                     this.filter.year = this.year[0];
                 }
@@ -182,11 +187,13 @@ export default {
             if (img) return img;
             let cover = "";
             if (year <= 2023) {
-                cover = this.cover[type];
+                cover = this.cover["2023"][type];
+                this.coverYear = false;
             } else {
-                const school =
-                    (bgcolor && Object.keys(this.cover).filter((item) => item.includes(bgcolor))[0]) || "通用";
-                cover = this.cover[school];
+                this.coverYear = true;
+                const _cover = this.cover[this.filter.year];
+                const school = (bgcolor && Object.keys(_cover).filter((item) => item.includes(bgcolor))[0]) || "通用";
+                cover = _cover[school];
             }
             return cover;
         },
@@ -266,10 +273,11 @@ export default {
                         &.hasImg {
                             background: transparent;
                         }
-                        &.cover2024 {
+                        &.coverYear {
                             .rt(12px,13px);
                             .fz(38px,45px);
                             .size(45px);
+                            background: transparent;
                             border: 2px solid rgba(255, 255, 255, 0.6);
                         }
                     }
