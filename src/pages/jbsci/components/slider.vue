@@ -37,7 +37,7 @@ export default {
     },
     computed: {
         height() {
-            const h = window.innerHeight - 64 - 160 - 70;
+            const h = window.innerHeight - 64 - 160;
             return h < 680 ? "680px" : `${h}px`;
         },
     },
