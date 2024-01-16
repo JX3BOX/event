@@ -50,8 +50,7 @@ export default {
             });
         },
         init() {
-            this.jbsci.forEach((item) => {
-                console.log(1);
+            this.jbsci.forEach((item) => { 
                 this.loadData(item.key);
             });
         },
