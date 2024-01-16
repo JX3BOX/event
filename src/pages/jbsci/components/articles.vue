@@ -118,7 +118,7 @@ export default {
                         return acc;
                     }, {});
                     this.year = uniq(Object.keys(sci).sort((a, b) => b - a));
-                    this.filter.year = this.year[0];
+                    this.filter.year = this.queryYear || this.year[0];
                 }
             },
         },
@@ -138,8 +138,8 @@ export default {
         },
     },
     computed: {
-        linkKey() {
-            return this.$route.query.tab;
+        queryYear() {
+            return this.$route.query.year;
         },
         season() {
             return (this.sci[this.filter.year] && Object.keys(this.sci[this.filter.year]).sort((a, b) => a - b)) || [];
