@@ -8,7 +8,7 @@
         </div>
         <div class="wp">
             <img class="u-title" :src="topImg" />
-            <div class="m-list-scroll" :class="{ isShort }">
+            <div class="m-list-scroll" :class="{ isShort }" v-show="!isNewEvent">
                 <a
                     class="u-item"
                     target="_blank"
@@ -23,7 +23,13 @@
                     <div class="u-mark"></div>
                 </a>
             </div>
+            <div class="m-new-list" v-show="isNewEvent">
+
+            </div>
             <div class="m-name" v-if="show">{{ name }}</div>
+        </div>
+        <div class="m-events-btn" @click="isNewEvent = !isNewEvent">
+            活动列表
         </div>
     </div>
 </template>
@@ -39,6 +45,13 @@
                 eventLink: __Root + "event",
                 show: false,
                 name: "",
+                isNewEvent: false,
+                monthList: [{
+                    month: '1月',
+                    list: [{
+
+                    }]
+                }]
             };
         },
         computed: {
