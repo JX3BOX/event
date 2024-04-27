@@ -207,10 +207,46 @@
     writing-mode: vertical-rl;
 }
 .m-new-list{
+    overflow: scroll;
     .size(100%, 730px);
     gap: 50px;
     border-radius: 30px;
     border: 10px solid #000;
     background-color: #fff;
     margin-bottom: 200px;
+    padding: 30px;
+    .m-new-list-item{
+        .mb(30px);
+        .u-month {
+            .bold;
+            .fz(24px);
+            .mb(30px);
+        }
+        .m-month-list{
+            .flex;
+            flex-wrap: wrap;
+            gap:10px;
+            .u-item{
+                .pr;
+                .r(30px);
+                .h(163px);
+                width: 390px;
+                background-color: #000;
+                .u-img {
+                    .r(30px);
+                    .full;
+                    box-sizing: border-box;
+                    img {
+                        filter: brightness(75%);
+                    }
+                }
+                &:hover {
+                    .u-img {
+                        .pa;
+                        .lt(-20px);
+                    }
+                }
+            }
+        }
+    }
 }

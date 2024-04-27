@@ -24,7 +24,18 @@
                 </a>
             </div>
             <div class="m-new-list" v-show="isNewEvent">
-
+                <div class="m-new-list-item" v-for="(item, i) in monthList" :key="i">
+                    <div class="u-month">{{item.month}}</div>
+                    <div class="m-month-list">
+                        <a class="u-item"
+                           target="_blank"
+                           :href="eventLink + listItem.link"
+                           v-for="(listItem, index) in item.list"
+                           :key="index">
+                            <el-image class="u-img" :src="`${imgLink}${listItem.img}`" fit="cover"></el-image>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="m-name" v-if="show">{{ name }}</div>
         </div>
@@ -48,9 +59,10 @@
                 isNewEvent: false,
                 monthList: [{
                     month: '1月',
-                    list: [{
-
-                    }]
+                    list: list
+                },{
+                    month: '2月',
+                    list: list
                 }]
             };
         },
