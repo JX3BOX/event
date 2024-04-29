@@ -70,7 +70,7 @@
 <script>
 import userAvatar from "../../../components/avatar.vue";
 import { getUsers } from "@/service/topic";
-import { uniq, flatMapDeep, isObject, isArray } from "lodash";
+import { uniq, flatMapDeep, isObject, isArray, flatMap } from "lodash";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 import xf from "@jx3box/jx3box-data/data/xf/xf.json";
 export default {
@@ -100,7 +100,6 @@ export default {
             handler: function ({ sci, cover, season }) {
                 if (sci) {
                     const list = this.resultArray(sci);
-                    this.loadUser(list);
                     this.sci = sci;
                     this.seasons = season.reduce((acc, cur) => {
                         const { power, icon } = cur;
@@ -117,9 +116,9 @@ export default {
                             acc[cur.icon] = {};
                         }
                         return acc;
-                    }, {}); 
+                    }, {});
                     this.year = uniq(Object.keys(sci).sort((a, b) => b - a));
-                    this.filter.year = this.year[0];
+                    this.filter.year = this.queryYear || this.year[0];
                 }
             },
         },
@@ -130,10 +129,17 @@ export default {
                 if (list.length) this.filter.season = list[0];
             },
         },
+        list: {
+            immediate: true,
+            deep: true,
+            handler: function (sci) {
+                this.loadUser(flatMap(sci));
+            },
+        },
     },
     computed: {
-        linkKey() {
-            return this.$route.query.tab;
+        queryYear() {
+            return this.$route.query.year;
         },
         season() {
             return (this.sci[this.filter.year] && Object.keys(this.sci[this.filter.year]).sort((a, b) => a - b)) || [];
@@ -144,6 +150,7 @@ export default {
     },
     methods: {
         loadUser(list) {
+            if (!list) return;
             const users = uniq(list.map((item) => item.author).filter(Boolean)).join(",");
             users &&
                 getUsers({ list: users }).then((res) => {

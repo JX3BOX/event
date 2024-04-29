@@ -72,8 +72,8 @@ export default {
                         acc[icon].push(cur);
                         return acc;
                     }, {});
-                    this.loadUser(authors);
-                    this.active = this.year[0];
+                    this.loadUser(authors); 
+                    this.active = this.queryYear || this.year[0];
                 }
             },
         },
@@ -81,6 +81,9 @@ export default {
     computed: {
         list() {
             return this.authors[this.active] || [];
+        },
+        queryYear() {
+            return ~~this.$route.query.year;
         },
     },
     methods: {
