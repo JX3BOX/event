@@ -7,7 +7,12 @@
             <div class="u-right"></div>
         </div>
         <div class="wp">
-            <img class="u-title" :src="topImg" />
+            <div class="m-wp-title">
+                <div class="u-wp-bg">
+                </div>
+                <img class="u-wp-img" :src="topImg" />
+
+            </div>
             <div class="m-list-scroll" :class="{ isShort }" v-show="!isNewEvent">
                 <a
                     class="u-item"
@@ -33,6 +38,7 @@
                            v-for="(listItem, index) in item.list"
                            :key="index">
                             <el-image class="u-img" :src="`${imgLink}${listItem.img}`" fit="cover"></el-image>
+                            <div class="m-name">{{ listItem.name }}</div>
                         </a>
                     </div>
                 </div>
