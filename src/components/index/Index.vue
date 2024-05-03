@@ -11,7 +11,6 @@
                 <div class="u-wp-bg">
                 </div>
                 <img class="u-wp-img" :src="topImg" />
-
             </div>
             <div class="m-list-scroll" :class="{ isShort }" v-show="!isNewEvent">
                 <a
