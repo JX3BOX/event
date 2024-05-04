@@ -36,7 +36,7 @@
                            :href="eventLink + listItem.link"
                            v-for="(listItem, index) in item.list"
                            :key="index">
-                            <el-image class="u-img" :src="`${imgLink}${listItem.img}`" fit="cover"></el-image>
+                            <el-image class="u-img" :src="`${newImgLink}${listItem.img}`" fit="cover"></el-image>
                             <div class="m-name">{{ listItem.name }}</div>
                         </a>
                     </div>
@@ -62,18 +62,74 @@
                 show: false,
                 name: "",
                 isNewEvent: false,
-                monthList: [{
+                monthList: [
+                    {
+                    month: '特殊活动',
+                    list: [{
+                        link:'/jbsci',
+                        img: '1.jpg',
+                        name: 'JBSCI期刊',
+                    },{
+                        link:'/gaokao',
+                        img: '2.jpg',
+                        name: '2023剑三高考',
+                    },{
+                        link:'/welcome',
+                        img: '3.jpg',
+                        name: '剑三欢迎你',
+                    },{
+                        link:'/jianyuxiadao',
+                        img: '4.jpg',
+                        name: '剑与侠道',
+                    }]
+                },
+                    {
                     month: '1月',
-                    list: list
+                    list: [{
+                        link:'/jbsci',
+                        img: '1.jpg',
+                        name: 'JBSCI期刊',
+                    },{
+                        link:'/gaokao',
+                        img: '2.jpg',
+                        name: '2023剑三高考',
+                    },{
+                        link:'/welcome',
+                        img: '3.jpg',
+                        name: '剑三欢迎你',
+                    },{
+                        link:'/jianyuxiadao',
+                        img: '4.jpg',
+                        name: '剑与侠道',
+                    }]
                 },{
                     month: '2月',
-                    list: list
+                    list: [{
+                        link:'/jbsci',
+                        img: '1.jpg',
+                        name: 'JBSCI期刊',
+                    },{
+                        link:'/gaokao',
+                        img: '2.jpg',
+                        name: '2023剑三高考',
+                    },{
+                        link:'/welcome',
+                        img: '3.jpg',
+                        name: '剑三欢迎你',
+                    },{
+                        link:'/jianyuxiadao',
+                        img: '4.jpg',
+                        name: '剑与侠道',
+                    }]
                 }]
             };
         },
         computed: {
             imgLink() {
                 return __imgPath + "topic/event/img/";
+            },
+            newImgLink() {
+                return __imgPath + "topic/event/newimg/";
             },
             topImg() {
                 return __imgPath + "topic/event/top.png";
