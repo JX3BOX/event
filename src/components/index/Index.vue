@@ -45,7 +45,9 @@
             </div>
             <div class="m-name" v-if="show">{{ name }}</div>
         </div>
-        <div class="m-events-btn" @click="isNewEvent = !isNewEvent">活动列表</div>
+        <div class="m-events-btn" @click="isNewEvent = !isNewEvent">
+            {{ isNewEvent ? '列表模式' : '卷轴模式' }}
+        </div>
     </div>
 </template>
 
