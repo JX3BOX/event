@@ -7,8 +7,11 @@
             <div class="u-right"></div>
         </div>
         <div class="wp">
-            <img class="u-title" :src="topImg" />
-            <div class="m-list-scroll" :class="{ isShort }">
+            <div class="m-wp-title">
+                <div class="u-wp-bg"></div>
+                <img class="u-wp-img" :src="topImg" />
+            </div>
+            <div class="m-list-scroll" :class="{ isShort }" v-show="!isNewEvent">
                 <a
                     class="u-item"
                     target="_blank"
@@ -19,52 +22,100 @@
                     @mouseout="hideName"
                 >
                     <span class="u-title">{{ item.name }}</span>
-                    <el-image class="u-img" :src="`${imgLink}${item.img}`" fit="cover"></el-image>
+                    <el-image class="u-img" :src="item.img" fit="cover"></el-image>
                     <div class="u-mark"></div>
                 </a>
             </div>
+            <div class="m-new-list" v-show="isNewEvent">
+                <div class="m-new-list-item" v-for="(item, i) in monthList" :key="i">
+                    <div class="u-month">{{ item.month }}月</div>
+                    <div class="m-month-list">
+                        <a
+                            class="u-item"
+                            target="_blank"
+                            :href="eventLink + listItem.link"
+                            v-for="(listItem, index) in item.list"
+                            :key="index"
+                        >
+                            <el-image class="u-img" :src="listItem.img" fit="cover"></el-image>
+                            <div class="m-name">{{ listItem.name }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="m-name" v-if="show">{{ name }}</div>
+        </div>
+        <div class="m-events-btn" @click="change">
+            {{ isNewEvent ? "列表模式" : "卷轴模式" }}
         </div>
     </div>
 </template>
 
 <script>
-    import { __imgPath, __Root } from "@jx3box/jx3box-common/data/jx3box.json";
-    import { list } from "@/assets/data/index.json";
-    export default {
-        name: "Index",
-        data: function () {
-            return {
-                list,
-                eventLink: __Root + "event",
-                show: false,
-                name: "",
-            };
+import { __imgPath, __Root } from "@jx3box/jx3box-common/data/jx3box.json";
+import { getBreadcrumb } from "@/service/topic";
+export default {
+    name: "Index",
+    data: function () {
+        return {
+            list: [],
+            eventLink: __Root + "event",
+            show: false,
+            name: "",
+            isNewEvent: false,
+            monthList: [],
+        };
+    },
+    computed: {
+        imgLink() {
+            return __imgPath + "topic/event/img/";
         },
-        computed: {
-            imgLink() {
-                return __imgPath + "topic/event/img/";
-            },
-            topImg() {
-                return __imgPath + "topic/event/top.png";
-            },
-            isShort() {
-                return this.list.length <= 4;
-            },
+        newImgLink() {
+            return __imgPath + "topic/event/newimg/";
         },
-        methods: {
-            showName(name) {
-                this.show = true;
-                this.name = name;
-            },
-            hideName() {
-                this.show = false;
-                this.name = "";
-            },
+        topImg() {
+            return __imgPath + "topic/event/top.png";
         },
-    };
+        isShort() {
+            return this.list.length <= 4;
+        },
+    },
+    mounted() {
+        this.load();
+        this.isNewEvent = localStorage.getItem("isNewEvent") == "true" ? true : false;
+    },
+    methods: {
+        showName(name) {
+            this.show = true;
+            this.name = name;
+        },
+        hideName() {
+            this.show = false;
+            this.name = "";
+        },
+        load() {
+            getBreadcrumb("event-index-json").then((res) => {
+                const { list, vertical } = JSON.parse(res);
+                this.list = list;
+                this.monthList = vertical.reduce((acc, item) => {
+                    const month = acc.find((m) => m.month === item.month);
+                    if (month) {
+                        month.list.push(item);
+                    } else {
+                        acc.push({ month: item.month, list: [item] });
+                    }
+                    return acc;
+                }, []);
+            });
+        },
+        change() {
+            this.isNewEvent = !this.isNewEvent;
+            localStorage.setItem("isNewEvent", this.isNewEvent);
+        },
+    },
+};
 </script>
 
 <style lang="less">
-    @import "~@/assets/css/index.less";
+@import "~@/assets/css/index.less";
 </style>
