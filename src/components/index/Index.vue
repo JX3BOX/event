@@ -45,8 +45,8 @@
             </div>
             <div class="m-name" v-if="show">{{ name }}</div>
         </div>
-        <div class="m-events-btn" @click="isNewEvent = !isNewEvent">
-            {{ isNewEvent ? '列表模式' : '卷轴模式' }}
+        <div class="m-events-btn" @click="change">
+            {{ isNewEvent ? "列表模式" : "卷轴模式" }}
         </div>
     </div>
 </template>
@@ -82,6 +82,7 @@ export default {
     },
     mounted() {
         this.load();
+        this.isNewEvent = localStorage.getItem("isNewEvent") == "true" ? true : false;
     },
     methods: {
         showName(name) {
@@ -105,8 +106,11 @@ export default {
                     }
                     return acc;
                 }, []);
-                console.log(this.monthList);
             });
+        },
+        change() {
+            this.isNewEvent = !this.isNewEvent;
+            localStorage.setItem("isNewEvent", this.isNewEvent);
         },
     },
 };

@@ -3,12 +3,13 @@
 .m-navigation {
     .clip;
     .pt(64px);
+    box-sizing: border-box;
     position: relative;
     background-color: #555090;
     .wp {
-        .m-wp-title{
+        .m-wp-title {
             position: relative;
-            .u-wp-bg{
+            .u-wp-bg {
                 .pa;
                 .size(1600px, 50px);
                 box-sizing: border-box;
@@ -185,6 +186,84 @@
     }
 }
 
+.m-events-btn {
+    .pf;
+    .rt(0, 161px);
+    .size(40px, 124px);
+    .bold;
+    .pointer;
+    .fz(20px);
+    .z(9);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    letter-spacing: 5px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #000;
+    writing-mode: vertical-rl;
+    user-select: none;
+    box-shadow: 0 0 0 2px #333;
+}
+.m-new-list {
+    overflow: scroll;
+    .size(1280px,799px);
+    .scrollbar(0px);
+    .r(30px);
+    box-sizing: border-box;
+    gap: 50px;
+    box-shadow: 0 0 0 10px #000;
+    background-color: #fff;
+    padding: 30px 65px;
+    .mb(60px);
+    .m-new-list-item {
+        .mb(76px);
+        .u-month {
+            .bold;
+            .fz(24px);
+            .mb(20px);
+            color: #000;
+            text-align: center;
+        }
+        .m-month-list {
+            .flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            .u-item {
+                .pr;
+                .pointer;
+                .r(30px);
+                .size(350px, 180px);
+                .mb(50px);
+
+                .u-img {
+                    .r(30px);
+                    .full;
+                    box-shadow: 0 0 0 4px #000;
+                    transition: all 0.3s ease-in;
+                    &:hover {
+                        transform: scale(1.03);
+                    }
+                }
+                .m-name {
+                    .pa;
+                    .bold;
+                    .r(3px);
+                    .lb(0, -50px);
+                    .w(100%);
+                    .fz(16px, 30px);
+                    .h(30px);
+                    .ml(0);
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: @2k) {
+    .wp {
+        zoom: 1.5;
+    }
+}
 @media screen and(max-width:@ipad) {
     .m-navigation .wp {
         max-width: 100%;
@@ -206,73 +285,11 @@
             background-size: 208px 214px;
         }
     }
-}
-.m-events-btn {
-    .pf;
-    .rt(0, 161px);
-    .size(40px, 124px);
-    .bold;
-    .fz(20px);
-    letter-spacing: 5px;
-    line-height: 40px;
-    text-align: center;
-    background-color: #ffffff;
-    color: #000;
-    writing-mode: vertical-rl;
-    cursor:pointer;
-}
-.m-new-list{
-    overflow: scroll;
-    .size(1280px,799px);
-    .scrollbar(0px);
-    box-sizing: border-box;
-    gap: 50px;
-    border-radius: 30px;
-    box-shadow: 0 0 0 10px #000;
-    background-color: #fff;
-    padding: 30px 78.5px;
-    .mb(20px);
-    .m-new-list-item{
-        .mb(76px);
-        .u-month {
-            .bold;
-            .fz(24px);
-            .mb(20px);
-            color: #000;
-            text-align: center;
-        }
-        .m-month-list{
-            .flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap:20px;
-            .u-item{
-                margin-bottom: 50px;
-                .pr;
-                .r(30px);
-                .size(350px, 180px);
-                .u-img {
-                    .r(30px);
-                    .full;
-                    box-shadow: 0 0 0 4px #000;
-                }
-                .m-name{
-                    position: relative;
-                    .lb(0, -10px);
-                    margin-left: 0;
-                    .w(100%);
-                    .fz(16px, 30px);
-                    .h(30px);
-                }
-                &:hover {
-                    transform: scale(1.05);
-                }
-            }
-        }
-    }
-}
-@media screen and (min-width:@2k) {
-    .wp{
-        zoom: 1.5;
+
+    .m-new-list {
+        .auto(x);
+        width: calc(100% - 20px);
+        height: calc(100vh - 358px);
+        justify-content: space-between;
     }
 }
