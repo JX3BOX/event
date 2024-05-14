@@ -34,7 +34,7 @@
                         <a
                             class="u-item"
                             target="_blank"
-                            :href="eventLink + listItem.link"
+                            :href="listItem.link"
                             v-for="(listItem, index) in item.list"
                             :key="index"
                         >
