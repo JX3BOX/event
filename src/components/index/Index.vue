@@ -28,7 +28,8 @@
             </div>
             <div class="m-new-list" v-show="isNewEvent">
                 <div class="m-new-list-item" v-for="(item, i) in monthList" :key="i">
-                    <div class="u-month">{{ item.month }}月</div>
+                    <div class="u-month" v-if="item.month">{{ item.month }}月</div>
+                    <div class="u-month" v-else>特殊活动</div>
                     <div class="m-month-list">
                         <a
                             class="u-item"
