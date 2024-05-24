@@ -6,7 +6,7 @@ const Index = () => import("./Index.vue");
 Vue.use(VueRouter);
 
 const routes = [
-    { name: "index", path: "/", component: Index },
+    { name: "index", path: "/:year?", component: Index },
 ];
 
 const router = new VueRouter({
