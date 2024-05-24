@@ -54,16 +54,25 @@ export default {
             types: { ...exams },
             showId: 1,
             show: false,
-            showYear: "2023",
+            showYear: "2024",
         };
     },
     watch: {
         pathId: {
             immediate: true,
             handler: function (id) {
-                Object.keys(this.type).forEach((index) => {
-                    if (this.type[index].key == id) this.showId = index;
-                });
+                id &&
+                    Object.keys(this.type).forEach((index) => {
+                        if (this.type[index].key == id) this.showId = index;
+                    });
+            },
+        },
+        year: {
+            immediate: true,
+            handler: function (year) {
+                if (!this.types[year]) {
+                    this.$router.push({ name: "index", params: { year: "2022" } });
+                }
             },
         },
     },
@@ -84,10 +93,10 @@ export default {
             return this.$route.query.paper;
         },
         year() {
-            return this.$route.query.year || this.showYear;
+            return this.$route.params.year || this.showYear;
         },
         type() {
-            return this.types[this.year];
+            return this.types[this.year] || [];
         },
         paperList() {
             const id = ~~this.showId;
@@ -103,7 +112,7 @@ export default {
     methods: {
         changeExam(i) {
             this.showId = i;
-            this.$router.push({ path: "/", query: { paper: this.type[i].key } });
+            this.$router.push({ name: "index", params: { year: this.year }, query: { paper: this.type[i].key } });
             window.scrollTo(0, 0);
         },
         changeShow() {
@@ -113,7 +122,7 @@ export default {
             this.showYear = year;
             this.show = false;
             this.showId = 1;
-            this.$router.push({ name: "index", params: { year } });
+            this.$router.push({ name: "index", params: { year: year } });
             window.scrollTo(0, 0);
         },
     },
