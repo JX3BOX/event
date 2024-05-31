@@ -15,7 +15,7 @@
                 <a
                     class="u-item"
                     target="_blank"
-                    :href="eventLink + item.link"
+                    :href="item.link"
                     v-for="(item, i) in list"
                     :key="i"
                     @mouseover="showName(item.name)"
