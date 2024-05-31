@@ -63,7 +63,7 @@ export default {
             eventLink: __Root + "event",
             show: false,
             name: "",
-            isNewEvent: false,
+            isNewEvent: true,
             monthList: [],
         };
     },
@@ -83,7 +83,12 @@ export default {
     },
     mounted() {
         this.load();
-        this.isNewEvent = localStorage.getItem("isNewEvent") == "true" ? true : false;
+        const isNewEvent = localStorage.getItem("isNewEvent");
+        if (!isNewEvent) {
+            this.isNewEvent = true;
+        } else {
+            this.isNewEvent = isNewEvent == "false" ? false : true;
+        }
     },
     methods: {
         showName(name) {
