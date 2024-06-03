@@ -51,7 +51,7 @@ export default {
             score: "",
             userAnswers: {},
             isSubmitted: false,
-            loading: false,
+            loading: false, 
         };
     },
     computed: {

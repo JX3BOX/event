@@ -5,10 +5,10 @@
             <span class="u-title">切换试卷</span>
             <div class="m-list">
                 <span
-                    v-for="(item, i) in type"
-                    :key="i"
-                    :class="['u-paper', { active: showId == i }]"
-                    @click="changeExam(i)"
+                    v-for="(item, id) in exam"
+                    :key="id"
+                    :class="['u-paper', { active: showId == id }]"
+                    @click="changeExam(id)"
                 >
                     {{ item.name }}
                 </span>
@@ -29,7 +29,7 @@
             <div class="m-title">往届考题</div>
             <div class="m-content">
                 <span
-                    v-for="(item, key) in types"
+                    v-for="(item, key) in exams"
                     :key="key"
                     @click="changeYear(key)"
                     class="u-year"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { exams } from "@/assets/data/exam.json";
+import { exams, papers } from "@/assets/data/exam.json";
 import Paper from "./Paper.vue";
 export default {
     name: "Index",
@@ -51,43 +51,33 @@ export default {
     components: { Paper },
     data: function () {
         return {
-            types: { ...exams },
             showId: 1,
             show: false,
             showYear: "2024",
+            papers,
+            exams,
         };
     },
-    watch: {
-        pathId: {
-            immediate: true,
-            handler: function (id) {
-                id &&
-                    Object.keys(this.type).forEach((index) => {
-                        if (this.type[index].key == id) this.showId = index;
-                    });
-            },
-        },
-        year: {
-            immediate: true,
-            handler: function (year) {
-                if (!this.types[year]) {
-                    this.$router.push({ name: "index", params: { year: "2022" } });
-                }
-            },
-        },
+    mounted() {
+        if (!this.exams[this.showYear]) {
+            this.$router.push({ name: "index", params: { year: "2023" } });
+        }
     },
     computed: {
+        exam() {
+            return this.exams[this.year];
+        },
         showKey() {
-            return this.type[this.showId].key;
+            return this.exam[this.showId].key;
         },
         showColor() {
-            return this.type[this.showId].color;
+            return this.papers[this.showId].color;
         },
         showBackground() {
-            return this.type[this.showId].background;
+            return this.papers[this.showId].background;
         },
         showFont() {
-            return this.type[this.showId].font;
+            return this.papers[this.showId].font;
         },
         pathId() {
             return this.$route.query.paper;
@@ -95,24 +85,25 @@ export default {
         year() {
             return this.$route.params.year || this.showYear;
         },
-        type() {
-            return this.types[this.year] || [];
-        },
         paperList() {
-            const id = ~~this.showId;
-            const last = id - 1 == 0 ? Object.keys(this.type).length : id - 1;
-            const next = id + 1 > 7 ? 1 : id + 1;
+            const id = ~~this.showId === 0 ? 1 : ~~this.showId;
+            const count = Object.keys(this.exam).length;
+            const last = id - 1 === 0 ? count : id - 1;
+            const next = id + 1 > count ? 1 : id + 1;
+            const exam_last = Object.assign({}, this.papers[last], this.exam[last]);
+            const exam_next = Object.assign({}, this.papers[next], this.exam[next]);
+            const exam_id = Object.assign({}, this.papers[id], this.exam[id]); 
             return {
-                1: this.type[last],
-                2: this.type[id],
-                3: this.type[next],
+                1: exam_last,
+                2: exam_id,
+                3: exam_next,
             };
         },
     },
     methods: {
-        changeExam(i) {
-            this.showId = i;
-            this.$router.push({ name: "index", params: { year: this.year }, query: { paper: this.type[i].key } });
+        changeExam(id) {
+            this.showId = id;
+            this.$router.push({ name: "index", params: { year: this.year }, query: { paper: this.exam[id].key } });
             window.scrollTo(0, 0);
         },
         changeShow() {

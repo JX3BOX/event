@@ -5,12 +5,10 @@ const Index = () => import("./Index.vue");
 
 Vue.use(VueRouter);
 
-const routes = [
-    { name: "index", path: "/:year?", component: Index },
-];
+const routes = [{ name: "index", path: "/:year?", component: Index }];
 
 const router = new VueRouter({
     routes,
-});
+}); 
 
 export default router;
