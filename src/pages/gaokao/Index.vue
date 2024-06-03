@@ -53,15 +53,14 @@ export default {
         return {
             showId: 1,
             show: false,
-            showYear: "2024",
+            showYear: "",
             papers,
             exams,
         };
     },
     mounted() {
-        if (!this.exams[this.showYear]) {
-            this.$router.push({ name: "index", params: { year: "2023" } });
-        }
+        const year = Object.keys(this.exams).reverse()[0];
+        this.$router.push({ name: "index", params: { year } });
     },
     computed: {
         exam() {
@@ -92,7 +91,7 @@ export default {
             const next = id + 1 > count ? 1 : id + 1;
             const exam_last = Object.assign({}, this.papers[last], this.exam[last]);
             const exam_next = Object.assign({}, this.papers[next], this.exam[next]);
-            const exam_id = Object.assign({}, this.papers[id], this.exam[id]); 
+            const exam_id = Object.assign({}, this.papers[id], this.exam[id]);
             return {
                 1: exam_last,
                 2: exam_id,
