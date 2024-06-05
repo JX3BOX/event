@@ -74,8 +74,8 @@
                                 <span class="title">{{ play.fb.title }}</span>
                                 <span class="desc">{{ play.fb.desc }}</span>
                                 <span class="info" style="margintop: 39px">{{ play.fb.info }}</span>
-                                <a href="https://www.jx3box.com/fb/#/npc" target="_blank" class="boss alink"></a>
-                                <a href="https://www.jx3box.com/fb/#/" target="_blank" class="alink"></a>
+                                <a href="https://www.jx3box.com/fb/npc" target="_blank" class="boss alink"></a>
+                                <a href="https://www.jx3box.com/fb/" target="_blank" class="alink"></a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                 <span class="title">{{ play.baizhan.title }}</span>
                                 <span class="desc">{{ play.baizhan.desc }}</span>
                                 <span class="info" style="margintop: 17px">{{ play.baizhan.info }}</span>
-                                <a href="https://www.jx3box.com/fb/#/?fb_zlp=%E6%A8%AA%E5%88%80%E6%96%AD%E6%B5%AA&fb_name=%E7%99%BE%E6%88%98%E5%BC%82%E9%97%BB%E5%BD%95" target="_blank" class="alink" style="bottom: 10px"></a>
+                                <a href="https://www.jx3box.com/fb/?fb_zlp=%E9%9B%BE%E6%B5%B7%E5%AF%BB%E9%BE%99&fb_name=%E7%99%BE%E6%88%98%E5%BC%82%E9%97%BB%E5%BD%95" target="_blank" class="alink" style="bottom: 10px"></a>
                             </div>
                         </div>
                     </div>

@@ -159,6 +159,7 @@
         yt: 15;
         yz: 16;
         dz: 17;
+        wl: 18;
     };
     .m-content {
         position: relative;
@@ -230,7 +231,7 @@
         .size(1024px,64px);
         .lt(50%,890px);
         .ml(-512px);
-        gap: 10px;
+        gap: 8px;
         justify-content: center;
         padding: 12px 110px;
         align-items: center;
@@ -238,7 +239,8 @@
         background: url("@{kv_welcome}school/school-button.png") center top no-repeat;
         .u-name {
             .size(35px);
-            background-image: url("@{kv_welcome}school/name.png");
+            flex-shrink: 0;
+            background-image: url("@{kv_welcome}school/name.png?");
         }
         each(@mp, {
             .u-@{key} {
@@ -286,7 +288,7 @@
                 .@{key} {
                     flex-shrink: 0;
                     position: relative;
-                    background-image: url("@{kv_welcome}play/@{key}.png");
+                    background-image: url("@{kv_welcome}play/@{key}.png?");
                     background-repeat: no-repeat;
                     background-size: @value; 
                     .clip;
