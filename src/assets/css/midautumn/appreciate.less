@@ -1,0 +1,144 @@
+.c-midAutumn-appreciate {
+    padding-top: 161px;
+    box-sizing: border-box;
+    overflow: hidden;
+    .u-btn {
+        text-align: right;
+        .mb(30px);
+        .u-item {
+            .fz(14px,15.53px);
+            .bold(400);
+            color: #fff;
+            margin: 0 5px;
+            cursor: pointer;
+            opacity: 0.5;
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+    .u-list {
+        .h(calc(100vh - 273px));
+        overflow: auto;
+        .flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding-bottom: 30px;
+        box-sizing: border-box;
+        &::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background-color: #99a9bf;
+        }
+
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            background-color: #d3dce6;
+        }
+
+        .u-item {
+            .size(200px,434px);
+            .flex;
+            justify-content: space-between;
+            .fz(14px, 15.53px);
+            .bold(400);
+            color: #fff;
+            cursor: pointer;
+            .u-left,
+            .u-right {
+                .flex;
+                // flex-direction: column;
+                word-wrap: break-word;
+            }
+            .u-left {
+                .w(20px);
+                flex-direction: column-reverse;
+                .ml(20px);
+                .mb(20px);
+            }
+            .u-right {
+                .mr(20px);
+                .mt(20px);
+                flex-direction: row-reverse;
+                div {
+                    .w(20px);
+                }
+                .u-more {
+                    .flex;
+                    flex-direction: column;
+                    .w(5px);
+                    line-height: 6px;
+                }
+            }
+        }
+    }
+
+    // 详细诗词
+    .m-poem-main {
+        color: #fff;
+        .u-back {
+            padding: 4px 12px 4px 12px;
+            gap: 10px;
+            border-radius: 4px;
+            border: 2px solid #fff;
+            opacity: 0.5px;
+            .size(46px, 30px);
+
+            cursor: pointer;
+            .flex;
+            .flex(o);
+        }
+        .u-content {
+            .fz(24px,36px);
+            .bold(400);
+            .mt(163px);
+            .mb(54px);
+        }
+        .u-footer {
+            .flex;
+            justify-content: space-between;
+            .u-left {
+                .flex;
+                .fz(16px, 36px);
+                .bold(400);
+                align-items: center;
+                .u-tips {
+                    .flex;
+                    align-items: center;
+                    span {
+                        .db;
+                        .size(30px);
+                        background-color: #d9d9d9;
+                        border-radius: 50%;
+                        margin: 0 4px;
+                    }
+                }
+            }
+            .u-right {
+                .flex;
+                .fz(16px, 20px);
+                .bold(400);
+                align-items: center;
+                img {
+                    vertical-align: middle;
+                    .mr(4px);
+                }
+            }
+        }
+    }
+}
+/* 定义过渡效果 */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
