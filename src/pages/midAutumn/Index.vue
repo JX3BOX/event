@@ -17,8 +17,6 @@
 </template>
 
 <script>
-const KEY = "midautumn";
-
 export default {
     name: "Index",
     inject: ["__imgRoot"],
@@ -36,13 +34,9 @@ export default {
         },
     },
     methods: {
-        init() {},
         goToDetail(val) {
             this.$router.push({ name: "detail", query: { a: val } });
         },
-    },
-    mounted() {
-        this.init();
     },
 };
 </script>
