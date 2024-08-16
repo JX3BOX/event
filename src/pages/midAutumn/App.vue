@@ -2,7 +2,10 @@
     <!-- 中秋诗词专题页 -->
     <div class="p-event midAutumn" :class="'v-' + page_name">
         <Header :overlayEnable="true"></Header>
-        <router-view></router-view>
+        <!-- <router-view></router-view> -->
+        <transition name="fade" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -28,8 +31,19 @@ export default {
 };
 </script>
 <style lang="less">
+@import "~@/assets/css/common/animation.less";
 @import "~@/assets/css/midautumn/font.less";
-body{
+body {
     font-family: FZLTSJW;
+    background-color: rgba(23, 36, 58, 0.95);
+    transition: all 1s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 1s ease;
 }
 </style>
