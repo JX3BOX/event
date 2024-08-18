@@ -73,6 +73,10 @@ export default {
         poem(e) {
             this.poemData = e.item;
             this.bgStyle = `background-color:${color.color[e.i].color}`;
+            this.$nextTick(() => {
+                let dom = document.querySelector(".u-bg"); //获取组件
+                dom && (dom.scrollTop = 0);
+            });
         },
         back() {
             this.poemData = null;

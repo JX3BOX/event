@@ -8,7 +8,7 @@
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
 -->
 <template>
-    <div class="c-midAutumn-appreciate">
+    <div class="c-midAutumn-appreciate" :style="{ 'padding-top': showPoem ? '0' : '161px' }">
         <transition name="fade" mode="out-in">
             <div v-if="!showPoem">
                 <!-- 投票/参赛 -->
