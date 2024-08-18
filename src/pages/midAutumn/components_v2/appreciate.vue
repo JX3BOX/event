@@ -2,7 +2,7 @@
  * @Author: zhusha 
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-16 21:33:22
+ * @LastEditTime: 2024-08-18 12:44:08
  * @Description: 诗词鉴赏列表
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
@@ -62,38 +62,30 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getTopic, getBreadcrumb } from "@/service/topic";
-const KEY = "poems";
+
 export default {
     components: {},
+    props: {
+        list: {
+            type: Array,
+            default: () => [],
+        },
+    },
     data() {
         return {
-            list: [
-                // {
-                //     title: "唐·薛莹《秋日湖上》1",
-                //     content: "落日五湾游，烟波处处愁。浮沉千古事，谁与问东流？",
-                // },
-            ],
+            // list: [
+            //     // {
+            //     //     title: "唐·薛莹《秋日湖上》1",
+            //     //     content: "落日五湾游，烟波处处愁。浮沉千古事，谁与问东流？",
+            //     // },
+            // ],
             poemData: null,
             showPoem: false,
         };
     },
-    created() {
-        this.init();
-    },
+    created() {},
     mounted() {},
     methods: {
-        init() {
-            getBreadcrumb("poems_session").then((number) => {
-                getTopic(KEY + "_" + number).then((res) => {
-                    let arr = res.data.data;
-                    for (let i = 0; i < 19; i++) {
-                        arr.push(arr[0]);
-                    }
-                    this.list = arr;
-                });
-            });
-        },
         getText(val, index) {
             let splitArr = val.split(/[。？！]/);
             let arr = [];

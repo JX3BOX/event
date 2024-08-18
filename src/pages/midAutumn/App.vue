@@ -4,7 +4,7 @@
         <Header :overlayEnable="true"></Header>
         <!-- <router-view></router-view> -->
         <transition name="fade" mode="out-in">
-            <router-view></router-view>
+            <router-view class="c-midAutumn"></router-view>
         </transition>
     </div>
 </template>
@@ -33,7 +33,7 @@ export default {
 <style lang="less">
 @import "~@/assets/css/common/animation.less";
 @import "~@/assets/css/midautumn/font.less";
-body {
+.c-midAutumn {
     font-family: FZLTSJW;
     background-color: rgba(23, 36, 58, 0.95);
     transition: all 1s ease;
