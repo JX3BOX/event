@@ -1,7 +1,7 @@
 <template>
     <div class="p-midautumn-detail">
         <div class="u-bg" :style="bgStyle">
-            <Nav :poemName="poemData?.title || ''"></Nav>
+            <Nav :poemName="poemData?.title || ''" @navChange="back"></Nav>
             <div class="u-main-box">
                 <transition name="fade" mode="out-in">
                     <Introduce v-if="achieve_id == 1" :data="introduce"></Introduce>
@@ -72,7 +72,7 @@ export default {
         },
         poem(e) {
             this.poemData = e.item;
-            this.bgStyle = `background-color:${color.color[e.i].color}`;
+            this.bgStyle = `background-color:${color.color[e.i].color};opacity: 0.95`;
             this.$nextTick(() => {
                 let dom = document.querySelector(".u-bg"); //获取组件
                 dom && (dom.scrollTop = 0);

@@ -2,7 +2,7 @@
  * @Author: zhusha 
  * @Date: 2024-08-10 00:33:16
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-16 17:28:30
+ * @LastEditTime: 2024-08-20 17:17:53
  * @Description: 导航组件
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
@@ -69,6 +69,7 @@ export default {
     mounted() {},
     methods: {
         navChange(val) {
+            this.$emit("navChange", val);
             this.$router.push({
                 query: {
                     a: val,

@@ -2,7 +2,7 @@
  * @Author: zhusha 
  * @Date: 2024-08-10 00:33:37
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-18 12:44:42
+ * @LastEditTime: 2024-08-20 16:54:46
  * @Description: 活动介绍
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
@@ -12,6 +12,7 @@
         <div class="u-content">
             <div v-for="item in data" :key="item.id" v-html="item.desc"></div>
         </div>
+        <div class="u-tips">介<br />绍</div>
     </div>
 </template>
 
