@@ -2,7 +2,7 @@
  * @Author: zhusha 
  * @Date: 2024-08-14 20:17:51
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-16 16:14:27
+ * @LastEditTime: 2024-08-20 20:41:44
  * @Description: 中秋诗词专题PAGE4设计稿
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
@@ -22,21 +22,10 @@ export default {
     inject: ["__imgRoot"],
     components: {},
     data: function () {
-        return {
-            active: 0,
-        };
+        return {};
     },
     computed: {},
-    watch: {
-        "$route.query": {
-            handler: function (val) {
-                if (val.a) {
-                    this.active = val.a;
-                }
-            },
-            immediate: true,
-        },
-    },
+
     methods: {
         goToDetail() {
             // this.$router.push({
@@ -47,7 +36,7 @@ export default {
             this.$router.push({
                 path: "detail",
                 query: {
-                    a: 1,
+                    a: 2,
                 },
             });
         },

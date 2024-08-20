@@ -2,7 +2,7 @@
  * @Author: zhusha 
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-20 20:21:50
+ * @LastEditTime: 2024-08-20 20:39:27
  * @Description: 诗词鉴赏列表
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
@@ -47,7 +47,9 @@
         <div class="m-poem-main" v-if="showPoem">
             <div class="u-back" @click="back"><i class="el-icon-arrow-left"></i></div>
             <!-- 诗词内容区域 -->
-            <div class="u-content">{{ poemData.desc }}</div>
+            <div class="u-content">
+                <div v-for="(item, i) in getText(poemData.desc)" :key="i">{{ item }}</div>
+            </div>
             <div class="u-footer">
                 <div class="u-left">
                     <div class="u-tips">————<span class="u-circle"></span></div>
@@ -132,7 +134,7 @@ export default {
                 if (item) {
                     arr.push(item);
                 }
-                if (index > 10) {
+                if (index && index > 10) {
                     arr.push(item);
                 }
             });

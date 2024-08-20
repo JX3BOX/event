@@ -30,7 +30,7 @@
             >
                 {{ item.text }}
             </div>
-            <div class="u-select-poem" v-show="poemName">{{ poemName }}</div>
+            <div class="u-select-poem" v-show="poemName">《{{ poemName }}》</div>
         </div>
     </div>
 </template>
