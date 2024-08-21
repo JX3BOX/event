@@ -1,11 +1,11 @@
 .c-midAutumn-appreciate {
-    padding-top: 161px;
+    // padding-top: 161px;
     box-sizing: border-box;
     // overflow: auto;
     .u-btn {
         font-family: "Microsoft YaHei", Arial, sans-serif;
         text-align: right;
-        .mb(30px);
+        .mb(50px);
         .u-item {
             .fz(14px,15.53px);
             .bold(400);
@@ -73,15 +73,19 @@
                 flex-direction: row-reverse;
                 div {
                     .w(20px);
+                    .flex;
+                    flex-direction: column;
                 }
+
                 .u-more {
                     .flex;
                     flex-direction: column;
-                    .w(5px);
+                    .w(4px);
                     line-height: 6px;
                 }
             }
             .u-number {
+                font-family: "Microsoft YaHei", Arial, sans-serif;
                 .pa;
                 .fz(14px, 15.53px);
                 .bold(400);
@@ -106,10 +110,14 @@
             .flex(o);
         }
         .u-content {
-            .fz(24px,36px);
+            .fz(24px,42px);
             .bold(400);
             .mt(163px);
             .mb(54px);
+            // letter-spacing: 18px;
+            .warp {
+                line-height: 32px;
+            }
         }
         .u-footer {
             .flex;
@@ -135,6 +143,7 @@
                 }
             }
             .u-right {
+                font-family: "Microsoft YaHei", Arial, sans-serif;
                 .flex;
                 .fz(16px, 20px);
                 .bold(400);
@@ -154,6 +163,7 @@
         .fz(256px,284px);
         .bold(400);
         color: rgba(255, 255, 255, 0.5);
+        z-index: -1;
     }
 }
 /*

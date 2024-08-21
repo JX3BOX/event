@@ -37,6 +37,7 @@ export default {
     font-family: FZLTSJW;
     background-color: rgba(23, 36, 58, 0.95);
     transition: all 1s ease;
+    min-width: 1366px;
 }
 .fade-enter-from,
 .fade-leave-to {

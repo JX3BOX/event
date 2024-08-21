@@ -2,13 +2,13 @@
  * @Author: zhusha 
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-20 20:39:27
+ * @LastEditTime: 2024-08-21 14:46:32
  * @Description: 诗词鉴赏列表
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
 -->
 <template>
-    <div class="c-midAutumn-appreciate" :style="{ 'padding-top': showPoem ? '0' : '161px' }">
+    <div class="c-midAutumn-appreciate">
         <transition name="fade" mode="out-in">
             <div v-if="!showPoem">
                 <!-- 投票/参赛 -->
@@ -32,8 +32,13 @@
                         <div class="u-right">
                             <span v-for="(item2, i2) in getText(item.desc, i)" :key="i2">
                                 <div v-if="i2 < 6">
-                                    <span v-if="i2 < 5">{{ item2 }}</span>
-                                    <span v-if="i2 == 5" class="u-more">......</span>
+                                    <span v-if="i2 < 5" class="u-text"
+                                        >{{ item2.length > 16 ? item2.substring(0, 16) : item2 }}
+
+                                        <span v-if="item2.length > 16" class="u-more">...</span>
+                                        <span v-else>。</span>
+                                    </span>
+                                    <span v-if="i2 == 5" class="u-more">...</span>
                                 </div>
                             </span>
                         </div>
@@ -48,7 +53,14 @@
             <div class="u-back" @click="back"><i class="el-icon-arrow-left"></i></div>
             <!-- 诗词内容区域 -->
             <div class="u-content">
-                <div v-for="(item, i) in getText(poemData.desc)" :key="i">{{ item }}</div>
+                <div
+                    class="u-desc-item"
+                    :class="{ warp: item.length > 43 }"
+                    v-for="(item, i) in getText(poemData.desc)"
+                    :key="i"
+                >
+                    {{ item }}。
+                </div>
             </div>
             <div class="u-footer">
                 <div class="u-left">
@@ -129,6 +141,8 @@ export default {
         },
         getText(val, index) {
             let splitArr = val.split(/[。？！]/);
+            // let splitArr = val.split(/(?<=。)|(?=。)/);
+            console.log(splitArr);
             let arr = [];
             splitArr.forEach((item, i) => {
                 if (item) {
