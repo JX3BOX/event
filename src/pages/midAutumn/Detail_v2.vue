@@ -61,10 +61,6 @@ export default {
                             this.article.push(item);
                         }
                     });
-
-                    // for (let i = 0; i < 19; i++) {
-                    //     this.article.push(this.article[0]);
-                    // }
                 });
             });
         },

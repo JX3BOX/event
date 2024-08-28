@@ -2,7 +2,7 @@
  * @Author: zhusha 
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-21 14:46:32
+ * @LastEditTime: 2024-08-28 19:56:49
  * @Description: 诗词鉴赏列表
  * 
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
@@ -142,13 +142,9 @@ export default {
         getText(val, index) {
             let splitArr = val.split(/[。？！]/);
             // let splitArr = val.split(/(?<=。)|(?=。)/);
-            console.log(splitArr);
             let arr = [];
             splitArr.forEach((item, i) => {
                 if (item) {
-                    arr.push(item);
-                }
-                if (index && index > 10) {
                     arr.push(item);
                 }
             });
