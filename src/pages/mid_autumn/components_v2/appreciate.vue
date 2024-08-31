@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-28 19:56:49
+ * @LastEditTime: 2024-08-31 23:07:11
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -42,6 +42,11 @@
                                 </div>
                             </span>
                         </div>
+                        <div class="u-vote">
+                            <el-tooltip effect="dark" content="投票" placement="top">
+                                <div class="u-number"><img src="../../../assets/img/mdi_vote.svg" /><b>20</b></div>
+                            </el-tooltip>
+                        </div>
                         <!-- 票数 -->
                         <!-- <div class="u-number">20</div> -->
                     </div>
@@ -67,7 +72,9 @@
                     <div class="u-tips">————<span class="u-circle"></span></div>
                     <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div>
                 </div>
-                <div class="u-right"><img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b></div>
+                <div class="u-right">
+                    <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b>
+                </div>
             </div>
             <div class="u-title-tips">
                 {{ tips }}

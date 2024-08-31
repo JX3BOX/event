@@ -17,7 +17,7 @@
             &.active {
                 opacity: 1;
             }
-            &:hover{
+            &:hover {
                 opacity: 1;
             }
         }
@@ -56,7 +56,7 @@
             .bold(400);
             color: #fff;
             cursor: pointer;
-
+            .pr;
             .r(12px);
             .u-left,
             .u-right {
@@ -70,6 +70,7 @@
                 .ml(20px);
                 .mb(20px);
                 line-height: 21px;
+                overflow: hidden; /* 文字长度超出限定宽度，则隐藏超出的内容 */
             }
             .u-right {
                 .mr(20px);
@@ -88,13 +89,28 @@
                     line-height: 6px;
                 }
             }
-            .u-number {
+            .u-vote {
                 font-family: "Microsoft YaHei", Arial, sans-serif;
                 .pa;
-                .fz(14px, 15.53px);
-                .bold(400);
                 color: #fff;
                 .rb(10px);
+                .fz(14px);
+                .bold(400);
+                cursor: pointer;
+                img {
+                    vertical-align: middle;
+                    .mr(4px);
+                    .size(14px);
+                }
+                border: 1px solid #fff;
+                background-color: rgba(0, 0, 0, 0.2);
+                .r(3px);
+                padding: 2px 10px;
+                .u-number {
+                    .flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
         }
     }
@@ -152,16 +168,17 @@
                 .fz(16px, 20px);
                 .bold(400);
                 align-items: center;
+                cursor: pointer;
                 img {
                     vertical-align: middle;
                     .mr(4px);
                 }
-                border:1px solid #fff;
-                background-color:rgba(0,0,0,.2);
+                border: 1px solid #fff;
+                background-color: rgba(0, 0, 0, 0.2);
                 .r(3px);
-                padding:0 10px;
-                .u-right-text{
-                    margin-right:5px;
+                padding: 0 10px;
+                .u-right-text {
+                    margin-right: 5px;
                 }
             }
         }
