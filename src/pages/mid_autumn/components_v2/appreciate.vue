@@ -43,7 +43,7 @@
                             </span>
                         </div>
                         <!-- 票数 -->
-                        <div class="u-number">20</div>
+                        <!-- <div class="u-number">20</div> -->
                     </div>
                 </div>
             </div></transition
