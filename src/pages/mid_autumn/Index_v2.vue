@@ -1,17 +1,17 @@
 <!--
- * @Author: zhusha 
+ * @Author: zhusha
  * @Date: 2024-08-14 20:17:51
  * @LastEditors: zhusha
  * @LastEditTime: 2024-08-20 20:41:44
  * @Description: 中秋诗词专题PAGE4设计稿
- * 
- * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
+ *
+ * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
-    <div class="p-event-midAutumn">
+    <div class="p-event-midAutumn" @click="goToDetail" >
         <!-- 首页展示 -->
         <div class="m-box">
-            <img :src="`${__imgRoot}tittle.png`" alt="" @click="goToDetail" />
+            <img :src="`${__imgRoot}tittle.png`" alt=""/>
         </div>
     </div>
 </template>

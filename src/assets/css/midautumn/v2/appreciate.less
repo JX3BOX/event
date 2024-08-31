@@ -13,7 +13,11 @@
             margin: 0 5px;
             cursor: pointer;
             opacity: 0.5;
+            transition: all 0.2s;
             &.active {
+                opacity: 1;
+            }
+            &:hover{
                 opacity: 1;
             }
         }
@@ -151,6 +155,13 @@
                 img {
                     vertical-align: middle;
                     .mr(4px);
+                }
+                border:1px solid #fff;
+                background-color:rgba(0,0,0,.2);
+                .r(3px);
+                padding:0 10px;
+                .u-right-text{
+                    margin-right:5px;
                 }
             }
         }

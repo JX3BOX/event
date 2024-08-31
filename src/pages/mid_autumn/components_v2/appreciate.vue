@@ -1,11 +1,11 @@
 <!--
- * @Author: zhusha 
+ * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
  * @LastEditTime: 2024-08-28 19:56:49
  * @Description: 诗词鉴赏列表
- * 
- * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
+ *
+ * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
     <div class="c-midAutumn-appreciate">
@@ -14,7 +14,7 @@
                 <!-- 投票/参赛 -->
                 <div class="u-btn">
                     <span class="u-item active">投票</span>
-                    <span class="u-item">参赛</span>
+                    <a class="u-item" href="/community?category=诗词" target="_blank">参赛</a>
                 </div>
                 <!-- 诗词区域 -->
                 <div class="u-list">
@@ -67,7 +67,7 @@
                     <div class="u-tips">————<span class="u-circle"></span></div>
                     <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div>
                 </div>
-                <div class="u-right"><img src="../../../assets/img/mdi_vote.svg" />20</div>
+                <div class="u-right"><img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b></div>
             </div>
             <div class="u-title-tips">
                 {{ tips }}
