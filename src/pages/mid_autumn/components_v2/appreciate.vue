@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-01 00:24:43
+ * @LastEditTime: 2024-09-01 00:44:16
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -12,15 +12,18 @@
         <transition name="fade" mode="out-in">
             <div v-if="!showPoem">
                 <!-- 投票/参赛 -->
-                <div class="u-btn">
+                <!-- <div class="u-btn">
                     <span class="u-item active">投票</span>
-                    <a class="u-item" href="/community?category=诗词" target="_blank">参赛</a>
+                   
+                </div> -->
+                <div class="u-empty" v-if="!list.length">
+                    作品收集中，侠士可按照活动介绍中参赛方式前往魔盒网站茶馆论坛处提交作品~
+                    <div class="u-item">
+                        <a href="/community?category=诗词" target="_blank">快速前往 <i class="el-icon-right"></i></a>
+                    </div>
                 </div>
                 <!-- 诗词区域 -->
                 <div class="u-list">
-                    <div class="u-empty" v-if="!list.length">
-                        作品收集中，侠士可按照活动介绍中参赛方式前往魔盒网站茶馆论坛处提交作品~
-                    </div>
                     <div
                         class="u-item"
                         v-for="(item, i) in list"
