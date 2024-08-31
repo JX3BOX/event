@@ -1,11 +1,11 @@
 <!--
- * @Author: zhusha 
+ * @Author: zhusha
  * @Date: 2024-08-10 00:33:37
  * @LastEditors: zhusha
  * @LastEditTime: 2024-08-10 01:01:23
  * @Description: 活动介绍
- * 
- * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
+ *
+ * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
     <div class="c-midAutumn-introduce">

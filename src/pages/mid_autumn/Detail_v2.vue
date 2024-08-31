@@ -4,7 +4,7 @@
             <Nav :poemName="poemData?.title || ''" @navChange="back"></Nav>
             <div class="u-main-box">
                 <transition name="fade" mode="out-in">
-                    <Introduce v-if="achieve_id == 1" :data="introduce"></Introduce>
+                    <Introduce v-if="achieve_id == 1"></Introduce>
                     <Appreciate v-if="achieve_id == 2" :list="article" @poem="poem" @back="back"></Appreciate
                 ></transition>
             </div>
