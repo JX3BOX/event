@@ -65,12 +65,15 @@
                 word-wrap: break-word;
             }
             .u-left {
+                .flex;
                 .w(20px);
                 flex-direction: column-reverse;
                 .ml(20px);
                 .mb(20px);
                 line-height: 21px;
-                overflow: hidden; /* 文字长度超出限定宽度，则隐藏超出的内容 */
+                .u-text {
+                    writing-mode: vertical-lr;
+                }
             }
             .u-right {
                 .mr(20px);
@@ -129,10 +132,22 @@
             .flex;
             .flex(o);
         }
+        .u-author-info {
+            .mt(40px);
+            .u-title {
+                font-family: "Microsoft YaHei", Arial, sans-serif;
+                .fz(26px);
+                .bold(600);
+            }
+            .u-author {
+                .fz(18px);
+                .mt(10px);
+            }
+        }
         .u-content {
             .fz(24px,42px);
             .bold(400);
-            .mt(163px);
+            .mt(40px);
             .mb(54px);
             // letter-spacing: 18px;
             .warp {

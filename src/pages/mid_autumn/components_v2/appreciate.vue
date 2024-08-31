@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-08-31 23:07:11
+ * @LastEditTime: 2024-09-01 00:00:36
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -27,7 +27,7 @@
                     >
                         <div class="u-left">
                             <!-- {{ item.author }}{{ item.title.replace(/《/g, "︽").replace(/》/g, "︾") }} -->
-                            {{ item.author }}{{ "︽" + item.title + "︾" }}
+                            <span class="u-text">{{ item.author }}{{ "︽" + item.title + "︾" }}</span>
                         </div>
                         <div class="u-right">
                             <span v-for="(item2, i2) in getText(item.desc, i)" :key="i2">
@@ -42,7 +42,7 @@
                                 </div>
                             </span>
                         </div>
-                        <div class="u-vote">
+                        <div class="u-vote" @click.stop="vote(item, i)">
                             <el-tooltip effect="dark" content="投票" placement="top">
                                 <div class="u-number"><img src="../../../assets/img/mdi_vote.svg" /><b>20</b></div>
                             </el-tooltip>
@@ -56,6 +56,11 @@
         <!-- 详细诗词 -->
         <div class="m-poem-main" v-if="showPoem">
             <div class="u-back" @click="back"><i class="el-icon-arrow-left"></i></div>
+
+            <div class="u-author-info">
+                <div class="u-title">{{ poemData.title }}</div>
+                <div class="u-author">{{ poemData.author }}</div>
+            </div>
             <!-- 诗词内容区域 -->
             <div class="u-content">
                 <div
@@ -69,8 +74,8 @@
             </div>
             <div class="u-footer">
                 <div class="u-left">
-                    <div class="u-tips">————<span class="u-circle"></span></div>
-                    <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div>
+                    <!-- <div class="u-tips">————<span class="u-circle"></span></div>
+                    <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div> -->
                 </div>
                 <div class="u-right">
                     <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b>
@@ -131,6 +136,10 @@ export default {
     created() {},
     mounted() {},
     methods: {
+        vote(item, i) {
+            // this.$emit("vote", { item, i });
+            console.log(666);
+        },
         /**
          * 根据诗词标题截取
          *1 个字 截取1，2 截取12，3 截取23，4-99截取34
