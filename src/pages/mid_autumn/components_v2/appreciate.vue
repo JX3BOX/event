@@ -85,7 +85,11 @@
                 </div>
                 <div class="u-right">
                     <!-- <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b> -->
-                    <img width="120" height="120" :src="qrcode" alt="" />
+                    <img class="u-qrcode" :src="qrcode" alt="" />
+                    <div class="u-tips">
+                        <div>微信扫一扫参与投票</div>
+                        <div>有机会赢取故宫中秋好礼！</div>
+                    </div>
                 </div>
             </div>
             <div class="u-title-tips">

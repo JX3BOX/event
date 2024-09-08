@@ -165,48 +165,56 @@
                 line-height: 32px;
             }
         }
-        .u-footer {
+    }
+    .u-footer {
+        .flex;
+        justify-content: space-between;
+        .u-left {
             .flex;
-            justify-content: space-between;
-            .u-left {
-                .flex;
-                .fz(16px, 36px);
-                .bold(400);
-                align-items: center;
-                .u-title {
-                    font-family: "Microsoft YaHei", Arial, sans-serif;
-                }
-                .u-tips {
-                    .flex;
-                    align-items: center;
-                    span {
-                        .db;
-                        .size(30px);
-                        background-color: #d9d9d9;
-                        border-radius: 50%;
-                        margin: 0 12px;
-                    }
-                }
-            }
-            .u-right {
+            .fz(16px, 36px);
+            .bold(400);
+            align-items: center;
+            .u-title {
                 font-family: "Microsoft YaHei", Arial, sans-serif;
-                .flex;
-                .fz(16px, 20px);
-                .bold(400);
-                align-items: center;
-                // cursor: pointer;
-                img {
-                    vertical-align: middle;
-                    // .mr(4px);
-                }
-                border: 1px solid #fff;
-                background-color: rgba(0, 0, 0, 0.2);
-                .r(3px);
-                // padding: 0 10px;
-                // .u-right-text {
-                //     margin-right: 5px;
-                // }
             }
+            .u-tips {
+                .flex;
+                align-items: center;
+                span {
+                    .db;
+                    .size(30px);
+                    background-color: #d9d9d9;
+                    border-radius: 50%;
+                    margin: 0 12px;
+                }
+            }
+        }
+        .u-right {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            .flex;
+            flex-direction: column;
+            align-items: center;
+            .bold(400);
+            align-items: center;
+            cursor: pointer;
+            border: 1px solid #fff;
+            background-color: rgba(0, 0, 0, 0.2);
+            .r(3px);
+            box-sizing: border-box;
+
+            .u-tips {
+                .fz(13px);
+                .flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                padding: 5px;
+            }
+        }
+
+        .u-qrcode {
+            .size(100px,100px);
+            margin-top: 5px;
         }
     }
     .u-title-tips {
