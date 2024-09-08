@@ -152,6 +152,7 @@ export default {
                 if (val) {
                     getTopicQrcode(val, {
                         page: "pages/midautumn/poem/poem",
+                        vote_id: 14,
                     }).then((res) => {
                         this.qrcode = `${__cdn}${res.data.data}`;
                     });
