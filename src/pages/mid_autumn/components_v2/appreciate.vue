@@ -14,7 +14,7 @@
                 <!-- 投票/参赛 -->
                 <!-- <div class="u-btn">
                     <span class="u-item active">投票</span>
-                   
+
                 </div> -->
                 <div class="u-empty" v-if="!list.length">
                     作品收集中，侠士可按照活动介绍中参赛方式前往魔盒网站茶馆论坛处提交作品~
@@ -84,7 +84,8 @@
                     <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div> -->
                 </div>
                 <div class="u-right">
-                    <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b>
+                    <!-- <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b> -->
+                    <img width="120" height="120" :src="qrcode" alt="" />
                 </div>
             </div>
             <div class="u-title-tips">
@@ -96,6 +97,8 @@
 
 <script>
 import color from "@/assets/data/color.json";
+import { getTopicDetail, getTopicQrcode } from "@/service/topic";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     components: {},
@@ -112,6 +115,8 @@ export default {
             achieve_id: null,
             selectIndex: null,
             tips: "",
+
+            qrcode: "",
         };
     },
     watch: {
@@ -138,9 +143,19 @@ export default {
             },
             immediate: true,
         },
+        selectIndex: {
+            handler(val) {
+                if (val) {
+                    getTopicQrcode(val, {
+                        page: "pages/midautumn/poem/poem",
+                    }).then((res) => {
+                        this.qrcode = `${__cdn}${res.data.data}`;
+                    });
+                }
+            },
+            immediate: true,
+        },
     },
-    created() {},
-    mounted() {},
     methods: {
         vote(item, i) {
             // this.$emit("vote", { item, i });
@@ -174,15 +189,15 @@ export default {
         getColorStyle(i) {
             return color.color[i].color;
         },
-        poem(item, i) {
+        poem(item) {
             this.poemData = item;
             this.showPoem = true;
-            this.$emit("poem", { item, i });
+            this.$emit("poem", { item, i: item.id });
             this.getTipsText(item.title);
             this.$router.push({
                 query: {
                     a: this.achieve_id,
-                    i: i,
+                    i: item.id,
                 },
             });
         },
