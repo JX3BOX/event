@@ -48,11 +48,11 @@
                                 </div>
                             </span>
                         </div>
-                        <div class="u-vote" @click.stop="vote(item, i)">
+                        <!-- <div class="u-vote" @click.stop="vote(item, i)">
                             <el-tooltip effect="dark" content="投票" placement="top">
                                 <div class="u-number"><img src="../../../assets/img/mdi_vote.svg" /><b>20</b></div>
                             </el-tooltip>
-                        </div>
+                        </div> -->
                         <!-- 票数 -->
                         <!-- <div class="u-number">20</div> -->
                     </div>
