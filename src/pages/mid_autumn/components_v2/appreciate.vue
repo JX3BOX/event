@@ -2,13 +2,13 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-01 00:44:16
+ * @LastEditTime: 2024-09-09 09:50:04
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
-    <div class="c-midAutumn-appreciate">
+    <div class="c-midAutumn-appreciate" v-loading="loading">
         <transition name="fade" mode="out-in">
             <div v-if="!showPoem">
                 <!-- 投票/参赛 -->
@@ -16,7 +16,7 @@
                     <span class="u-item active">投票</span>
 
                 </div> -->
-                <div class="u-empty" v-if="!list.length">
+                <div class="u-empty" v-if="!list.length && !loading">
                     作品收集中，侠士可按照活动介绍中参赛方式前往魔盒网站茶馆论坛处提交作品~
                     <div class="u-item">
                         <a href="/community?category=诗词" target="_blank">快速前往 <i class="el-icon-right"></i></a>
@@ -101,25 +101,22 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getTopicDetail, getTopicQrcode } from "@/service/topic";
+import { getTopic, getBreadcrumb, getTopicDetail, getTopicQrcode } from "@/service/topic";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 
+const KEY = "poems";
 export default {
     components: {},
-    props: {
-        list: {
-            type: Array,
-            default: () => [],
-        },
-    },
+    props: {},
     data() {
         return {
             poemData: null,
             showPoem: false,
             achieve_id: null,
-            selectIndex: null,
+            select_id: null,
+            list: [],
             tips: "",
-
+            loading: false,
             qrcode: "",
         };
     },
@@ -130,29 +127,19 @@ export default {
                     this.achieve_id = val.a;
                 }
                 if (val.i) {
-                    this.selectIndex = val.i;
+                    this.select_id = val.i;
                 }
+                this.load();
             },
             immediate: true,
         },
-        list: {
-            handler: function (val) {
-                if (val.length > 0 && this.selectIndex) {
-                    this.showPoem = true;
-                    let item = val[this.selectIndex];
-                    this.poemData = item;
-                    this.getTipsText(item.title + "34eefdsf44");
-                    this.$emit("poem", { item, i: this.selectIndex });
-                }
-            },
-            immediate: true,
-        },
-        selectIndex: {
+
+        select_id: {
             handler(val) {
                 if (val) {
                     getTopicQrcode(val, {
                         page: "pages/midautumn/poem/poem",
-                        vote_id: 14,
+                        program_id: 14,
                     }).then((res) => {
                         this.qrcode = `${__cdn}${res.data.data}`;
                     });
@@ -165,13 +152,42 @@ export default {
         vote(item, i) {
             // this.$emit("vote", { item, i });
         },
+        load() {
+            if (this.list.length > 0) {
+                this.init();
+                return;
+            }
+            this.loading = true;
+            getBreadcrumb("poems_session").then((number) => {
+                getTopic(KEY + "_" + number).then((res) => {
+                    let arr = res.data.data;
+                    arr.forEach((item) => {
+                        if (item.subtype == "article") {
+                            this.list.push(item);
+                        }
+                    });
+                    this.loading = false;
+                    this.init();
+                });
+            });
+        },
+        init() {
+            let val = this.list;
+
+            if (val.length > 0 && this.select_id) {
+                this.showPoem = true;
+                let index = val.findIndex((item) => item.id == this.select_id);
+                this.poemData = val[index];
+                this.getTipsText(this.poemData.title);
+                this.$emit("poem", { item: this.poemData, i: this.select_id, c: index });
+            }
+        },
         /**
          * 根据诗词标题截取
          *1 个字 截取1，2 截取12，3 截取23，4-99截取34
          */
         getTipsText(title) {
             let text = title?.match(/[\u4e00-\u9fa5]/g) || [];
-            console.log(text, text.length);
             if (text.length == 3) {
                 this.tips = text[1] + text[2];
             } else if (text.length > 3) {
@@ -194,21 +210,23 @@ export default {
         getColorStyle(i) {
             return color.color[i].color;
         },
-        poem(item) {
+        poem(item, i) {
             this.poemData = item;
             this.showPoem = true;
-            this.$emit("poem", { item, i: item.id });
+            this.$emit("poem", { item, i: item.id, c: i });
             this.getTipsText(item.title);
             this.$router.push({
                 query: {
                     a: this.achieve_id,
                     i: item.id,
+                    c: i, //配色序号
                 },
             });
         },
         back() {
             this.poemData = null;
             this.showPoem = false;
+            this.select_id = null;
             this.$emit("back");
             this.$router.push({
                 query: {

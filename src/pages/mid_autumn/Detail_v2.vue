@@ -5,7 +5,7 @@
             <div class="u-main-box">
                 <transition name="fade" mode="out-in">
                     <Introduce v-if="achieve_id == 1"></Introduce>
-                    <Appreciate v-if="achieve_id == 2" :list="article" @poem="poem" @back="back"></Appreciate
+                    <Appreciate v-if="achieve_id == 2" @poem="poem" @back="back"></Appreciate
                 ></transition>
             </div>
         </div>
@@ -17,9 +17,7 @@ import Nav from "./components_v2/nav.vue";
 import Introduce from "./components_v2/introduce.vue";
 import Appreciate from "./components_v2/appreciate.vue";
 import color from "@/assets/data/color.json";
-import { getTopic, getBreadcrumb } from "@/service/topic";
 
-const KEY = "poems";
 export default {
     components: { Nav, Introduce, Appreciate },
     data() {
@@ -46,27 +44,14 @@ export default {
         },
     },
     created() {
-        this.init();
+        // this.init();
     },
     mounted() {},
     methods: {
-        init() {
-            getBreadcrumb("poems_session").then((number) => {
-                getTopic(KEY + "_" + number).then((res) => {
-                    let arr = res.data.data;
-                    arr.forEach((item) => {
-                        if (item.subtype == "introduce") {
-                            this.introduce.push(item);
-                        } else if (item.subtype == "article") {
-                            this.article.push(item);
-                        }
-                    });
-                });
-            });
-        },
+        init() {},
         poem(e) {
             this.poemData = e.item;
-            this.bgStyle = `background-color:${color.color[e.i].color};opacity: 0.95`;
+            this.bgStyle = `background-color:${color.color[e.c].color};opacity: 0.95`;
             this.$nextTick(() => {
                 let dom = document.querySelector(".u-bg"); //获取组件
                 dom && (dom.scrollTop = 0);
