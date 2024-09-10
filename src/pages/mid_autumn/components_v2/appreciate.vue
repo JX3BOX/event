@@ -2,14 +2,14 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-09 09:50:04
+ * @LastEditTime: 2024-09-11 00:51:56
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
     <div class="c-midAutumn-appreciate" v-loading="loading">
-        <transition name="fade" mode="out-in">
+      
             <div v-if="!showPoem">
                 <!-- 投票/参赛 -->
                 <!-- <div class="u-btn">
@@ -36,7 +36,7 @@
                             <span class="u-text">{{ item.author }}{{ "︽" + item.title + "︾" }}</span>
                         </div>
                         <div class="u-right">
-                            <span v-for="(item2, i2) in getText(item.desc, i)" :key="i2">
+                            <span v-for="(item2, i2) in getText(item.content, i)" :key="i2">
                                 <div v-if="i2 < 6">
                                     <span v-if="i2 < 5" class="u-text"
                                         >{{ item2.length > 16 ? item2.substring(0, 16) : item2 }}
@@ -57,51 +57,53 @@
                         <!-- <div class="u-number">20</div> -->
                     </div>
                 </div>
-            </div></transition
-        >
+            </div>
         <!-- 详细诗词 -->
-        <div class="m-poem-main" v-if="showPoem">
-            <div class="u-back" @click="back"><i class="el-icon-arrow-left"></i></div>
+        <transition name="fade" mode="out-in">
+            <div class="m-poem-main" v-if="showPoem">
+                <div class="u-back" @click="back"><i class="el-icon-arrow-left"></i></div>
 
-            <div class="u-author-info">
-                <div class="u-title">{{ poemData.title }}</div>
-                <div class="u-author">{{ poemData.author }}</div>
-            </div>
-            <!-- 诗词内容区域 -->
-            <div class="u-content">
-                <div
-                    class="u-desc-item"
-                    :class="{ warp: item.length > 43 }"
-                    v-for="(item, i) in getText(poemData.desc)"
-                    :key="i"
-                >
-                    {{ item }}。
+                <div class="u-author-info">
+                    <div class="u-title">{{ poemData.title }}</div>
+                    <div class="u-author">{{ poemData.sub_title }}</div>
                 </div>
-            </div>
-            <div class="u-footer">
-                <div class="u-left">
-                    <!-- <div class="u-tips">————<span class="u-circle"></span></div>
-                    <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div> -->
-                </div>
-                <div class="u-right">
-                    <!-- <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b> -->
-                    <img class="u-qrcode" :src="qrcode" alt="" />
-                    <div class="u-tips">
-                        <div>微信扫一扫参与投票</div>
-                        <div>有机会赢取故宫中秋好礼！</div>
+                <!-- 诗词内容区域 -->
+                <div class="u-content">
+                    <div
+                        class="u-desc-item"
+                        :class="{ warp: item.length > 43 }"
+                        v-for="(item, i) in getText(poemData.content)"
+                        :key="i"
+                    >
+                        {{ item }}。
                     </div>
                 </div>
-            </div>
-            <div class="u-title-tips">
-                {{ tips }}
-            </div>
-        </div>
+                <div class="u-footer">
+                    <div class="u-left">
+                        <!-- <div class="u-tips">————<span class="u-circle"></span></div>
+                    <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div> -->
+                    </div>
+                    <div class="u-right">
+                        <!-- <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b> -->
+                        <img class="u-qrcode" :src="qrcode" alt="" />
+                        <div class="u-tips">
+                            <div>微信扫一扫参与投票</div>
+                            <div>有机会赢取故宫中秋好礼！</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="u-title-tips">
+                    {{ tips }}
+                </div>
+            </div></transition
+        >
     </div>
 </template>
 
 <script>
 import color from "@/assets/data/color.json";
 import { getTopic, getBreadcrumb, getTopicDetail, getTopicQrcode } from "@/service/topic";
+import { getNewProgram, getProgramDetail } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 
 const KEY = "poems";
@@ -114,6 +116,7 @@ export default {
             showPoem: false,
             achieve_id: null,
             select_id: null,
+            program_id: null,
             list: [],
             tips: "",
             loading: false,
@@ -126,10 +129,13 @@ export default {
                 if (val.a) {
                     this.achieve_id = val.a;
                 }
+                if (val.p) {
+                    this.program_id = val.p;
+                }
                 if (val.i) {
                     this.select_id = val.i;
                 }
-                this.load();
+                this.load2();
             },
             immediate: true,
         },
@@ -139,6 +145,7 @@ export default {
                 if (val) {
                     getTopicQrcode(val, {
                         page: "pages/midautumn/poem/poem",
+                        // program_id: this.program_id,
                         program_id: 14,
                     }).then((res) => {
                         this.qrcode = `${__cdn}${res.data.data}`;
@@ -171,6 +178,13 @@ export default {
                 });
             });
         },
+        load2() {
+            getNewProgram().then((res) => {
+                console.log(res.data.data);
+                this.list = res.data.data.vote_items;
+                this.init();
+            });
+        },
         init() {
             let val = this.list;
 
@@ -179,7 +193,7 @@ export default {
                 let index = val.findIndex((item) => item.id == this.select_id);
                 this.poemData = val[index];
                 this.getTipsText(this.poemData.title);
-                this.$emit("poem", { item: this.poemData, i: this.select_id, c: index });
+                this.$emit("poem", { item: this.poemData, i: this.select_id, c: index, p: this.program_id });
             }
         },
         /**
@@ -188,12 +202,13 @@ export default {
          */
         getTipsText(title) {
             let text = title?.match(/[\u4e00-\u9fa5]/g) || [];
+            console.log(text);
             if (text.length == 3) {
                 this.tips = text[1] + text[2];
             } else if (text.length > 3) {
                 this.tips = text[2] + text[3];
             } else {
-                this.tips = text;
+                this.tips = title;
             }
         },
         getText(val, index) {
@@ -213,12 +228,13 @@ export default {
         poem(item, i) {
             this.poemData = item;
             this.showPoem = true;
-            this.$emit("poem", { item, i: item.id, c: i });
+            this.$emit("poem", { item, i: item.id, c: i, p: item.program_id });
             this.getTipsText(item.title);
             this.$router.push({
                 query: {
                     a: this.achieve_id,
                     i: item.id,
+                    p: item.program_id,
                     c: i, //配色序号
                 },
             });
