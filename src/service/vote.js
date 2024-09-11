@@ -1,5 +1,5 @@
 import { $next } from "@jx3box/jx3box-common/js/https";
-const api = "https://dev.next2.jx3box.com/api/next2";
+const api = "/api/next2";
 // 【用户】获取最新的一个公开的投票活动详情
 export function getNewProgram(params) {
     return $next().get(`${api}/vote-program/program/public/latest`, { params });
