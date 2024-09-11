@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-11 00:51:56
+ * @LastEditTime: 2024-09-11 10:28:52
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -135,7 +135,7 @@ export default {
                 if (val.i) {
                     this.select_id = val.i;
                 }
-                this.load2();
+                this.load();
             },
             immediate: true,
         },
@@ -159,29 +159,13 @@ export default {
         vote(item, i) {
             // this.$emit("vote", { item, i });
         },
+
         load() {
-            if (this.list.length > 0) {
-                this.init();
-                return;
-            }
             this.loading = true;
-            getBreadcrumb("poems_session").then((number) => {
-                getTopic(KEY + "_" + number).then((res) => {
-                    let arr = res.data.data;
-                    arr.forEach((item) => {
-                        if (item.subtype == "article") {
-                            this.list.push(item);
-                        }
-                    });
-                    this.loading = false;
-                    this.init();
-                });
-            });
-        },
-        load2() {
             getNewProgram().then((res) => {
                 console.log(res.data.data);
                 this.list = res.data.data.vote_items;
+                 this.loading = false;
                 this.init();
             });
         },
