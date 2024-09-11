@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-11 20:27:19
+ * @LastEditTime: 2024-09-11 20:31:56
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -219,7 +219,6 @@ export default {
                             }
                         });
                     }
-                    console.log(item);
                     arr.push(item);
                 }
             });
