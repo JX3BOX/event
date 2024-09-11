@@ -2,62 +2,61 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-11 10:28:52
+ * @LastEditTime: 2024-09-11 15:22:22
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
     <div class="c-midAutumn-appreciate" v-loading="loading">
-
-            <div v-if="!showPoem">
-                <!-- 投票/参赛 -->
-                <!-- <div class="u-btn">
+        <div v-if="!showPoem">
+            <!-- 投票/参赛 -->
+            <!-- <div class="u-btn">
                     <span class="u-item active">投票</span>
 
                 </div> -->
-                <div class="u-empty" v-if="!list.length && !loading">
-                    作品收集中，侠士可按照活动介绍中参赛方式前往魔盒网站茶馆论坛处提交作品~
-                    <div class="u-item">
-                        <a href="/community?category=诗词" target="_blank">快速前往 <i class="el-icon-right"></i></a>
-                    </div>
+            <div class="u-empty" v-if="!list.length && !loading">
+                作品收集中，侠士可按照活动介绍中参赛方式前往魔盒网站茶馆论坛处提交作品~
+                <div class="u-item">
+                    <a href="/community?category=诗词" target="_blank">快速前往 <i class="el-icon-right"></i></a>
                 </div>
-                <!-- 诗词区域 -->
-                <div class="u-list">
-                    <div
-                        class="u-item"
-                        v-for="(item, i) in list"
-                        :key="i"
-                        :style="{ 'background-color': getColorStyle(i) }"
-                        @click="poem(item, i)"
-                    >
-                        <div class="u-left">
-                            <!-- {{ item.author }}{{ item.title.replace(/《/g, "︽").replace(/》/g, "︾") }} -->
-                            <span class="u-text">{{ item.author }}{{ "︽" + item.title + "︾" }}</span>
-                        </div>
-                        <div class="u-right">
-                            <span v-for="(item2, i2) in getText(item.content, i)" :key="i2">
-                                <div v-if="i2 < 6">
-                                    <span v-if="i2 < 5" class="u-text"
-                                        >{{ item2.length > 16 ? item2.substring(0, 16) : item2 }}
+            </div>
+            <!-- 诗词区域 -->
+            <div class="u-list">
+                <div
+                    class="u-item"
+                    v-for="(item, i) in list"
+                    :key="i"
+                    :style="{ 'background-color': getColorStyle(i) }"
+                    @click="poem(item, i)"
+                >
+                    <div class="u-left">
+                        <!-- {{ item.author }}{{ item.title.replace(/《/g, "︽").replace(/》/g, "︾") }} -->
+                        <span class="u-text">{{ item.author }}{{ "︽" + item.title + "︾" }}</span>
+                    </div>
+                    <div class="u-right">
+                        <span v-for="(item2, i2) in getText(item.content, i)" :key="i2">
+                            <div v-if="i2 < 6">
+                                <span v-if="i2 < 5" class="u-text"
+                                    >{{ item2.length > 16 ? item2.substring(0, 16) : item2 }}
 
-                                        <span v-if="item2.length > 16" class="u-more">...</span>
-                                        <span v-else>。</span>
-                                    </span>
-                                    <span v-if="i2 == 5" class="u-more">...</span>
-                                </div>
-                            </span>
-                        </div>
-                        <!-- <div class="u-vote" @click.stop="vote(item, i)">
+                                    <span v-if="item2.length > 16" class="u-more">...</span>
+                                    <span v-else>。</span>
+                                </span>
+                                <span v-if="i2 == 5" class="u-more">...</span>
+                            </div>
+                        </span>
+                    </div>
+                    <!-- <div class="u-vote" @click.stop="vote(item, i)">
                             <el-tooltip effect="dark" content="投票" placement="top">
                                 <div class="u-number"><img src="../../../assets/img/mdi_vote.svg" /><b>20</b></div>
                             </el-tooltip>
                         </div> -->
-                        <!-- 票数 -->
-                        <!-- <div class="u-number">20</div> -->
-                    </div>
+                    <!-- 票数 -->
+                    <!-- <div class="u-number">20</div> -->
                 </div>
             </div>
+        </div>
         <!-- 详细诗词 -->
         <transition name="fade" mode="out-in">
             <div class="m-poem-main" v-if="showPoem">
@@ -102,7 +101,6 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getTopic, getBreadcrumb, getTopicDetail } from "@/service/topic";
 import { getNewProgram, getProgramDetail, getVoteItemQrcode } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 
@@ -116,7 +114,6 @@ export default {
             showPoem: false,
             achieve_id: null,
             select_id: null,
-            program_id: null,
             list: [],
             tips: "",
             loading: false,
@@ -129,11 +126,8 @@ export default {
                 if (val.a) {
                     this.achieve_id = val.a;
                 }
-                if (val.p) {
-                    this.program_id = val.p;
-                }
-                if (val.i) {
-                    this.select_id = val.i;
+                if (val.select) {
+                    this.select_id = val.select;
                 }
                 this.load();
             },
@@ -143,41 +137,34 @@ export default {
         select_id: {
             handler(val) {
                 if (val) {
-                    getVoteItemQrcode(val, {
-                        page: "pages/midautumn/poem/poem",
-                        // program_id: this.program_id,
-                        program_id: 14,
-                    }).then((res) => {
-                        this.qrcode = `${__cdn}${res.data.data}`;
-                    });
                 }
             },
             immediate: true,
         },
     },
     methods: {
-        vote(item, i) {
-            // this.$emit("vote", { item, i });
-        },
-
         load() {
             this.loading = true;
             getNewProgram().then((res) => {
-                console.log(res.data.data);
                 this.list = res.data.data.vote_items;
-                 this.loading = false;
+                this.loading = false;
                 this.init();
             });
         },
         init() {
             let val = this.list;
-
             if (val.length > 0 && this.select_id) {
                 this.showPoem = true;
                 let index = val.findIndex((item) => item.id == this.select_id);
                 this.poemData = val[index];
                 this.getTipsText(this.poemData.title);
-                this.$emit("poem", { item: this.poemData, i: this.select_id, c: index, p: this.program_id });
+                this.$emit("poem", { item: this.poemData, c: index });
+                getVoteItemQrcode(val[index].id, {
+                    page: "pages/midautumn/poem/poem",
+                    program_id: val[index].program_id,
+                }).then((res) => {
+                    this.qrcode = `${__cdn}${res.data.data}`;
+                });
             }
         },
         /**
@@ -186,7 +173,7 @@ export default {
          */
         getTipsText(title) {
             let text = title?.match(/[\u4e00-\u9fa5]/g) || [];
-            console.log(text);
+
             if (text.length == 3) {
                 this.tips = text[1] + text[2];
             } else if (text.length > 3) {
@@ -212,14 +199,12 @@ export default {
         poem(item, i) {
             this.poemData = item;
             this.showPoem = true;
-            this.$emit("poem", { item, i: item.id, c: i, p: item.program_id });
+            this.$emit("poem", { item, c: i });
             this.getTipsText(item.title);
             this.$router.push({
                 query: {
                     a: this.achieve_id,
-                    i: item.id,
-                    p: item.program_id,
-                    c: i, //配色序号
+                    select: item.id,
                 },
             });
         },
