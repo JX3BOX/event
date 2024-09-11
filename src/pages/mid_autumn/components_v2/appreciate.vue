@@ -9,7 +9,7 @@
 -->
 <template>
     <div class="c-midAutumn-appreciate" v-loading="loading">
-      
+
             <div v-if="!showPoem">
                 <!-- 投票/参赛 -->
                 <!-- <div class="u-btn">
@@ -102,8 +102,8 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getTopic, getBreadcrumb, getTopicDetail, getTopicQrcode } from "@/service/topic";
-import { getNewProgram, getProgramDetail } from "@/service/vote";
+import { getTopic, getBreadcrumb, getTopicDetail } from "@/service/topic";
+import { getNewProgram, getProgramDetail, getVoteItemQrcode } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 
 const KEY = "poems";
@@ -143,7 +143,7 @@ export default {
         select_id: {
             handler(val) {
                 if (val) {
-                    getTopicQrcode(val, {
+                    getVoteItemQrcode(val, {
                         page: "pages/midautumn/poem/poem",
                         // program_id: this.program_id,
                         program_id: 14,

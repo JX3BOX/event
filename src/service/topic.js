@@ -25,10 +25,5 @@ function getTopicDetail(id) {
     return $cms().get(`/api/cms/topic/${id}`);
 }
 
-function getTopicQrcode(id, params) {
-    return $cms().get(`/api/cms/topic/${id}/qrcode`, {
-        params
-    });
-}
 
-export { getTopic, getUsers, getBreadcrumb, getTopicDetail, getTopicQrcode };
+export { getTopic, getUsers, getBreadcrumb, getTopicDetail };
