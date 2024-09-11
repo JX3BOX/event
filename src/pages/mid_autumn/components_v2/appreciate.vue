@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-11 15:22:22
+ * @LastEditTime: 2024-09-11 20:27:19
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -32,16 +32,27 @@
                 >
                     <div class="u-left">
                         <!-- {{ item.author }}{{ item.title.replace(/《/g, "︽").replace(/》/g, "︾") }} -->
-                        <span class="u-text">{{ item.author }}{{ "︽" + item.title + "︾" }}</span>
+                        <span class="u-text" :title="item.title">
+                            {{
+                                getUserAndTitle(item).length > 16
+                                    ? getUserAndTitle(item).substring(0, 16)
+                                    : getUserAndTitle(item)
+                            }}
+                            <span
+                                v-if="getUserAndTitle(item).length > 16 && !symbolJudge(getUserAndTitle(item))"
+                                class="u-more"
+                                >...</span
+                            >
+                        </span>
                     </div>
                     <div class="u-right">
-                        <span v-for="(item2, i2) in getText(item.content, i)" :key="i2">
+                        <span v-for="(item2, i2) in getText(item.content, 1)" :key="i2">
                             <div v-if="i2 < 6">
                                 <span v-if="i2 < 5" class="u-text"
                                     >{{ item2.length > 16 ? item2.substring(0, 16) : item2 }}
 
-                                    <span v-if="item2.length > 16" class="u-more">...</span>
-                                    <span v-else>。</span>
+                                    <span v-if="item2.length > 16 && !symbolJudge(item2)" class="u-more">...</span>
+                                    <span v-if="item2.length < 16 && !symbolJudge(item2)">。</span>
                                 </span>
                                 <span v-if="i2 == 5" class="u-more">...</span>
                             </div>
@@ -71,11 +82,10 @@
                     <div
                         class="u-desc-item"
                         :class="{ warp: item.length > 43 }"
-                        v-for="(item, i) in getText(poemData.content)"
+                        v-for="(item, i) in getText(poemData.content, 2)"
                         :key="i"
-                    >
-                        {{ item }}。
-                    </div>
+                        v-html="item"
+                    ></div>
                 </div>
                 <div class="u-footer">
                     <div class="u-left">
@@ -103,7 +113,7 @@
 import color from "@/assets/data/color.json";
 import { getNewProgram, getProgramDetail, getVoteItemQrcode } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
-
+import { cloneDeep } from "lodash";
 const KEY = "poems";
 export default {
     components: {},
@@ -167,6 +177,9 @@ export default {
                 });
             }
         },
+        getUserAndTitle(item) {
+            return (item.user_info?.display_name || "") + ("︽" + item.title + "︾") + ("︽" + item.title + "︾");
+        },
         /**
          * 根据诗词标题截取
          *1 个字 截取1，2 截取12，3 截取23，4-99截取34
@@ -182,19 +195,39 @@ export default {
                 this.tips = title;
             }
         },
-        getText(val, index) {
-            let splitArr = val.split(/[。？！]/);
+        symbolJudge(item) {
+            let symbol = item.substring(0, 16).substring(item.substring(0, 16).length - 1);
+            return ["！", "？", "。", "，","︽","︾"].includes(symbol);
+        },
+        getText(val, type) {
+            let str = cloneDeep(val);
+            let splitArr = str.split(/\n/);
+            // let splitArr = val.split(/[。？！]/);
             // let splitArr = val.split(/(?<=。)|(?=。)/);
             let arr = [];
             splitArr.forEach((item, i) => {
                 if (item) {
+                    let regex = /https?:\/\/[^"']*\.(?:jpg|jpeg|gif|png)/gi;
+                    var imageUrls = item.match(regex);
+                    if (imageUrls) {
+                        imageUrls.forEach((element) => {
+                            if (type == 1) {
+                                item = item.replace(element, "");
+                            } else {
+                                let imgStr = `<img src="${element}" alt="" />`;
+                                item = item.replace(element, imgStr);
+                            }
+                        });
+                    }
+                    console.log(item);
                     arr.push(item);
                 }
             });
             return arr;
         },
         getColorStyle(i) {
-            return color.color[i].color;
+            let colors = color.color;
+            return colors[i % colors.length].color;
         },
         poem(item, i) {
             this.poemData = item;
