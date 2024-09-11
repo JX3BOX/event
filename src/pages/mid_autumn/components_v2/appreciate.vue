@@ -111,7 +111,7 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getNewProgram, getProgramDetail, getVoteItemQrcode } from "@/service/vote";
+import { getNewProgram, getProgramDetail, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 import { cloneDeep } from "lodash";
 const KEY = "poems";
@@ -128,6 +128,7 @@ export default {
             tips: "",
             loading: false,
             qrcode: "",
+            judges: [],
         };
     },
     watch: {
@@ -152,6 +153,9 @@ export default {
             immediate: true,
         },
     },
+    mounted() {
+        this.loadJudges();
+    },
     methods: {
         load() {
             this.loading = true;
@@ -159,6 +163,21 @@ export default {
                 this.list = res.data.data.vote_items;
                 this.loading = false;
                 this.init();
+            });
+        },
+        loadJudges() {
+            getVoteJudges().then((res) => {
+                const _res = res || [];
+                this.judges = _res
+                    .filter((item) => item.status)
+                    .reduce((acc, cur) => {
+                        if (!acc[cur.remark]) {
+                            acc[cur.remark] = [];
+                        }
+                        acc[cur.remark].push(cur);
+                        return acc;
+                    }, {});
+                // console.log(this.judges);
             });
         },
         init() {
@@ -197,7 +216,7 @@ export default {
         },
         symbolJudge(item) {
             let symbol = item.substring(0, 16).substring(item.substring(0, 16).length - 1);
-            return ["！", "？", "。", "，","︽","︾"].includes(symbol);
+            return ["！", "？", "。", "，", "︽", "︾"].includes(symbol);
         },
         getText(val, type) {
             let str = cloneDeep(val);

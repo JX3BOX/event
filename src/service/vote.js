@@ -16,6 +16,19 @@ export function getProgramItem(id, voteItemId) {
 
 export function getVoteItemQrcode(id, params) {
     return $cms().get(`/api/cms/vote/program/item/${id}/qrcode`, {
-        params
+        params,
     });
+}
+
+export function getVoteJudges() {
+    return $cms()
+        .get(`/api/cms/manage/www/block/load`, {
+            params: {
+                slug: "mid_autumn_2024",
+                app: "std",
+            },
+        })
+        .then((res) => {
+            return res.data.data.items;
+        });
 }
