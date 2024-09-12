@@ -1,20 +1,35 @@
+body {
+    height: 100%;
+    background-color: #17243a;
+}
+html,
+.p-event {
+    height: 100%;
+}
 .p-event-midAutumn {
-    height: calc(100vh - 64px);
+    height: calc(100% - 64px);
     .pointer;
     .mt(64px);
-    background-image: url("@{kv_midAutumn}2.jpg");
+    // background-image: url("@{kv_midAutumn}2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-color: #17243a;
 
     .m-box {
-        padding: 4vh 0 0 10vw;
+        // padding: 4vh 0 0 10vw;
         box-sizing: border-box;
         .size(100%);
-        img {
+        .clip;
+        .u-title {
+            .pa;
+            .lt(10vw,4vh);
             height: 85vh;
             cursor: pointer;
+        }
+        .u-video {
+            width: 100%;
+            min-width: 1440px;
         }
     }
 }
@@ -27,6 +42,7 @@
     background-position: center;
     background-color: #17243a;
     .u-bg {
+        .flex;
         overflow: auto;
         .size(100%);
         background-color: rgba(23, 36, 58, 0.95);
@@ -34,8 +50,19 @@
         .scrollbar;
     }
     .u-main-box {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 160px 0 40px 0;
+        flex: 1;
+        max-width: 100%; 
+        box-sizing: border-box;
+        padding: 160px 240px 40px 60px;
+    }
+}
+
+@media screen and (min-width: @phone) {
+    .p-event-midAutumn {
+        height: 100vh;
+        .m-box .u-title {
+            .w(420px);
+            height: auto;
+        }
     }
 }

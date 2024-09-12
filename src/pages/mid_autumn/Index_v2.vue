@@ -8,10 +8,20 @@
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
 -->
 <template>
-    <div class="p-event-midAutumn" @click="goToDetail" >
+    <div class="p-event-midAutumn" @click="goToDetail">
         <!-- 首页展示 -->
         <div class="m-box">
-            <img :src="`${__imgRoot}tittle.png`" alt=""/>
+            <video
+                class="u-video"
+                src="https://cdn.jx3box.com/design/miniprogram/midautumn/zhongqiu2024.mp4"
+                :poster="`${__imgRoot}tittle.png`"
+                autoplay
+                loop
+                muted="false"
+                object-fit="cover"
+            ></video>
+
+            <img class="u-title" :src="`${__imgRoot}tittle.png`" alt=""/>
         </div>
     </div>
 </template>
