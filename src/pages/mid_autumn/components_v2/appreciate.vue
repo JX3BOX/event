@@ -1,12 +1,3 @@
-<!--
- * @Author: zhusha
- * @Date: 2024-08-10 00:33:57
- * @LastEditors: zhusha
- * @LastEditTime: 2024-09-12 09:21:21
- * @Description: 诗词鉴赏列表
- *
- * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
--->
 <template>
     <div class="c-midAutumn-appreciate" v-loading="loading">
         <div v-if="!showPoem">
@@ -76,6 +67,7 @@
                 <div class="u-author-info">
                     <div class="u-title">{{ poemData.title }}</div>
                     <div class="u-author">{{ poemData.sub_title }}</div>
+                    <div class="u-user">{{ poemData.user_info.display_name }}</div>
                 </div>
                 <!-- 诗词内容区域 -->
                 <div class="u-content">
@@ -87,25 +79,38 @@
                         v-html="item"
                     ></div>
                 </div>
-                <div class="u-footer">
-                    <div class="u-left">
-                        <!-- <div class="u-tips">————<span class="u-circle"></span></div>
-                    <div class="u-title">{{ poemData.author }} {{ "《" + poemData.title + "》" }}</div> -->
-                    </div>
-                    <div class="u-right">
-                        <!-- <img src="../../../assets/img/mdi_vote.svg" /><span class="u-right-text">投票</span><b>20</b> -->
-                        <img class="u-qrcode" :src="qrcode" alt="" />
-                        <div class="u-tips">
-                            <div>微信扫一扫参与投票</div>
-                            <div>有机会赢取故宫中秋好礼！</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="u-title-tips">
                     {{ tips }}
                 </div>
-            </div></transition
-        >
+            </div>
+        </transition>
+        <div class="m-judges" v-if="showPoem">
+            <div class="m-qrcode">
+                <img class="u-img" :src="`${cdn}design/miniprogram/midautumn/code-bg.png`" alt="" />
+                <img class="u-qrcode" :src="qrcode" alt="" />
+            </div>
+            <div class="m-list">
+                <div class="m-tips">
+                    <img class="u-icon" :src="`${cdn}design/miniprogram/midautumn/mdi_vote.svg`" alt="" />
+                    <div class="u-tips">
+                        <div class="u-title">微信扫月亮参与投票↗</div>
+                        <div class="u-desc">有机会赢取故宫中秋好礼！</div>
+                    </div>
+                </div>
+                <template v-if="poemData?.id && judges[poemData.id] && judges[poemData.id].length">
+                    <img :src="`${cdn}design/miniprogram/midautumn/judges.png`" class="u-judges" />
+                    <div class="m-item" v-for="(item, i) in judges[poemData.id]" :key="item.id">
+                        <div class="m-user">
+                            <img :src="`${cdn}design/miniprogram/midautumn/avatar.png`" class="u-avatar" />
+                            <div class="u-name">{{ `魔盒诗词大会评委${i + 1}` }}</div>
+                        </div>
+                        <div class="m-content" :style="bgStyle">
+                            <span v-html="item.description"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -113,7 +118,7 @@
 import color from "@/assets/data/color.json";
 import { getNewProgram, getProgramDetail, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
-import { cloneDeep,shuffle } from "lodash";
+import { cloneDeep, shuffle } from "lodash";
 const KEY = "poems";
 export default {
     components: {},
@@ -128,7 +133,9 @@ export default {
             tips: "",
             loading: false,
             qrcode: "",
-            judges: [],
+            judges: {},
+            cdn: __cdn,
+            bgStyle: null,
         };
     },
     watch: {
@@ -160,7 +167,7 @@ export default {
         load() {
             this.loading = true;
             getNewProgram().then((res) => {
-                this.list = shuffle(res.data.data.vote_items||[]);
+                this.list = shuffle(res.data.data.vote_items || []);
                 this.loading = false;
                 this.init();
             });
@@ -177,7 +184,6 @@ export default {
                         acc[cur.remark].push(cur);
                         return acc;
                     }, {});
-                // console.log(this.judges);
             });
         },
         init() {
@@ -188,13 +194,19 @@ export default {
                 this.poemData = val[index];
                 this.getTipsText(this.poemData.title);
                 this.$emit("poem", { item: this.poemData, c: index });
+                this.poemBg(index);
                 getVoteItemQrcode(val[index].id, {
                     page: "pages/midautumn/poem/poem",
                     program_id: val[index].program_id,
                 }).then((res) => {
-                    this.qrcode = `${__cdn}${res.data.data}`;
+                    const cdn = __cdn.replace(/\/+$/, "");
+                    this.qrcode = `${cdn}${res.data.data}?123`;
                 });
             }
+        },
+        poemBg(i) {
+            const _c = color.color[i] ? color.color[i].color : `rgba(23, 36, 58, 0.95)`;
+            this.bgStyle = `background:linear-gradient(90deg, ${_c} 0%, rgba(175, 72, 89, 0) 100%)`;
         },
         getUserAndTitle(item) {
             return (item.user_info?.display_name || "") + ("︽" + item.title + "︾");
@@ -251,6 +263,7 @@ export default {
             this.poemData = item;
             this.showPoem = true;
             this.$emit("poem", { item, c: i });
+            this.poemBg(i);
             this.getTipsText(item.title);
             this.$router.push({
                 query: {

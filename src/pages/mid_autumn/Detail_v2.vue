@@ -51,7 +51,10 @@ export default {
         init() {},
         poem(e) {
             this.poemData = e.item;
-            this.bgStyle = `background-color:${color.color[e.c].color};opacity: 0.95`;
+            const bgStyle = color.color[e.c]?.color
+                ? "background-color:" + color.color[e.c].color + ";opacity: 0.95"
+                : "";
+            this.bgStyle = bgStyle;
             this.$nextTick(() => {
                 let dom = document.querySelector(".u-bg"); //获取组件
                 dom && (dom.scrollTop = 0);

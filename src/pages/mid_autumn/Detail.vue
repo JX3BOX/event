@@ -70,10 +70,12 @@ export default {
             });
         },
         poem(e) {
-            console.log(e);
-            setTimeout(() => {
-                this.bgStyle = `background-color:${color.color[e.i].color}`;
-            }, 300);
+            // 诗词背景色
+            if (color.color[e.i]) {
+                setTimeout(() => {
+                    this.bgStyle = `background-color:${color.color[e.i].color}`;
+                }, 300);
+            }
         },
         back() {
             this.bgStyle = null;
