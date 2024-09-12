@@ -2,7 +2,7 @@
  * @Author: zhusha
  * @Date: 2024-08-10 00:33:57
  * @LastEditors: zhusha
- * @LastEditTime: 2024-09-11 20:31:56
+ * @LastEditTime: 2024-09-12 09:21:21
  * @Description: 诗词鉴赏列表
  *
  * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved.
@@ -34,12 +34,12 @@
                         <!-- {{ item.author }}{{ item.title.replace(/《/g, "︽").replace(/》/g, "︾") }} -->
                         <span class="u-text" :title="item.title">
                             {{
-                                getUserAndTitle(item).length > 16
-                                    ? getUserAndTitle(item).substring(0, 16)
+                                getUserAndTitle(item).length > 24
+                                    ? getUserAndTitle(item).substring(0, 24)
                                     : getUserAndTitle(item)
                             }}
                             <span
-                                v-if="getUserAndTitle(item).length > 16 && !symbolJudge(getUserAndTitle(item))"
+                                v-if="getUserAndTitle(item).length > 24 && !symbolJudge(getUserAndTitle(item))"
                                 class="u-more"
                                 >...</span
                             >
@@ -113,7 +113,7 @@
 import color from "@/assets/data/color.json";
 import { getNewProgram, getProgramDetail, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
-import { cloneDeep } from "lodash";
+import { cloneDeep,shuffle } from "lodash";
 const KEY = "poems";
 export default {
     components: {},
@@ -160,7 +160,7 @@ export default {
         load() {
             this.loading = true;
             getNewProgram().then((res) => {
-                this.list = res.data.data.vote_items;
+                this.list = shuffle(res.data.data.vote_items||[]);
                 this.loading = false;
                 this.init();
             });
@@ -197,7 +197,7 @@ export default {
             }
         },
         getUserAndTitle(item) {
-            return (item.user_info?.display_name || "") + ("︽" + item.title + "︾") + ("︽" + item.title + "︾");
+            return (item.user_info?.display_name || "") + ("︽" + item.title + "︾");
         },
         /**
          * 根据诗词标题截取
