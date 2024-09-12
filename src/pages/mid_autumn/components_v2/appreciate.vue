@@ -86,7 +86,7 @@
         </transition>
         <div class="m-judges" v-if="showPoem">
             <div class="m-qrcode">
-                <img class="u-img" :src="`${cdn}design/miniprogram/midautumn/code-bg.png`" alt="" />
+                <img class="u-img" :src="`${cdn}design/miniprogram/midautumn/code-bg.png?123`" alt="" />
                 <img class="u-qrcode" :src="qrcode" alt="" />
             </div>
             <div class="m-list">
