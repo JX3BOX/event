@@ -154,13 +154,13 @@
 
     .u-title-tips {
         .size(264px,550px);
-        position: fixed;
-        right: 0;
-        bottom: 0;
+        .pf;
+        .rb(0);
         .fz(256px,284px);
         .bold(400);
         color: rgba(255, 255, 255, 0.5);
         z-index: -1;
+        opacity: 0.5;
     }
     .m-judges {
         .flex;
@@ -267,4 +267,11 @@
 .slide-fade-leave-to {
     transform: translateX(20px);
     opacity: 0;
+}
+
+@media screen and(max-width:@ipad) {
+    .c-midAutumn-appreciate {
+        flex-direction: column;
+        align-items: center;
+    }
 }

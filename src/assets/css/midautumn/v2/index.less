@@ -1,23 +1,17 @@
-body {
-    height: 100%;
+.p-event {
+    .pt(64px);
     background-color: #17243a;
 }
-html,
-.p-event {
-    height: 100%;
-}
 .p-event-midAutumn {
-    height: calc(100% - 64px);
     .pointer;
-    .mt(64px);
-    // background-image: url("@{kv_midAutumn}2.jpg");
+
+    height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-color: #17243a;
 
     .m-box {
-        // padding: 4vh 0 0 10vw;
         box-sizing: border-box;
         .size(100%);
         .clip;
@@ -34,35 +28,54 @@ html,
     }
 }
 .p-midautumn-detail {
-    height: calc(100vh - 64px);
-    .mt(64px);
+    height: 100%;
     background-image: url("@{kv_midAutumn}1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-color: #17243a;
+
     .u-bg {
         .flex;
-        overflow: auto;
-        .size(100%);
+        .full;
+        .clip;
+        min-height: calc(100vh - 64px);
+        box-sizing: border-box;
         background-color: rgba(23, 36, 58, 0.95);
         transition: all 1s ease;
-        .scrollbar;
+        padding: 36px 0 0 20px;
     }
     .u-main-box {
+        .scrollbar;
         flex: 1;
-        max-width: 100%; 
+        height: 50%;
+        max-width: 100%;
+        overflow: auto;
         box-sizing: border-box;
-        padding: 160px 240px 40px 60px;
+        padding: 124px 240px 40px 124px;
     }
 }
-
-@media screen and (min-width: @phone) {
+@media screen and(max-width:@ipad) {
     .p-event-midAutumn {
-        height: 100vh;
-        .m-box .u-title {
-            .w(420px);
-            height: auto;
+        .m-box {
+            .flex;
+            justify-content: center;
+            .u-title {
+                .w(420px);
+                height: auto;
+            }
+        }
+    }
+    .p-midautumn-detail {
+        .u-main-box {
+            padding: 20px 40px 40px 20px;
+        }
+    }
+}
+@media screen and (max-width: @phone) {
+    .p-midautumn-detail {
+        .u-main-box {
+            .pr(20px);
         }
     }
 }

@@ -1,36 +1,29 @@
-<!--
- * @Author: zhusha 
- * @Date: 2024-08-10 00:33:16
- * @LastEditors: zhusha
- * @LastEditTime: 2024-08-31 23:46:49
- * @Description: 导航组件
- * 
- * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
--->
 <template>
     <div class="c-midAutumn-nav">
-        <div class="u-title">
-            <img :src="`${__imgRoot}menu.png`" />
-        </div>
-
-        <div class="u-date">
-            <span>2</span>
-            <span>0</span>
-            <span>2</span>
-            <span>4</span>
-        </div>
-
-        <div class="u-nav-box">
-            <div
-                class="u-nav-item"
-                :class="{ active: achieve_id == item.value }"
-                v-for="item in navs"
-                :key="item.value"
-                @click="navChange(item.value)"
-            >
-                {{ item.text }}
+        <div class="m-midAutumn-nav" :class="`m-midAutumn-nav-${i}`" v-for="i in 2" :key="i">
+            <div class="u-title">
+                <img :src="`${__imgRoot}menu.png`" />
             </div>
-            <div class="u-select-poem" v-show="poemName">《{{ poemName }}》</div>
+
+            <div class="u-date">
+                <span>2</span>
+                <span>0</span>
+                <span>2</span>
+                <span>4</span>
+            </div>
+
+            <div class="u-nav-box">
+                <div
+                    class="u-nav-item"
+                    :class="{ active: achieve_id == item.value }"
+                    v-for="item in navs"
+                    :key="item.value"
+                    @click="navChange(item.value)"
+                >
+                    {{ item.text }}
+                </div>
+                <div class="u-select-poem" v-show="poemName">《{{ poemName }}》</div>
+            </div>
         </div>
     </div>
 </template>

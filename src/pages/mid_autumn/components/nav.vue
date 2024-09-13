@@ -1,27 +1,20 @@
-<!--
- * @Author: zhusha 
- * @Date: 2024-08-10 00:33:16
- * @LastEditors: zhusha
- * @LastEditTime: 2024-08-10 01:23:03
- * @Description: 导航组件
- * 
- * Copyright (c) 2024 by zhusha, email: no email, All Rights Reserved. 
--->
 <template>
     <div class="c-midAutumn-nav">
-        <div class="u-title">诗中词秋</div>
+        <div class="m-midAutumn-nav" :class="`m-midAutumn-nav-${i}`" v-for="i in 2" :key="i">
+            <div class="u-title">诗中词秋</div>
 
-        <div class="u-date">2024</div>
+            <div class="u-date">2024</div>
 
-        <div class="u-nav-box">
-            <div
-                class="u-nav-item"
-                :class="{ active: achieve_id == item.value }"
-                v-for="item in navs"
-                :key="item.value"
-                @click="navChange(item.value)"
-            >
-                {{ item.text }}
+            <div class="u-nav-box">
+                <div
+                    class="u-nav-item"
+                    :class="{ active: achieve_id == item.value }"
+                    v-for="item in navs"
+                    :key="item.value"
+                    @click="navChange(item.value)"
+                >
+                    {{ item.text }}
+                </div>
             </div>
         </div>
     </div>

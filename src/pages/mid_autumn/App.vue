@@ -47,4 +47,9 @@ export default {
 .fade-leave-active {
     transition: opacity 1s ease;
 }
+@media screen and (max-width: @ipad) {
+    .c-midAutumn {
+        min-width: 500px;
+    }
+}
 </style>
