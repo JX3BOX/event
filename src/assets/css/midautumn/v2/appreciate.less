@@ -117,12 +117,12 @@
     .m-poem-main {
         flex: 1;
         color: #fff;
+        max-width: 800px;
         .u-back {
             padding: 4px 12px 4px 12px;
             gap: 10px;
             border-radius: 4px;
             border: 2px solid #fff;
-            // opacity: 0.5px;
             .size(46px, 30px);
             cursor: pointer;
             .flex;
@@ -138,6 +138,12 @@
             .u-author {
                 .fz(18px);
                 .mt(10px);
+            }
+            .u-user {
+                color: #fff;
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
         .u-content {
@@ -164,6 +170,7 @@
     }
     .m-judges {
         .flex;
+        .pb(20px);
         flex-direction: column;
         flex-shrink: 0;
         width: 550px;
@@ -174,6 +181,7 @@
             .clip;
             .r(50%);
             .mb(184px);
+            flex-shrink: 0;
             align-items: center;
             justify-content: center;
             align-self: flex-end;
@@ -187,10 +195,18 @@
                 .lt(0);
             }
         }
+        .m-scrollbar {
+            .flex;
+            .scrollbar;
+            gap: 24px;
+            height: 450px;
+            flex-direction: column;
+            overflow: auto;
+        }
         .m-list {
             .flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 30px;
             .m-tips {
                 .flex;
                 .r(8px);
@@ -219,7 +235,6 @@
             }
             .u-judges {
                 .size(64px,18px);
-                .mt(10px);
             }
             .m-item {
                 .r(3px);
@@ -236,8 +251,20 @@
                         border-radius: 50%;
                     }
                     .u-name {
-                        .fz(20px);
+                        .flex;
+                        .fz(20px,1.2);
+                        height: 48px;
+                        flex: 1;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        letter-spacing: 2px;
                         font-weight: 700;
+                        .u-value {
+                            .fz(14px,1.2);
+                            opacity: 0.6;
+                            font-weight: normal;
+                            letter-spacing: 1px;
+                        }
                     }
                 }
                 .m-content {

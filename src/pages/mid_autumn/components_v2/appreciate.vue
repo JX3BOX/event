@@ -67,7 +67,9 @@
                 <div class="u-author-info">
                     <div class="u-title">{{ poemData.title }}</div>
                     <div class="u-author">{{ poemData.sub_title }}</div>
-                    <div class="u-user">{{ poemData.user_info.display_name }}</div>
+                    <a :href="`${root}author/${poemData.user_info.id}`" target="_blank" class="u-user">{{
+                        poemData.user_info.display_name
+                    }}</a>
                 </div>
                 <!-- 诗词内容区域 -->
                 <div class="u-content">
@@ -99,13 +101,18 @@
                 </div>
                 <template v-if="poemData?.id && judges[poemData.id] && judges[poemData.id].length">
                     <img :src="`${cdn}design/miniprogram/midautumn/judges.png`" class="u-judges" />
-                    <div class="m-item" v-for="(item, i) in judges[poemData.id]" :key="item.id">
-                        <div class="m-user">
-                            <img :src="`${cdn}design/miniprogram/midautumn/avatar.png`" class="u-avatar" />
-                            <div class="u-name">{{ `魔盒诗词大会评委${i + 1}` }}</div>
-                        </div>
-                        <div class="m-content" :style="bgStyle">
-                            <span v-html="item.description"></span>
+                    <div class="m-scrollbar">
+                        <div class="m-item" v-for="(item, i) in judges[poemData.id]" :key="item.id">
+                            <div class="m-user">
+                                <img :src="`${cdn}design/miniprogram/midautumn/avatar.png`" class="u-avatar" />
+                                <div class="u-name">
+                                    <span>{{ `评委${i + 1}` }}</span>
+                                    <span class="u-value">魔盒诗词大会</span>
+                                </div>
+                            </div>
+                            <div class="m-content" :style="bgStyle">
+                                <span v-html="item.description"></span>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -116,8 +123,8 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getNewProgram, getProgramDetail, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
-import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import { getNewProgram, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
+import { __cdn, __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import { cloneDeep, shuffle } from "lodash";
 const KEY = "poems";
 export default {
@@ -136,6 +143,7 @@ export default {
             judges: {},
             cdn: __cdn,
             bgStyle: null,
+            root: __Root,
         };
     },
     watch: {
