@@ -1,4 +1,4 @@
-@kv_bigbang: "../../../../../img-topic/bigbang";
+// @kv_bigbang: "../../../../../img-topic/bigbang";
 .events-page {
     position: relative;
     width: 100%;
@@ -77,45 +77,6 @@
             display: block;
             width: 100%;
             height: auto;
-            margin-bottom: -2px;
-        }
-
-        .scroll__content {
-            background-repeat: repeat-y;
-            background-position: center;
-            margin-top: -1px;
-            padding: 0;
-        }
-
-        .scroll__header {
-            display: flex;
-            padding: 15px 40px;
-            color: #3a2a1b;
-            font-size: 18px;
-            font-weight: normal;
-            background-color: rgba(58, 42, 27, 0.1);
-
-            span:first-child {
-                width: 80px;
-                text-align: right;
-                padding-right: 50px;
-            }
-            span:nth-child(2) {
-                flex: 1;
-                text-align: center;
-            }
-            span:last-child {
-                width: 140px;
-                display: flex;
-                flex-direction: column-reverse;
-                align-items: flex-start;
-                padding-left: 60px;
-
-                .vote-count {
-                    margin-top: 5px;
-                    margin-bottom: 0;
-                }
-            }
         }
 
         .scroll__item {
@@ -173,6 +134,65 @@
                 }
             }
         }
+    }
+
+    .m-table {
+        background-image: url("@{kv_bigbang}/bg__repeat.png");
+        background-repeat: repeat-y;
+        background-position: center;
+        padding: 0 100px 20px 100px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    .m-table__header {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        display: flex;
+        // padding: 15px 40px;
+        align-items: center;
+        color: #F2DCC7;
+        font-size: 20px;
+        height: 40px;
+        background: #6D4F25;
+
+        .u-index {
+            width: 80px;
+            .x;
+        }
+
+        .u-event {
+            flex: 1;
+            text-align: center;
+        }
+
+        .u-index,.u-event {
+            .pr;
+            &::after {
+                content: "";
+                display: inline-block;
+                width: 1px;
+                height: 20px;
+                background: #F2DCC7;
+                .pa;
+                right: 0;
+                top: 4px;
+            }
+        }
+
+        .u-vote {
+            width: 140px;
+            .x;
+
+            .vote-count {
+                margin-top: 5px;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .m-table__body {
+        border: 1px solid #6D4F25;
     }
 
     &__character {
