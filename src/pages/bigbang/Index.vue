@@ -40,7 +40,7 @@
                             <div class="item__stats">
                                 <span>人气: {{ item.popularity }}</span>
                                 <button :class="['item__btn', { 'is-ended': !item.hasDetail }]">
-                                    {{ item.hasDetail ? "查看！观看！" : "已结束" }}
+                                    {{ item.hasDetail ? "已投票" : "喜欢吃瓜" }}
                                 </button>
                             </div>
                         </div>
@@ -80,13 +80,60 @@ export default {
             VtitleImage: "",
             eventList: [
                 {
-                    tag: "重要更新",
-                    title: "XX团长 团灭联赛 被挂出3个情绪内涵表",
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
                     desc: "团长因为各种原因...",
                     popularity: 13867,
                     hasDetail: true,
                 },
-                // ... 其他事件数据
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
+                    desc: "团长因为各种原因...",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                }, {
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
+                    desc: "团长因为各种原因...",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
+                    desc: "团长因为各种原因...",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
             ],
         };
     },
@@ -116,3 +163,4 @@ export default {
 @import "../../assets/css/bigbang/index.less";
 
 </style>
+

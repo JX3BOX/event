@@ -69,28 +69,52 @@
     }
 
     &__scroll {
-        width: 840px;
+        width: 1150px;
         margin: 40px auto 0;
+        position: relative;
+
+        .scroll__top {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-bottom: -2px;
+        }
+
+        .scroll__content {
+            background-repeat: repeat-y;
+            background-position: center;
+            margin-top: -1px;
+            padding: 0;
+        }
 
         .scroll__header {
             display: flex;
-            padding: 20px 40px;
+            padding: 15px 40px;
+            color: #3a2a1b;
+            font-size: 18px;
+            font-weight: normal;
             background-color: rgba(58, 42, 27, 0.1);
-            color: #603813;
-            font-size: 16px;
-            font-weight: bold;
 
             span:first-child {
-                width: 100px;
-                text-align: left;
+                width: 80px;
+                text-align: right;
+                padding-right: 50px;
             }
             span:nth-child(2) {
                 flex: 1;
                 text-align: center;
             }
             span:last-child {
-                width: 120px;
-                text-align: right;
+                width: 140px;
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                padding-left: 60px;
+
+                .vote-count {
+                    margin-top: 5px;
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -100,15 +124,17 @@
             border-bottom: 1px solid rgba(58, 42, 27, 0.1);
 
             .item__rank {
-                width: 100px;
+                width: 80px;
                 font-size: 24px;
                 font-weight: bold;
                 color: #603813;
+                text-align: right;
+                padding-right: 50px;
             }
 
             .item__content {
                 flex: 1;
-                padding-right: 20px;
+                padding-right: 60px;
                 text-align: center;
 
                 .item__title {
@@ -133,6 +159,19 @@
                     line-height: 1.6;
                 }
             }
+
+            .item__stats {
+                width: 140px;
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                padding-left: 60px;
+
+                .vote-count {
+                    // margin-top: 85px;
+                    margin-bottom: 30px;
+                }
+            }
         }
     }
 
@@ -143,8 +182,8 @@
         z-index: 10;
 
         img {
-            width: 200px;
-            height: auto;
+            width: 354px;
+            height: 680px;
         }
 
         .character__bubble {
@@ -175,8 +214,8 @@
         z-index: 10;
 
         img {
-            width: 100px;
-            height: auto;
+            width: 342px;
+            height: 1044px;
         }
     }
 }
