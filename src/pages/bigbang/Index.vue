@@ -13,7 +13,7 @@
                 <img :src="paperBgImage" class="tip__bg" alt="羊皮纸背景" />
                 <div class="tip__content">
                     <p class="tip__text">
-                        霸入工坊，揽括剑网3十大热门工具！从吃喝住行到剑舞笑云，从副本黑话到生活经验，每一条都让你眼界大开。好玩～哎！爱在年三八约起，大保健！准备好压岁，一起享受这场游戏界的小林漫游吧！
+                        踏入江湖，揭秘剑网3十大热门八卦！从深情告白到阵营风云，从副本黑幕到生活琐事，每一条都让你眼界大开。轻松一刻，尽在剑三八卦圈，大侠们，准备好瓜子，一起享受这场游戏界的八卦盛宴吧！
                     </p>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                             <div class="item__stats">
                                 <span>人气: {{ item.popularity }}</span>
                                 <button :class="['item__btn', { 'is-ended': !item.hasDetail }]">
-                                    {{ item.hasDetail ? "查看！观看！" : "已结束" }}
+                                    {{ item.hasDetail ? "已投票" : "喜欢吃瓜" }}
                                 </button>
                             </div>
                         </div>
@@ -80,13 +80,60 @@ export default {
             VtitleImage: "",
             eventList: [
                 {
-                    tag: "重要更新",
-                    title: "XX团长 团灭联赛 被挂出3个情绪内涵表",
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
                     desc: "团长因为各种原因...",
                     popularity: 13867,
                     hasDetail: true,
                 },
-                // ... 其他事件数据
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
+                    desc: "团长因为各种原因...",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                }, {
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
+                    desc: "团长因为各种原因...",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "黑工资",
+                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
+                    desc: "团长因为各种原因...",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
+                {
+                    tag: "出轨",
+                    title: "用户分享内容到社交媒体",
+                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
+                    popularity: 13867,
+                    hasDetail: true,
+                },
             ],
         };
     },
@@ -113,209 +160,7 @@ export default {
 </script>
 
 <style lang="less">
-@kv_bigbang: "../../../../img-topic/bigbang";
-.events-page {
-    position: relative;
-    width: 100%;
-    padding-top: @header-height;
-    width: 1920px;
-    margin: 0 auto;
-    overflow-x: hidden;
+@import "../../assets/css/bigbang/index.less";
 
-    &__header {
-        position: relative;
-        height: 1080px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-image: url("@{kv_bigbang}/bg.png");
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: 1920px auto;
-
-        &-title {
-            margin-top: 300px;
-            width: 800px;
-            height: auto;
-        }
-
-        &-year {
-            margin-top: 40px;
-            width: 296px;
-            height: auto;
-        }
-    }
-
-    &__content {
-        position: relative;
-        padding: 40px 0;
-    }
-
-    &__tip {
-        position: relative;
-        width: 1200px;
-        margin: 0 auto;
-
-        .tip__bg {
-            width: 100%;
-            height: auto;
-        }
-
-        .tip__content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 30px;
-        }
-
-        .tip__avatar {
-            width: 120px;
-            height: auto;
-        }
-
-        .tip__text {
-            flex: 1;
-            font-size: 16px;
-            line-height: 1.8;
-            color: #3a2a1b;
-        }
-    }
-
-    &__scroll {
-        width: 1200px;
-        margin: 40px auto 0;
-
-        .scroll__content {
-            background-repeat: repeat-y;
-            background-position: center;
-            padding: 20px 40px;
-        }
-
-        .scroll__header {
-            display: flex;
-            padding: 20px;
-            color: #3a2a1b;
-            font-size: 18px;
-            font-weight: bold;
-
-            span:first-child {
-                width: 80px;
-            }
-            span:nth-child(2) {
-                flex: 1;
-            }
-            span:last-child {
-                width: 120px;
-                text-align: right;
-            }
-        }
-
-        .scroll__item {
-            display: flex;
-            padding: 20px;
-            border-bottom: 1px solid rgba(58, 42, 27, 0.1);
-
-            .item__rank {
-                width: 80px;
-                font-size: 24px;
-                font-weight: bold;
-                color: #3a2a1b;
-            }
-
-            .item__content {
-                flex: 1;
-                padding-right: 20px;
-
-                .item__title {
-                    margin-bottom: 10px;
-                    font-size: 16px;
-
-                    .tag {
-                        display: inline-block;
-                        padding: 2px 8px;
-                        margin-right: 10px;
-                        background: #b98c4b;
-                        color: #fff;
-                        border-radius: 4px;
-                        font-size: 14px;
-                    }
-                }
-
-                .item__desc {
-                    color: #666;
-                    font-size: 14px;
-                    line-height: 1.6;
-                }
-            }
-
-            .item__stats {
-                width: 120px;
-                text-align: right;
-
-                .item__btn {
-                    margin-top: 10px;
-                    padding: 6px 15px;
-                    background: #b98c4b;
-                    color: #fff;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-
-                    &.is-ended {
-                        background: #999;
-                    }
-                }
-            }
-        }
-    }
-
-    &__character {
-        position: fixed;
-        right: 40px;
-        bottom: 40px;
-        z-index: 10;
-
-        img {
-            width: 200px;
-            height: auto;
-        }
-
-        .character__bubble {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            padding: 10px 20px;
-            background: #fff;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #3a2a1b;
-
-            &:after {
-                content: "";
-                position: absolute;
-                bottom: -10px;
-                right: 20px;
-                border: 10px solid transparent;
-                border-top-color: #fff;
-            }
-        }
-    }
-
-    &__vtitle {
-        position: fixed;
-        left: 40px;
-        bottom: 40px;
-        z-index: 10;
-
-        img {
-            width: 100px;
-            height: auto;
-        }
-    }
-}
 </style>
+
