@@ -58,7 +58,13 @@ module.exports = {
                 },
             },
         },
-        disableHostCheck: true
+        disableHostCheck: true,
+        watchOptions: {
+            poll: 1000, // 检查文件变化的间隔时间（毫秒）
+            aggregateTimeout: 500 // 防抖时间（毫秒）
+        },
+        // hot: false,
+        // liveReload: false
     },
 
     //webpack配置
