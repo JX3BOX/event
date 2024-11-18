@@ -4,41 +4,46 @@
     width: 100%;
     padding-top: @header-height;
     width: 1920px;
+
     margin: 0 auto;
     overflow-x: hidden;
 
     &__header {
         position: relative;
-        height: 1080px;
+        height: 3000px;
         display: flex;
         flex-direction: column;
         align-items: center;
         background-image: url("@{kv_bigbang}/bg.png");
         background-repeat: no-repeat;
         background-position: center top;
-        background-size: 1920px auto;
 
         &-title {
-            margin-top: 300px;
-            width: 800px;
-            height: auto;
+            margin-top: 304px;
+            width: 1328px;
+            height: 791px;
         }
 
         &-year {
-            margin-top: 40px;
+            position: absolute;
+            top: 931px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 296px;
-            height: auto;
+            height: 87px;
         }
     }
 
     &__content {
+        display: block;
+        margin-top: -1950px;
         position: relative;
-        padding: 40px 0;
+        z-index: 1;
     }
 
     &__tip {
         position: relative;
-        width: 1200px;
+        width: 840px;
         margin: 0 auto;
 
         .tip__bg {
@@ -46,53 +51,42 @@
             height: auto;
         }
 
-        .tip__content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 30px;
-        }
-
-        .tip__avatar {
-            width: 120px;
-            height: auto;
-        }
-
         .tip__text {
-            flex: 1;
-            font-size: 16px;
-            line-height: 1.8;
-            color: #3a2a1b;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-40%, -65%);
+            width: 600px;
+            height: 81px;
+            text-align: left;
+            /** 文本1 */
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            line-height: 28.96px;
+            color: rgba(96, 56, 19, 1);
         }
     }
 
     &__scroll {
-        width: 1200px;
+        width: 840px;
         margin: 40px auto 0;
-
-        .scroll__content {
-            background-repeat: repeat-y;
-            background-position: center;
-            padding: 20px 40px;
-        }
 
         .scroll__header {
             display: flex;
-            padding: 20px;
-            color: #3a2a1b;
-            font-size: 18px;
+            padding: 20px 40px;
+            background-color: rgba(58, 42, 27, 0.1);
+            color: #603813;
+            font-size: 16px;
             font-weight: bold;
 
             span:first-child {
-                width: 80px;
+                width: 100px;
+                text-align: left;
             }
             span:nth-child(2) {
                 flex: 1;
+                text-align: center;
             }
             span:last-child {
                 width: 120px;
@@ -102,29 +96,31 @@
 
         .scroll__item {
             display: flex;
-            padding: 20px;
+            padding: 20px 40px;
             border-bottom: 1px solid rgba(58, 42, 27, 0.1);
 
             .item__rank {
-                width: 80px;
+                width: 100px;
                 font-size: 24px;
                 font-weight: bold;
-                color: #3a2a1b;
+                color: #603813;
             }
 
             .item__content {
                 flex: 1;
                 padding-right: 20px;
+                text-align: center;
 
                 .item__title {
                     margin-bottom: 10px;
                     font-size: 16px;
+                    color: #603813;
 
                     .tag {
                         display: inline-block;
                         padding: 2px 8px;
                         margin-right: 10px;
-                        background: #b98c4b;
+                        background: #603813;
                         color: #fff;
                         border-radius: 4px;
                         font-size: 14px;
@@ -132,28 +128,9 @@
                 }
 
                 .item__desc {
-                    color: #666;
+                    color: #603813;
                     font-size: 14px;
                     line-height: 1.6;
-                }
-            }
-
-            .item__stats {
-                width: 120px;
-                text-align: right;
-
-                .item__btn {
-                    margin-top: 10px;
-                    padding: 6px 15px;
-                    background: #b98c4b;
-                    color: #fff;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-
-                    &.is-ended {
-                        background: #999;
-                    }
                 }
             }
         }
@@ -203,5 +180,3 @@
         }
     }
 }
-
-
