@@ -59,6 +59,7 @@
 
 <script>
 const lodash = require("lodash");
+const axios = require('axios');
 export default {
     name: "EventsPage",
     inject: ["__imgRoot"],
@@ -309,6 +310,8 @@ export default {
                 }
             }, 100);
         },
+        loadData(){
+        }
     },
     mounted() {
         window.addEventListener("scroll", this.showDecoration());
