@@ -1,7 +1,8 @@
-import axios from 'axios'
+// import axios from 'axios'
+import { $cms } from "@jx3box/jx3box-common/js/https";
 
 function getEventAc(id) {
-    return axios.get(`https://cms.jx3box.com/api/cms/post/${id}`).then((res) => {
+    return $cms.get(`/api/cms/post/${id}`).then((res) => {
         return res?.data?.data?.post_content
     })
 }
