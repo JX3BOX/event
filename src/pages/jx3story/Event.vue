@@ -22,11 +22,7 @@
         </div>
 
         <router-link class="router-link-wrapper" to="/" @click.native="handleClick">
-            <img
-                class="event__sign"
-                :src="getImgUrl('/eventcontent/eventc__sign.png')"
-                alt="活动标志"
-            />
+            <img class="event__sign" :src="getImgUrl('/eventcontent/eventc__sign.png')" alt="活动标志" />
         </router-link>
 
         <div class="m-content">
@@ -44,7 +40,7 @@
                         有人记录自己脑洞大开的奇思异闻，有人记录自己聚少离多的无奈半生，
                         有人记录自己平淡普通的点滴日常......<br />
                         世人惊惧于时间的洪流轰鸣作响， 又被裹挟其中无法脱身。<br />
-                        身年又悄悄地快要走到尽头，在此，年第二届「茶馆风月录」再次拉开帷幕，<br />
+                        岁末将至，「茶馆风月录」第二季如约而至，<br />
                         诚邀各位侠士再次在匆匆旅途中稍作片刻停留，<br />
                         携一壶酒、<br />
                         捧一杯茶，<br />
@@ -156,17 +152,16 @@ export default {
             return this.__imgRoot + name;
         },
         handleClick() {
-            this.$router.push('/').catch(err => {
-                if (err.name !== 'NavigationDuplicated') {
+            this.$router.push("/").catch((err) => {
+                if (err.name !== "NavigationDuplicated") {
                     throw err;
                 }
             });
-        }
+        },
     },
     mounted() {},
 };
 </script>
-
 <style lang="less">
 @import "../../assets/css/jx3story/event.less";
 </style>
