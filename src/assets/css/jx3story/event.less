@@ -1,109 +1,30 @@
-/* ====== 1. 页面容器 ====== */
+@event-height:2720px;
 .jx3story-event-content {
-    margin-top: @header-height !important;
-    width: 1920px;
-    height: auto;
-    margin: 0 auto;
     background-image: url("@{kv_jx3story}/eventcontent/eventc__bg.png");
     background-repeat: repeat-y;
     background-position: center top;
     position: relative;
+    height: @event-height;
+    overflow: hidden;
+}
 
-    .content__lanterns {
-        position: relative;
-    }
+.mini-slogan {
+    display: block;
+    position: absolute;
+    .lt(-50px);
+}
 
-    .event__sign {
-        height: auto;
-        margin: -100px auto auto -80px;
-        display: block;
-    }
+.m-content{
+    width:860px;
+    margin:0 auto;
+    color:#fff;
+    margin-top:110px;
+    .fz(16px,2);
 
-    .m-content {
-        width: 100%;
+    max-height: @event-height - 430px;
+    // max-height: 300px;
+    overflow-y: auto;
+    word-break: break-all;
 
-        img {
-            display: block;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-
-        .section__text {
-            color: rgba(255, 255, 255, 1);
-            font-family: "Noto Serif CJK SC";
-            text-align: center;
-            vertical-align: top;
-
-            &.section__text-1 {
-                margin-top: -100px;
-                font-size: 80px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 114.96px;
-            }
-
-            &.section__text-2 {
-                width: 1048px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 39px;
-            }
-
-            &.section__text-3 {
-                width: 1400px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 36px;
-            }
-
-            &.section__text-4 {
-                width: 910px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 49px;
-            }
-
-            &.section__text-5 {
-                width: 1190px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 40px;
-            }
-
-            &.section__text-6 {
-                width: 1400px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 38px;
-            }
-
-            &.section__text-7 {
-                width: 933px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 38px;
-            }
-
-            &.section__text-8 {
-                width: 933px;
-                margin: 0 auto;
-                font-size: 28px;
-                font-weight: 450;
-                letter-spacing: 0px;
-                line-height: 38px;
-            }
-        }
-    }
+    // TODO:设置滚动条的样式
 }
