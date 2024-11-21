@@ -23,21 +23,21 @@
                         <span class="u-vote">我喜欢</span>
                     </div>
                     <div class="m-table__body">
-                        <div v-for="(item, index) in eventList" :key="index" class="scroll__item">
+                        <a v-for="(item, index) in eventList" :key="index" class="scroll__item" :href="item.sub_title">
                             <div class="item__rank">{{ index + 1 }}</div>
                             <div class="item__content">
                                 <div class="item__title">
                                     <span class="title">{{ item.title }}</span>
                                     <span class="tag">{{ item.tag }}</span>
                                 </div>
-                                <p class="item__desc">{{ item.desc }}</p>
+                                <p class="item__desc">{{ item.content }}</p>
                             </div>
                             <div class="item__stats">
-                                <div class="u-btn u-btn--voted">已投票</div>
-                                <!-- <div class="u-btn u-btn--vote">喜欢！吃瓜！</div> -->
-                                <div class="u-count">人气: {{ item.popularity }}</div>
+                                <div class="u-btn u-btn--voted" v-if="item.disabled">已投票</div>
+                                <div class="u-btn u-btn--vote" @click.stop="vote(item)" v-else>喜欢！吃瓜！</div>
+                                <div class="u-count">人气: {{ item.amount }}</div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <img :src="getImgUrl('bg__bottom.png')" class="scroll__bottom" alt="卷轴下端" />
@@ -53,245 +53,22 @@
         <div class="events-page__slogan" :class="{ visible: isInMainContent }">
             <img :src="getImgUrl('slogan.png')" class="bigbang-title" alt="剑三年度大事件2024" />
         </div>
-
     </div>
 </template>
 
 <script>
 const lodash = require("lodash");
-const axios = require('axios');
+import { getVoteInfo } from "@/service/bigbang";
 export default {
     name: "EventsPage",
     inject: ["__imgRoot"],
     data() {
         return {
             eventList: [
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "黑工资",
-                    title: "XX团长 团灭联赛 被挂出3个情缘的故事",
-                    desc: "团长因为各种原因...",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
-                {
-                    tag: "出轨",
-                    title: "用户分享内容到社交媒体",
-                    desc: "监听用户的截图行为，表示用户进行分享，缩短了以前分享截图的操作路径",
-                    popularity: 13867,
-                    hasDetail: true,
-                },
             ],
             isInMainContent: false,
+            EVENT_ID : 22,
+            userStatus : []
         };
     },
     methods: {
@@ -310,10 +87,37 @@ export default {
                 }
             }, 100);
         },
-        loadData(){
-        }
+        loadData() {
+            getVoteInfo(this.EVENT_ID).then((res) => {
+
+                // 格式化标题与TAG
+                const list = res.data.data.vote_items;
+                list.forEach((item) => {
+                    // TODO:
+                    item.title = ''
+                    item.tag = ''
+                })
+
+                this.eventList = list
+            })
+        },
+
+        loadUserStatus(){
+            // TODO:请求用户的投票状态
+            this.userStatus = []
+            this.eventList.forEach((item) => {
+                item.disabled = this.userStatus.includes(item.id)
+            })
+        },
+        vote(item){
+            // TODO:请求
+            // item.amount += 1
+        },
     },
     mounted() {
+        this.loadData().then(() => {
+            this.loadUserStatus();
+        })
         window.addEventListener("scroll", this.showDecoration());
     },
 };
