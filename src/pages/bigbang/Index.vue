@@ -41,7 +41,7 @@
                             </div>
                             <div class="item__stats">
                                 <div class="u-btn u-btn--voted" v-if="item.disabled">已投票</div>
-                                <div class="u-btn u-btn--vote" @click.stop="vote(item)" v-else>喜欢！吃瓜！</div>
+                                <div class="u-btn u-btn--vote" @click="(e) => vote(item, e)" v-else>喜欢！吃瓜！</div>
                                 <div class="u-count">人气: {{ item.amount }}</div>
                             </div>
                         </a>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-const lodash = require("lodash");
+import lodash from "lodash";
 import { getVoteInfo, getUserVoteStatus, submitVote } from "@/service/bigbang";
 export default {
     name: "EventsPage",
@@ -73,7 +73,7 @@ export default {
         return {
             eventList: [],
             isInMainContent: false,
-            EVENT_ID: 22,
+            event_id: 22,
             userStatus: [],
             loading: false,
             voting: false,
@@ -97,55 +97,34 @@ export default {
         },
         loadData() {
             this.loading = true;
-            getVoteInfo(this.EVENT_ID)
+            return getVoteInfo(this.event_id)
                 .then((res) => {
-                    const list = res.data.data.vote_items;
-                    list.forEach((item) => {
-                        const [title, tag] = item.title.split("#"); // 假设标题格式为 "标题#标签"
-                        item.title = title.trim();
-                        item.tag = tag?.trim() || "";
+                    this.eventList = res.data.data?.vote_items || []; // 待投票的事件列表
+                    this.userStatus = res.data.data?.latest_vote_history_record?.vote_item_id_list || []; // 用户的投票状态
+                    // 更新列表项的禁用状态
+                    this.eventList.forEach((item) => {
+                        item.disabled = this.userStatus.includes(item.id);
                     });
-                    this.eventList = list;
-                })
-                .catch((err) => {
-                    this.$message.error("网络错误，请稍后重试");
                 })
                 .finally(() => {
                     this.loading = false;
                 });
         },
-
-        loadUserStatus() {
-            getUserVoteStatus(this.EVENT_ID).then((res) => {
-                this.userStatus = res.data.data || [];
-                // 更新列表项的禁用状态
-                this.eventList.forEach((item) => {
-                    item.disabled = this.userStatus.includes(item.id);
-                });
-            });
-        },
-        vote(item) {
-            submitVote(this.EVENT_ID, item.id)
-                .then((res) => {
-                    if (res.code === 0) {
-                        // 假设 0 表示成功
-                        item.amount += 1;
-                        item.disabled = true;
-                        this.userStatus.push(item.id);
-                    } else {
-                        // 处理错误情况
-                        this.$message.error(res.msg || "投票失败");
-                    }
-                })
-                .catch((err) => {
-                    this.$message.error("网络错误，请稍后重试");
-                });
+        vote(item, e) {
+            // 阻止事件冒泡和默认行为
+            e.stopPropagation();
+            e.preventDefault();
+            submitVote(this.event_id, {
+                vote_id_list: [item.id],
+            }).then(() => {
+                this.$message.success("投票成功！");
+                item.amount += 1;
+                item.disabled = true;
+            })
         },
     },
     mounted() {
-        this.loadData().then(() => {
-            this.loadUserStatus();
-        });
+        this.loadData();
         window.addEventListener("scroll", this.showDecoration());
     },
 };
