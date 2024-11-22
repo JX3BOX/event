@@ -40,7 +40,7 @@
                                 <p class="item__desc">{{ item.content }}</p>
                             </div>
                             <div class="item__stats">
-                                <div class="u-btn u-btn--voted" v-if="item.disabled">已投票</div>
+                                <div class="u-btn u-btn--voted" v-if="item.disabled" @click.stop.prevent>已投票</div>
                                 <div class="u-btn u-btn--vote" @click="(e) => vote(item, e)" v-else>喜欢！吃瓜！</div>
                                 <div class="u-count">人气: {{ item.amount }}</div>
                             </div>
@@ -65,18 +65,20 @@
 
 <script>
 import lodash from "lodash";
-import { getVoteInfo, getUserVoteStatus, submitVote } from "@/service/bigbang";
+import { getVoteInfo, submitVote } from "@/service/bigbang";
 export default {
     name: "EventsPage",
     inject: ["__imgRoot"],
     data() {
         return {
-            eventList: [],
-            isInMainContent: false,
             event_id: 22,
-            userStatus: [],
+            eventList: [], // 待投票的事件列表
             loading: false,
+
+            userStatus: [], // 用户的投票状态
             voting: false,
+
+            isInMainContent: false,
         };
     },
     methods: {
