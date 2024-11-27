@@ -1,4 +1,5 @@
 Vue.config.productionTip = false;
+Vue.config.devtools = true;
 
 // 第三方UI组件
 import Vue from "vue";
