@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-0ce573dd"],{"4ae9":function(t,n,e){},"74d2":function(t,n,e){"use strict";e.r(n);var o=function(){var t=this,n=t._self._c;return n("div",{staticClass:"events-page"})},u=[],i={name:"jx3storyEvent",inject:["__imgRoot"],data:function(){return{}},methods:{getImgUrl:function(t){return this.__imgRoot+t}},mounted:function(){}},c=i,s=(e("e5f8"),e("2877")),a=Object(s["a"])(c,o,u,!1,null,null,null);n["default"]=a.exports},e5f8:function(t,n,e){"use strict";e("4ae9")}}]);
+//# sourceMappingURL=chunk-0ce573dd.2ba4a4c9.js.map
