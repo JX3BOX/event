@@ -1,26 +1,7 @@
 <template>
     <div class="jx3story-event-content p-event-main">
         <!-- 灯笼 -->
-        <div class="lantern-group">
-            <Lantern
-                to="/event"
-                :top="68"
-                :left="44"
-                lanternPath="main/main__lantern1.png"
-                textPath="main/main__texttrans_event.png"
-                alt="灯笼1"
-                textAlt="内容活动"
-            />
-            <Lantern
-                to="/article"
-                :top="274"
-                :left="136"
-                lanternPath="main/main__lantern2.png"
-                textPath="main/main__texttrans_article.png"
-                alt="灯笼2"
-                textAlt="文字赏析"
-            />
-        </div>
+        <RightLantern />
 
         <!-- logo -->
         <router-link class="mini-slogan" to="/" @click.native="handleClick">
@@ -34,14 +15,14 @@
 </template>
 
 <script>
-import Lantern from "./components/Lantern.vue";
+import RightLantern from "./components/RightLantern.vue";
 import { getEventAc } from "@/service/jx3story";
 
 export default {
     name: "jx3storyEvent",
     inject: ["__imgRoot"],
     components: {
-        Lantern,
+        RightLantern,
     },
     data() {
         return {
