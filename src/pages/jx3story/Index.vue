@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import Lantern from "./components/Lantern.vue";
 import RightLantern from "./components/RightLantern.vue";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
@@ -45,7 +44,6 @@ export default {
             return this.__imgRoot + name;
         },
     },
-    mounted() {},
 };
 </script>
 
