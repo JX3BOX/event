@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import User from "@jx3box/jx3box-common/js/user";
 import lodash from "lodash";
 import { getVoteInfo, submitVote } from "@/service/bigbang";
 export default {
@@ -80,6 +81,11 @@ export default {
 
             isInMainContent: false,
         };
+    },
+    computed: {
+        isLogin() {
+            return User.isLogin();
+        },
     },
     methods: {
         getImgUrl(name) {
@@ -116,10 +122,18 @@ export default {
             // 阻止事件冒泡和默认行为
             e.stopPropagation();
             e.preventDefault();
+
+            // 未登录跳转至登录页
+            if (!this.isLogin) {
+                User.toLogin();
+                return;
+            }
+
             submitVote(this.event_id, {
                 vote_id_list: [item.id],
             }).then(() => {
                 this.$message.success("投票成功！");
+                // 投票成功后，更新列表项的禁用状态及票数
                 item.amount += 1;
                 item.disabled = true;
             })
