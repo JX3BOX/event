@@ -1,5 +1,8 @@
 <template>
-    <div class="jx3story-vote-content p-vote-main">
+    <div class="jx3story-vote-content p-event-main">
+        <!-- 灯笼组 -->
+
+
         <!-- logo -->
         <router-link class="mini-slogan" to="/" @click.native="handleClick">
             <img class="event__sign" :src="getImgUrl('/eventcontent/eventc__sign.png')" alt="活动标志" />
@@ -31,9 +34,12 @@
 </template>
 
 <script>
+import LanternGroup from "./components/LanternGroup.vue";
+
 export default {
     name: "jx3storyVote",
     inject: ["__imgRoot"],
+ 
     data() {
         return {
             voteItems: [
