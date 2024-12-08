@@ -1,27 +1,24 @@
 <template>
-    <div class="p-event-jx3story p-event-main">
-        <div class="m-video"></div>
-        <div class="m-content">
-            <!-- 灯笼容器 -->
+    <div class="jx3story-vote-content p-event-main">
+        <!-- 灯笼组 -->
+        <div class="lantern-group">
             <Lantern
                 to="/event"
                 :top="68"
                 :left="44"
-                lanternPath="/main/main__lantern1.png"
-                textPath="/main/main__texttrans_event.png"
+                lanternPath="main/main__lantern1.png"
+                textPath="main/main__texttrans_event.png"
                 alt="灯笼1"
                 textAlt="内容活动"
-                class="lantern lantern-1"
             />
             <Lantern
                 to="/article"
                 :top="274"
                 :left="136"
-                lanternPath="/main/main__lantern2.png"
-                textPath="/main/main__texttrans_article.png"
+                lanternPath="main/main__lantern2.png"
+                textPath="main/main__texttrans_article.png"
                 alt="灯笼2"
                 textAlt="文字赏析"
-                class="lantern lantern-2"
             />
             <Lantern
                 to="/vote"
@@ -31,12 +28,14 @@
                 textPath="/main/main__texttrans_vote.png"
                 alt="灯笼3"
                 textAlt="投票参与"
-                class="lantern lantern-3"
             />
+        </div>
 
-            <!-- 标题图片 -->
-            <div class="content__title">
-                <img class="content__title-image" :src="getImgUrl('/main/main__title.png')" alt="标题" />
+        <!-- 投票页面主体内容 -->
+        <div class="m-main">
+            <div class="m-content">
+                <!-- 这里添加投票页面的具体内容 -->
+                <h1>投票页面</h1>
             </div>
         </div>
     </div>
@@ -44,8 +43,9 @@
 
 <script>
 import Lantern from "./components/Lantern.vue";
+
 export default {
-    name: "jx3storyMain",
+    name: "jx3storyVote",
     inject: ["__imgRoot"],
     components: {
         Lantern,
@@ -58,10 +58,9 @@ export default {
             return this.__imgRoot + name;
         },
     },
-    mounted() {},
 };
 </script>
 
 <style lang="less">
-@import "../../assets/css/jx3story/index.less";
+// 如果需要特定样式，可以在这里添加
 </style>

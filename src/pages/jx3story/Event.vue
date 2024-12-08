@@ -20,6 +20,15 @@
                 alt="灯笼2"
                 textAlt="文字赏析"
             />
+            <Lantern
+                to="/vote"
+                :top="580"
+                :left="94"
+                lanternPath="/main/main__lantern3.png"
+                textPath="/main/main__texttrans_vote.png"
+                alt="灯笼3"
+                textAlt="投票参与"
+            />
         </div>
 
         <!-- logo -->
