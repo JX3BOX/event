@@ -1,4 +1,4 @@
-@event-height:2720px;
+@event-height: 2720px;
 .jx3story-event-content {
     background-image: url("@{kv_jx3story}/eventcontent/eventc__bg.png");
     background-repeat: repeat-y;
@@ -6,25 +6,21 @@
     position: relative;
     height: @event-height;
     overflow: hidden;
-}
+    .mini-slogan {
+        display: block;
+        position: absolute;
+        .lt(-50px);
+    }
 
-.mini-slogan {
-    display: block;
-    position: absolute;
-    .lt(-50px);
-}
-
-.m-content{
-    width:860px;
-    margin:0 auto;
-    color:#fff;
-    margin-top:110px;
-    .fz(16px,2);
-
-    max-height: @event-height - 430px;
-    // max-height: 300px;
-    overflow-y: auto;
-    word-break: break-all;
-
-    // TODO:设置滚动条的样式
+    .m-content {
+        width: 860px;
+        .auto(x);
+        color: #fff;
+        margin-top: 110px;
+        .fz(16px,2);
+        max-height: @event-height - 430px;
+        word-break: break-all;
+        overflow-y: auto;
+        .scrollbar(2px,hsla(0, 0%, 87%, 0.2),#0003);
+    }
 }

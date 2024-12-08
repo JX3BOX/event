@@ -1,6 +1,10 @@
 <template>
     <div class="p-event-jx3story p-event-main">
-        <div class="m-video"></div>
+        <div class="m-video">
+            <video class="mp4" playsinline="" autoplay="" muted="" loop="" :poster="poster">
+                <source :src="videoLink" type="video/mp4" />
+            </video>
+        </div>
         <div class="m-content">
             <!-- 灯笼容器 -->
             <Lantern
@@ -38,30 +42,40 @@
             <div class="content__title">
                 <img class="content__title-image" :src="getImgUrl('/main/main__title.png')" alt="标题" />
             </div>
+
+            <img class="content__scroll-image" :src="getImgUrl('/main/scroll.webp')" alt="卷轴" />
         </div>
     </div>
 </template>
 
 <script>
-import Lantern from "./components/Lantern.vue";
+import RightLantern from "./components/RightLantern.vue";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "jx3storyMain",
     inject: ["__imgRoot"],
     components: {
-        Lantern,
+        RightLantern,
     },
     data() {
         return {};
+    },
+    computed: {
+        videoLink() {
+            return __cdn + "design/video/20231128-fengyue-bg.mp4";
+        },
+        poster() {
+            return `${this.__imgRoot}main/main__bg.png`;
+        },
     },
     methods: {
         getImgUrl(name) {
             return this.__imgRoot + name;
         },
     },
-    mounted() {},
 };
 </script>
 
 <style lang="less">
-@import "../../assets/css/jx3story/index.less";
+@import "~@/assets/css/jx3story/index.less";
 </style>

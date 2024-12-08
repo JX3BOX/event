@@ -43,14 +43,14 @@
 </template>
 
 <script>
-import Lantern from "./components/Lantern.vue";
+import RightLantern from "./components/RightLantern.vue";
 import { getEventAc } from "@/service/jx3story";
 
 export default {
     name: "jx3storyEvent",
     inject: ["__imgRoot"],
     components: {
-        Lantern,
+        RightLantern,
     },
     data() {
         return {
