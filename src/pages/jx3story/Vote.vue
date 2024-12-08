@@ -22,14 +22,19 @@
             />
             <Lantern
                 to="/vote"
-                :top="580"
-                :left="94"
+                :top="440"
+                :left="66"
                 lanternPath="/main/main__lantern3.png"
                 textPath="/main/main__texttrans_vote.png"
                 alt="灯笼3"
                 textAlt="投票参与"
             />
         </div>
+
+                <!-- logo -->
+                <router-link class="mini-slogan" to="/" @click.native="handleClick">
+            <img class="event__sign" :src="getImgUrl('/eventcontent/eventc__sign.png')" alt="活动标志" />
+        </router-link>
 
         <!-- 投票页面主体内容 -->
         <div class="m-main">
@@ -60,7 +65,6 @@ export default {
     },
 };
 </script>
-
 <style lang="less">
-// 如果需要特定样式，可以在这里添加
+@import "../../assets/css/jx3story/vote.less";
 </style>

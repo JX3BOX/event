@@ -29,8 +29,8 @@
             />
             <Lantern
                 to="/vote"
-                :top="580"
-                :left="94"
+                :top="440"
+                :left="66"
                 lanternPath="/main/main__lantern3.png"
                 textPath="/main/main__texttrans_vote.png"
                 alt="灯笼3"
@@ -49,13 +49,13 @@
 </template>
 
 <script>
-import RightLantern from "./components/RightLantern.vue";
+import Lantern from "./components/Lantern.vue";
 import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "jx3storyMain",
     inject: ["__imgRoot"],
     components: {
-        RightLantern,
+        Lantern,
     },
     data() {
         return {};

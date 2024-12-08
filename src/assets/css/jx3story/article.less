@@ -1,43 +1,34 @@
-.content__title-image {
-    padding-top: 196px;
-    width: 1305px;
-    height: 568px;
+.jx3story-article-content {
+    background-image: url("@{kv_jx3story}/article/bg.png");
+    background-repeat: no-repeat;
+    background-position: center top;
     margin: 0 auto;
-    display: block;
-}
-
-.lantern-group {
     position: relative;
+    background-size: contain;
+    overflow: hidden;
+    min-height: 140vh;
 
-}
+    .mini-slogan {
+        display: block;
+        position: absolute;
+        .lt(-50px);
+    }
 
-.content__lantern {
-    position: absolute;
-    cursor: pointer;
-}
+    .m-main {
+        width: 2250px;
+        height: 1200px;
+        margin: 0 auto;
+        position: relative;
+        background-image: url("@{kv_jx3story}/article/scroll.png");
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 100% 100%;
+    }
 
-.content__lantern--left {
-    top: 68px;
-    left: 44px;
-}
-
-.content__lantern--right {
-    top: 274px;
-    left: 136px;
-}
-
-
-
-.content__lantern-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;  /* 改为相对父元素宽度的60% */
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.content__lantern:hover .content__lantern-text {
-    transform: translate(-50%, -50%) scale(1.2);
+    .article-content {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 100px 50px;
+        min-height: 0px;
+    }
 }
