@@ -80,8 +80,7 @@ export default {
     width: 60%;
     transition: transform 0.3s ease;
 }
-.lantern__image{
+.lantern__image {
     display: block;
 }
-
 </style>

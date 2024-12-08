@@ -50,6 +50,7 @@
 
 <script>
 import Lantern from "./components/Lantern.vue";
+
 export default {
     name: "jx3storyEvent",
     inject: ["__imgRoot"],
@@ -57,7 +58,7 @@ export default {
         Lantern,
     },
     data() {
-        return {}; // 清空数据，等待正确的数据结构
+        return {};
     },
     methods: {
         getImgUrl(name) {

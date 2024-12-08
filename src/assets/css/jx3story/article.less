@@ -8,12 +8,6 @@
     overflow: hidden;
     min-height: 140vh;
 
-    .mini-slogan {
-        display: block;
-        position: absolute;
-        .lt(-50px);
-    }
-
     .m-main {
         width: 2250px;
         height: 1200px;
@@ -23,6 +17,7 @@
         background-repeat: no-repeat;
         background-position: center top;
         background-size: 100% 100%;
+        z-index: 1;
     }
 
     .article-content {
@@ -30,5 +25,21 @@
         margin: 0 auto;
         padding: 100px 50px;
         min-height: 0px;
+    }
+
+    .lantern-group {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 300px;
+        height: 640px;
+        z-index: 10;
+    }
+
+    .mini-slogan {
+        display: block;
+        position: absolute;
+        .lt(-50px);
+        z-index: 10;
     }
 }
