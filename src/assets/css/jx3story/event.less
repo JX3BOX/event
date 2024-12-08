@@ -1,42 +1,33 @@
-@event-height: 2720px;
+// @event-height: 2720px;
 .jx3story-event-content {
-    // background-image: url("@{kv_jx3story}/eventcontent/eventc__bg.png");
-    background-repeat: repeat-y;
+    background: url("@{design_url}event/jx3story/2024/bg-header.png") no-repeat 0 0;
+    background-color: #3e4759;
+    background-repeat: no-repeat;
     background-position: center top;
+    background-size: 100% auto;
     position: relative;
-    height: @event-height;
-    overflow: hidden;
+    height: auto;
+
     .mini-slogan {
         display: block;
         position: absolute;
         .lt(-50px);
     }
 
+    .m-main {
+        background: url("@{design_url}event/jx3story/2024/bg-footer.png") no-repeat 0 0;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: 100% auto;
+        min-height: 1080px * 2;
+    }
+
     .m-content {
         width: 860px;
         .auto(x);
         color: #fff;
-        margin-top: 110px;
+        padding-top: 110px;
         .fz(16px,2);
-        max-height: @event-height - 430px;
         word-break: break-all;
-        overflow-y: auto;
-        .scrollbar(2px,hsla(0, 0%, 87%, 0.2),#0003);
-    }
-
-    .m-event-header {
-        background: url("@{design_url}event/jx3story/2024/bg-header.png") no-repeat 0 0;
-        height: 1080px;
-        width: 100%;
-        .pa;
-        top: 0;
-    }
-
-    .m-event-footer {
-        background: url("@{design_url}event/jx3story/2024/bg-footer.png") no-repeat 0 0;
-        height: 1080px;
-        width: 100%;
-        .pa;
-        bottom: 0;
     }
 }

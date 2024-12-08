@@ -1,6 +1,6 @@
 <template>
     <div class="jx3story-event-content p-event-main">
-        <div class="m-event-header"></div>
+
         <!-- 灯笼 -->
         <LanternGroup />
 
@@ -13,7 +13,6 @@
             <div class="m-content" v-html="content"></div>
         </div>
 
-        <div class="m-event-footer"></div>
     </div>
 </template>
 
