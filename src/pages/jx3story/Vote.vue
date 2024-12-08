@@ -1,67 +1,67 @@
 <template>
-    <div class="jx3story-vote-content p-event-main">
-        <!-- 灯笼组 -->
-        <div class="lantern-group">
-            <Lantern
-                to="/event"
-                :top="68"
-                :left="44"
-                lanternPath="main/main__lantern1.png"
-                textPath="main/main__texttrans_event.png"
-                alt="灯笼1"
-                textAlt="内容活动"
-            />
-            <Lantern
-                to="/article"
-                :top="274"
-                :left="136"
-                lanternPath="main/main__lantern2.png"
-                textPath="main/main__texttrans_article.png"
-                alt="灯笼2"
-                textAlt="文字赏析"
-            />
-            <Lantern
-                to="/vote"
-                :top="440"
-                :left="66"
-                lanternPath="/main/main__lantern3.png"
-                textPath="/main/main__texttrans_vote.png"
-                alt="灯笼3"
-                textAlt="投票参与"
-            />
-        </div>
-
-                <!-- logo -->
-                <router-link class="mini-slogan" to="/" @click.native="handleClick">
+    <div class="jx3story-vote-content p-vote-main">
+        <!-- logo -->
+        <router-link class="mini-slogan" to="/" @click.native="handleClick">
             <img class="event__sign" :src="getImgUrl('/eventcontent/eventc__sign.png')" alt="活动标志" />
         </router-link>
 
-        <!-- 投票页面主体内容 -->
-        <div class="m-main">
-            <div class="m-content">
-                <!-- 这里添加投票页面的具体内容 -->
-                <h1>投票页面</h1>
+        <!-- 投票列表 -->
+        <div class="vote-list">
+            <!-- 添加标题 -->
+            <div class="vote-list__title">2024年茶馆风月录投票榜</div>
+
+            <div class="vote-list__header"></div>
+
+            <div class="vote-list__content">
+                <!-- 循环渲染投票项 -->
+                <div v-for="(item, index) in voteItems" :key="index" class="vote-item">
+                    <div class="vote-item__number">{{index + 1}}.</div>
+                    <div class="vote-item__title">《{{item.title}}》</div>
+                    <div class="vote-item__author">{{item.author}}</div>
+                    <div class="vote-item__popularity">{{item.popularity}}</div>
+                    <div class="vote-item__action">
+                        <button class="btn-vote" @click="handleVote(item)">
+                            <img :src="getImgUrl('/vote/btn-vote.svg')" alt="投票" />
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Lantern from "./components/Lantern.vue";
-
 export default {
     name: "jx3storyVote",
     inject: ["__imgRoot"],
-    components: {
-        Lantern,
-    },
     data() {
-        return {};
+        return {
+            voteItems: [
+                { title: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },     { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },     { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2333 },
+                { title: 'xxxxxxxxxx', author: '作者名字', popularity: 2331 },
+            ]
+        };
     },
     methods: {
         getImgUrl(name) {
             return this.__imgRoot + name;
         },
+        handleVote(item) {
+            // 处理投票逻辑
+            console.log('投票给:', item.title);
+        }
     },
 };
 </script>
