@@ -115,11 +115,23 @@
             "img": "https://cdn.jx3box.com/upload/post/2023/12/21/49682_7354896.jpg"
         },
         {
-            "name": "周年专题",
+            "name": "年终总结",
+            "link": "/",
+            "month": "12",
+            "img": "https://cdn.jx3box.com/design/cover/cover_event/2024mohe_ce.png"
+        },
+        {
+            "name": "年度大事件",
+            "link": "/",
+            "month": "12",
+            "img": "https://cdn.jx3box.com/design/cover/cover_event/bigbang_ce.png"
+        },
+        {
+            "name": "周年庆",
             "link": "/event/birthday",
             "month": "12",
             "single": true,
-            "img": "https://cdn.jx3box.com/upload/post/2023/12/21/49682_7354896.jpg"
+            "img": "https://cdn.jx3box.com/design/cover/cover_event/2024mohe_ce.png"
         }
     ]
 }

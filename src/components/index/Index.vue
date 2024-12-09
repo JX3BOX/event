@@ -57,7 +57,6 @@
 <script>
 import { __imgPath, __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import data from "@/assets/data/index.json";
-// import { getBreadcrumb } from "@/service/topic";
 export default {
     name: "Index",
     data: function() {
@@ -103,8 +102,6 @@ export default {
             this.name = "";
         },
         load() {
-            // getBreadcrumb("event-index-json").then((res) => {
-            // const { list, vertical } = JSON.parse(res);
             const { list, vertical } = data;
             this.list = list;
             this.monthList = vertical.reduce((acc, item) => {
@@ -119,7 +116,6 @@ export default {
                 }
                 return acc;
             }, []);
-            // });
         },
         change() {
             this.isNewEvent = !this.isNewEvent;
