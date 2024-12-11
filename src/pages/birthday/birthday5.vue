@@ -258,7 +258,7 @@
                         <div class="u-fun__label">{{ item }}</div>
                     </div>
                 </div>
-                <div class="m-tips">
+                <div class="m-tips" style="visibility: hidden;">
                     <div class="u-tips__title">这一次，普通用户也能体验</div>
                     <div class="u-tips__sub">[ 每项功能可试用X次 ]</div>
                 </div>
@@ -302,7 +302,7 @@
                             alt=""
                         />
                     </div>
-                    <div class="u-book__tip">活动期间开年费会员，每开通一次，均可领取一套精美笔记本（4选1）</div>
+                    <div class="u-book__tip">活动期间购买年费会员（可重复），即可领取一套精美笔记本（4选1）</div>
                     <img class="u-open" src="../../assets/img/celebration/6/open.svg" alt="" />
                     <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
                     <img class="u-get" src="../../assets/img/celebration/get.png" alt="" />
@@ -341,11 +341,11 @@
                         <img class="u-get__title" src="../../assets/img/celebration/7/get_3.png" alt="" />
                         <div class="m-text">
                             <div class="u-text__title">
-                                Lv4可以领1个月
+                                Lv4可领取1个月
                                 <br />
-                                Lv5可以领2个月
+                                Lv5可领取2个月
                                 <br />
-                                Lv6及以上可以领3个月
+                                Lv6及以上可领取3个月
                             </div>
                             <div class="u-text__sub">我的等级：5</div>
                             <div class="u-text__tip">（剩余领取次数：1）</div>
