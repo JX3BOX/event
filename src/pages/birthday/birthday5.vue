@@ -9,10 +9,10 @@
                 :data-gradient="item"
                 @click="scrollToSection(index)"
             >
-                <img class="u-img" :src="require(`../../assets/img/celebration/nav/${index + 1}.svg`)" alt="" />
+                <img class="u-img" :src="imgSrc(`nav/${index + 1}.svg`)" alt="" />
             </div>
             <div class="m-item" @click="scrollToSection(-1)">
-                <img class="u-img" :src="require(`../../assets/img/celebration/nav/8.svg`)" alt="" />
+                <img class="u-img" :src="imgSrc(`nav/8.svg`)" alt="" />
             </div>
         </div>
         <div class="m-page-0">
@@ -21,19 +21,19 @@
                 <div v-for="(item, index) in 12" :key="index">
                     <img
                         class="u-img"
-                        :src="require(`../../assets/img/celebration/0/${index}.png`)"
+                        :src="imgSrc(`0/${index}.png`)"
                         alt=""
                         @mouseover="playAudio(item)"
                     />
                 </div>
             </div>
-            <img class="u-top-kv" src="../../assets/img/celebration/0/top_kv.png" alt="" />
+            <img class="u-top-kv" :src="imgSrc(`0/top_kv.png`)" alt="" />
         </div>
         <div class="m-page-1 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/1/1.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/1/bg.jpg" alt="" />
+            <img class="u-mark" :src="imgSrc(`1/1.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`1/bg.jpg`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/1/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`1/title.svg`)" alt="" />
                 <iframe
                     class="u-video"
                     src="//player.bilibili.com/player.html?isOutside=true&aid=113604586113129&bvid=BV1dxiiYtEnC&cid=27204256360&p=1"
@@ -49,39 +49,46 @@
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 4" :key="item">
-                <img class="u-img" :src="require(`../../assets/img/celebration/1/Ellipse${index}.png`)" alt="" />
-                <img class="u-code" src="../../assets/img/celebration/miniprogram.jpg" alt="" />
+                <img class="u-img" :src="imgSrc(`1/Ellipse${index}.png`)" alt="" />
+                <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
         <div class="m-page-2 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/2/2.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/2/bg.jpg" alt="" />
+            <img class="u-mark" :src="imgSrc(`2/2.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`2/bg.jpg`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/2/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`2/title.svg`)" alt="" />
 
-                <img class="u-medal" src="../../assets/img/celebration/Temp/yzk-200.png" alt="" />
+                <img class="u-medal" :src="imgSrc(`Temp/yzk-200.png`)" alt="" />
                 <img
                     class="u-get"
                     v-if="!birthdayMedalCheck"
                     style="cursor: pointer"
-                    src="../../assets/img/celebration/get.png"
+                    :src="imgSrc(`get.png`)"
                     alt=""
+                    @click="getBirthdayMedal"
                 />
-                <img class="u-get" v-else style="cursor: no-drop" src="../../assets/img/celebration/get1.png" alt="" />
+                <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 3" :key="item">
-                <img class="u-img" :src="require(`../../assets/img/celebration/2/Ellipse${index}.png`)" alt="" />
-                <img class="u-code" src="../../assets/img/celebration/miniprogram.jpg" alt="" />
+                <img class="u-img" :src="imgSrc(`2/Ellipse${index}.png`)" alt="" />
+                <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
         <div class="m-page-3 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/3/3.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/3/bg.jpg" alt="" />
+            <img class="u-mark" :src="imgSrc(`3/3.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`3/bg.jpg`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/3/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`3/title.svg`)" alt="" />
                 <div class="m-plate">
-                    <img class="u-plate-bg" src="../../assets/img/celebration/3/line.svg" alt="" />
-                    <div class="m-item u-calendar">
+                    <img class="u-plate-bg" :src="imgSrc(`3/line.svg`)" alt="" />
+                    <div
+                        class="m-item u-calendar"
+                        @mouseover="page3ClassType = 'calendar'"
+                        :class="{
+                            'u-hover': page3ClassType == 'calendar',
+                        }"
+                    >
                         <div class="m-info m-calendar">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -93,7 +100,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" @click="getDecoration('calendar')" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +110,13 @@
                         </div>
                     </div>
 
-                    <div class="m-item u-sidebar">
+                    <div
+                        class="m-item u-sidebar"
+                        @mouseover="page3ClassType = 'sidebar'"
+                        :class="{
+                            'u-hover': page3ClassType == 'sidebar',
+                        }"
+                    >
                         <div class="m-info m-sidebar">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -115,7 +128,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +138,13 @@
                         </div>
                     </div>
 
-                    <div class="m-item u-people__card">
+                    <div
+                        class="m-item u-people__card"
+                        @mouseover="page3ClassType = 'people__card'"
+                        :class="{
+                            'u-hover': page3ClassType == 'people__card',
+                        }"
+                    >
                         <div class="m-info m-people__card">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -137,7 +156,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +166,13 @@
                         </div>
                     </div>
 
-                    <div class="m-item u-personal">
+                    <div
+                        class="m-item u-personal"
+                        @mouseover="page3ClassType = 'personal'"
+                        :class="{
+                            'u-hover': page3ClassType == 'personal',
+                        }"
+                    >
                         <div class="m-info m-personal">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -159,7 +184,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +194,13 @@
                         </div>
                     </div>
 
-                    <div class="m-item u-comment">
+                    <div
+                        class="m-item u-comment"
+                        @mouseover="page3ClassType = 'comment'"
+                        :class="{
+                            'u-hover': page3ClassType == 'comment',
+                        }"
+                    >
                         <div class="m-info m-comment">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -181,7 +212,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +222,13 @@
                         </div>
                     </div>
 
-                    <div class="m-item u-card">
+                    <div
+                        class="m-item u-card"
+                        @mouseover="page3ClassType = 'card'"
+                        :class="{
+                            'u-hover': page3ClassType == 'card',
+                        }"
+                    >
                         <div class="m-info m-card">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -203,7 +240,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -213,7 +250,13 @@
                         </div>
                     </div>
 
-                    <div class="m-item u-avatar">
+                    <div
+                        class="m-item u-avatar"
+                        @mouseover="page3ClassType = 'avatar'"
+                        :class="{
+                            'u-hover': page3ClassType == 'avatar',
+                        }"
+                    >
                         <div class="m-info m-avatar">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
@@ -225,7 +268,7 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" src="../../assets/img/celebration/get.png" alt="" />
+                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -235,110 +278,114 @@
                         </div>
                     </div>
 
-                    <img class="u-getAll" src="../../assets/img/celebration/gets.png" alt="" />
+                    <img class="u-getAll" :src="imgSrc(`gets.png`)" alt="" />
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 4" :key="item">
-                <img class="u-img" :src="require(`../../assets/img/celebration/3/Ellipse${index}.png`)" alt="" />
-                <img class="u-code" src="../../assets/img/celebration/miniprogram.jpg" alt="" />
+                <img class="u-img" :src="imgSrc(`3/Ellipse${index}.png`)" alt="" />
+                <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
         <div class="m-page-4 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/4/4.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/4/bg.jpg" alt="" />
+            <img class="u-mark" :src="imgSrc(`4/4.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`4/bg.jpg`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/4/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`4/title.svg`)" alt="" />
                 <div class="m-fun">
                     <div class="m-item" v-for="(item, index) in page4Arr" :key="index">
                         <img
                             class="u-fun__img"
-                            :src="require(`../../assets/img/celebration/4/V${index + 1}.svg`)"
+                            :src="imgSrc(`4/V${index + 1}.svg`)"
                             alt=""
                         />
                         <div class="u-fun__label">{{ item }}</div>
                     </div>
                 </div>
-                <div class="m-tips" style="visibility: hidden;">
+                <div class="m-tips" style="visibility: hidden">
                     <div class="u-tips__title">这一次，普通用户也能体验</div>
                     <div class="u-tips__sub">[ 每项功能可试用X次 ]</div>
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 2" :key="item">
-                <img class="u-img" :src="require(`../../assets/img/celebration/4/Ellipse${index}.png`)" alt="" />
-                <img class="u-code" src="../../assets/img/celebration/miniprogram.jpg" alt="" />
+                <img class="u-img" :src="imgSrc(`4/Ellipse${index}.png`)" alt="" />
+                <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
         <div class="m-page-5 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/5/5.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/5/bg.jpg" alt="" />
+            <img class="u-mark" :src="imgSrc(`5/5.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`5/bg.jpg`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/5/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`5/title.svg`)" alt="" />
                 <div class="m-info">
-                    <img class="u-top" src="../../assets/img/celebration/5/page-title.png" alt="" />
+                    <img class="u-top" :src="imgSrc(`5/page-title.png`)" alt="" />
                     <div class="u-top__tip">[ 非活动时期 ]</div>
-                    <img class="u-points" src="../../assets/img/celebration/5/points.png" alt="" />
+                    <img class="u-points" @click="openNewWindow('/vip/premium')"
+                         :src="imgSrc(`5/points.png`)" alt="" />
                     <div class="u-points__tip">错过再等一整年！</div>
-                    <img class="u-box__logo" src="../../assets/img/celebration/5/box-logo.png" alt="" />
+                    <img class="u-box__logo" :src="imgSrc(`5/box-logo.png`)" alt="" />
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 2" :key="item">
-                <img class="u-img" :src="require(`../../assets/img/celebration/5/Ellipse${index}.png`)" alt="" />
-                <img class="u-code" src="../../assets/img/celebration/miniprogram.jpg" alt="" />
+                <img class="u-img" :src="imgSrc(`5/Ellipse${index}.png`)" alt="" />
+                <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
         <div class="m-page-6 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/6/6.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/6/bg.png" alt="" />
+            <img class="u-mark" :src="imgSrc(`6/6.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`6/bg.png`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/6/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`6/title.svg`)" alt="" />
                 <div class="m-info">
                     <div class="u-top">B5 40P横线本 4选1</div>
                     <div class="m-book">
-                        <img
+                        <el-image
                             class="u-book"
                             v-for="item in 4"
                             :key="item"
-                            :src="require(`../../assets/img/celebration/6/book_${item}.png`)"
-                            alt=""
-                        />
+                            :src="imgSrc(`gift/gift-${item}.jpg`)"
+                            :preview-src-list="[imgSrc(`gift/gift-${item}.jpg`)]"
+                        >
+                        </el-image>
                     </div>
                     <div class="u-book__tip">活动期间购买年费会员（可重复），即可领取一套精美笔记本（4选1）</div>
-                    <img class="u-open" src="../../assets/img/celebration/6/open.svg" alt="" />
+                    <img class="u-open" @click="openNewWindow('/vip/premium')"
+                         :src="imgSrc(`6/open.svg`)" alt="" />
                     <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
-                    <img class="u-get" src="../../assets/img/celebration/get.png" alt="" />
+                    <img class="u-get" style="cursor: pointer" @click="openGetGift"
+                         :src="imgSrc(`get.png`)" alt="" />
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 5" :key="item">
-                <img class="u-img" :src="require(`../../assets/img/celebration/6/Ellipse${index}.png`)" alt="" />
-                <img class="u-code" src="../../assets/img/celebration/miniprogram.jpg" alt="" />
+                <img class="u-img" :src="imgSrc(`6/Ellipse${index}.png`)" alt="" />
+                <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
         <div class="m-page-7 m-page-layout">
-            <img class="u-mark" src="../../assets/img/celebration/7/7.svg" alt="" />
-            <img class="u-bg" src="../../assets/img/celebration/7/bg.png" alt="" />
+            <img class="u-mark" :src="imgSrc(`7/7.svg`)" alt="" />
+            <img class="u-bg" :src="imgSrc(`7/bg.png`)" alt="" />
             <div class="m-main">
-                <img class="u-title" src="../../assets/img/celebration/7/title.svg" alt="" />
+                <img class="u-title" :src="imgSrc(`7/title.svg`)" alt="" />
                 <div class="m-info">
                     <div class="m-item">
-                        <img class="u-get__title" src="../../assets/img/celebration/7/get_1.png" alt="" />
+                        <img class="u-get__title" :src="imgSrc(`7/get_1.png`)" alt="" />
                         <div class="m-text">
                             <div class="u-text__title">使用200积分兑换1个月会员</div>
                             <div class="u-text__sub">我的积分：1216</div>
                             <div class="u-text__tip">（剩余领取次数：5）</div>
                         </div>
-                        <img class="u-get" src="../../assets/img/celebration/get.png" alt="" />
+                        <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
                     </div>
                     <div class="m-item">
-                        <img class="u-get__title" src="../../assets/img/celebration/7/get_2.png" alt="" />
+                        <img class="u-get__title" :src="imgSrc(`7/get_2.png`)" alt="" />
                         <div class="m-text">
                             <div class="u-text__title">于2021年12月28日之前注册的用户<br />可以领取3个月会员</div>
                             <div class="u-text__sub">我的注册时间：2021年12月27日</div>
                             <div class="u-text__tip">（剩余领取次数：1）</div>
                         </div>
-                        <img class="u-get" src="../../assets/img/celebration/get.png" alt="" />
+                        <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
                     </div>
                     <div class="m-item">
-                        <img class="u-get__title" src="../../assets/img/celebration/7/get_3.png" alt="" />
+                        <img class="u-get__title" :src="imgSrc(`7/get_3.png`)" alt="" />
                         <div class="m-text">
                             <div class="u-text__title">
                                 Lv4可领取1个月
@@ -350,7 +397,7 @@
                             <div class="u-text__sub">我的等级：5</div>
                             <div class="u-text__tip">（剩余领取次数：1）</div>
                         </div>
-                        <img class="u-get" src="../../assets/img/celebration/get.png" alt="" />
+                        <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
                     </div>
                 </div>
                 <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
@@ -358,22 +405,53 @@
         </div>
         <div class="m-page-8 m-page-layout">
             <div class="m-author">
-                <div class="m-author__list" v-for="item in 12" :key="item">
-                    <img class="u-author" src="" v-for="item in 16" :key="item" alt="" />
+                <div class="m-author__list" v-for="(item, index) in authorList" :key="index">
+                    <img class="u-author" v-for="author in item" :src="author.user_avatar" :key="author.ID" alt="" />
                 </div>
-                <img class="u-center__title" src="../../assets/img/celebration/8/center-title.svg" alt="" />
+                <img class="u-center__title" :src="imgSrc(`8/center-title.svg`)" alt="" />
             </div>
-            <img class="u-bottom" src="../../assets/img/celebration/8/bottom.jpg" alt="" />
+            <img class="u-bottom" :src="imgSrc(`8/bottom.jpg`)" alt="" />
         </div>
+
+        <!--领取礼品弹窗-->
+        <el-dialog title="领取福利" :visible.sync="getGiftVisible">
+            <div>
+                <el-image
+                    class="u-book"
+                    v-for="item in 4"
+                    :key="item"
+                    :src="imgSrc(`gift/gift-${item}.jpg`)"
+                    :preview-src-list="[imgSrc(`gift/gift-${item}.jpg`)]"
+                >
+                </el-image>
+            </div>
+            <!--            <el-form :model="form">-->
+            <!--                <el-form-item label="活动名称" :label-width="formLabelWidth">-->
+            <!--                    <el-input v-model="form.name" autocomplete="off"></el-input>-->
+            <!--                </el-form-item>-->
+            <!--                <el-form-item label="活动区域" :label-width="formLabelWidth">-->
+            <!--                    <el-select v-model="form.region" placeholder="请选择活动区域">-->
+            <!--                        <el-option label="区域一" value="shanghai"></el-option>-->
+            <!--                        <el-option label="区域二" value="beijing"></el-option>-->
+            <!--                    </el-select>-->
+            <!--                </el-form-item>-->
+            <!--            </el-form>-->
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import _ from "lodash";
-import { medalCheck, medalList } from "@/service/birthday";
-import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import { medalCheck, superAuthor, medalReceive, decorationCheck, decorationReceive } from "@/service/birthday";
+import User from "@jx3box/jx3box-common/js/user";
+
 export default {
     components: {},
+    inject: ["__imgRoot", "__Links"],
     data() {
         return {
             pageTabsColor: [
@@ -395,23 +473,39 @@ export default {
                 "专属昵称尾巴标识",
                 "签到双倍积分",
             ],
+            page3ClassType: "",
             pageElements: [], // 存储所有页面的元素
             lastActiveElement: null, // 用于存储上一个活跃的元素
             halfViewportHeight: 0, // 窗口一半的高度
 
             // ----------交互数据-----------
-            birthdayMedalCheck: true,
+            birthdayMedalCheck: false,
+            authorList: [],
+            getGiftVisible: false,
+            isLogin: User.isLogin(),
+            login_url: this.__Links.account.login + "?redirect=" + location.href,
         };
     },
     watch: {},
     created() {
-        // 检查是否获得了勋章
-        medalCheck({
-            medal_name: "jx3box-birthday-5",
-        }).then((res) => {
-            this.birthdayMedalCheck = res.data.data;
+        this.checkMedal();
+        this.checkDecoration();
+        // 获取所有签约作者
+        superAuthor().then((res) => {
+            const tempList = res.data.data;
+            const result = [];
+            for (let i = 0; i < tempList.length; i += 16) {
+                const item = tempList.slice(i, i + 16);
+                if (item.length === 16) {
+                    result.push(item);
+                } else {
+                    break;
+                }
+            }
+            this.authorList = result;
         });
     },
+
     mounted() {
         this.halfViewportHeight = window.innerHeight / 2;
         this.pageElements = Array.from(document.querySelectorAll(`.m-page-layout:not(.m-page-8)`));
@@ -427,7 +521,82 @@ export default {
         element.removeEventListener("scroll", this.handleScroll);
     },
     methods: {
-        Init() {},
+        Init() {
+        },
+        // 检查是否领取了勋章
+        checkMedal() {
+            this.checkLogin(true).then(() => {
+                medalCheck({
+                    medal_name: "jx3box-birthday-5",
+                }).then((res) => {
+                    this.birthdayMedalCheck = res.data.data;
+                });
+            });
+        },
+        // 领取生日勋章
+        getBirthdayMedal() {
+            this.checkLogin().then(() => {
+                medalReceive({
+                    medal_name: "jx3box-birthday-5",
+                }).then((res) => {
+                    this.$message({
+                        message: "恭喜你，领取成功",
+                        type: "success",
+                    });
+                    this.checkMedal();
+                });
+            });
+        },
+        // 检查限定装扮领取状态
+        checkDecoration() {
+            decorationCheck({
+                key: "jx3box-birthday-5",
+                type: `atcard,homebg,sidebar,calendar,comment,avatar`,
+            }).then((res) => {
+
+            });
+        },
+        // 领取装扮
+        getDecoration(type) {
+            this.checkLogin().then(() => {
+                decorationReceive({
+                    key: "jx3box-birthday-5",
+                    type,
+                }).then((res) => {
+                    this.$message({
+                        message: "恭喜你，领取成功",
+                        type: "success",
+                    });
+                    this.checkDecoration();
+                });
+            });
+        },
+        // 打开新窗口
+        openNewWindow(url) {
+            window.open(url, "_blank");
+        },
+        // 打开领取礼品弹窗
+        openGetGift() {
+            this.getGiftVisible = true;
+        },
+        // 检查用户的登录状态
+        checkLogin(noTip = false) {
+            return new Promise((resolve, reject) => {
+                if (User.isLogin()) {
+                    resolve();
+                } else {
+                    if (!noTip) {
+                        this.$confirm("登录后才可领取，是否前往登录", "您还未登录", {
+                            confirmButtonText: "确定",
+                            cancelButtonText: "取消",
+                            type: "warning",
+                        }).then(() => {
+                            window.location.href = this.login_url;
+                        });
+                    }
+                }
+            });
+        },
         handleScroll(event) {
             let activeElement = null;
             for (const element of this.pageElements) {
@@ -472,8 +641,11 @@ export default {
             });
         },
         playAudio(itemData) {
-            const audio = new Audio(require(`../../assets/audio/celebration/C4_${itemData}.mp3`));
+            const audio = new Audio(this.imgSrc(`music/C4_${itemData}.mp3`));
             audio.play();
+        },
+        imgSrc(src) {
+            return this.__imgRoot + src;
         },
     },
 };

@@ -30,7 +30,9 @@
                 <div class="m-new-list-item" v-for="(item, i) in monthList" :key="i">
                     <div class="u-month" v-if="item.month">{{ item.month }}月</div>
                     <div class="u-month" v-else>特殊活动</div>
-                    <div class="m-month-list">
+                    <div class="m-month-list" :class="{
+                        isSingle: item.single
+                    }">
                         <a
                             class="u-item"
                             target="_blank"
@@ -46,9 +48,9 @@
             </div>
             <div class="m-name" v-if="show">{{ name }}</div>
         </div>
-        <div class="m-events-btn" @click="change">
+        <!-- <div class="m-events-btn" @click="change">
             {{ isNewEvent ? "列表模式" : "卷轴模式" }}
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -58,7 +60,7 @@ import data from "@/assets/data/index.json";
 // import { getBreadcrumb } from "@/service/topic";
 export default {
     name: "Index",
-    data: function () {
+    data: function() {
         return {
             list: [],
             eventLink: __Root + "event",
@@ -84,12 +86,12 @@ export default {
     },
     mounted() {
         this.load();
-        const isNewEvent = localStorage.getItem("isNewEvent");
-        if (!isNewEvent) {
-            this.isNewEvent = true;
-        } else {
-            this.isNewEvent = isNewEvent == "false" ? false : true;
-        }
+        // const isNewEvent = localStorage.getItem("isNewEvent");
+        // if (!isNewEvent) {
+        //     this.isNewEvent = true;
+        // } else {
+        //     this.isNewEvent = isNewEvent == "false" ? false : true;
+        // }
     },
     methods: {
         showName(name) {
@@ -102,18 +104,21 @@ export default {
         },
         load() {
             // getBreadcrumb("event-index-json").then((res) => {
-                // const { list, vertical } = JSON.parse(res);
-                const { list, vertical } = data;
-                this.list = list;
-                this.monthList = vertical.reduce((acc, item) => {
-                    const month = acc.find((m) => m.month === item.month);
-                    if (month) {
-                        month.list.push(item);
-                    } else {
-                        acc.push({ month: item.month, list: [item] });
+            // const { list, vertical } = JSON.parse(res);
+            const { list, vertical } = data;
+            this.list = list;
+            this.monthList = vertical.reduce((acc, item) => {
+                const month = acc.find((m) => m.month === item.month);
+                if (month) {
+                    month.list.push(item);
+                    if (item.single) {
+                        month.single = true;
                     }
-                    return acc;
-                }, []);
+                } else {
+                    acc.push({ month: item.month, list: [item], single: item.single });
+                }
+                return acc;
+            }, []);
             // });
         },
         change() {

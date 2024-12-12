@@ -235,6 +235,11 @@ body {
             .u-medal {
                 width: 400px;
                 margin: 0 auto;
+                transition: 0.2s all;
+                &:hover{
+                    transform: scale(1.2);
+                    box-shadow: 0px 0px 100px 0px #7B0000;
+                }
             }
             .u-get {
                 margin: 0 auto;
@@ -427,7 +432,7 @@ body {
                         .btn-style();
                     }
 
-                    &:hover {
+                    &.u-hover {
                         box-shadow: 0px 0px 100px 0px rgba(255, 255, 255, 0.25);
 
                         .m-info-hover {
@@ -687,6 +692,7 @@ body {
                 .u-points {
                     margin: 45px auto 0;
                     width: 1000px;
+                    cursor: pointer;
                 }
 
                 .u-points__tip {
@@ -741,6 +747,7 @@ body {
 
                     .u-book {
                         width: 240px;
+                        cursor: pointer;
                     }
                 }
 
@@ -752,6 +759,7 @@ body {
                 .u-open {
                     margin: 50px auto 0;
                     width: 226px;
+                    cursor: pointer;
                 }
 
                 .u-time {
@@ -876,6 +884,7 @@ body {
                     width: 80px;
                     height: 80px;
                     background-color: white;
+                    border-radius: 50%;
                 }
             }
 
