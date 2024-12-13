@@ -13,17 +13,19 @@ const router = new VueRouter({
         {
             path: "/event",
             name: "Event",
-            component: () => import("./Event.vue"),
+            meta: { key: "event" },
+            component: () => import("./Detail.vue"),
+        },
+        {
+            path: "/vote",
+            name: "Vote",
+            meta: { key: "vote" },
+            component: () => import("./Detail.vue"),
         },
         {
             path: "/article",
             name: "Article",
             component: () => import("./Article.vue"),
-        },
-        {
-            path: "/vote",
-            name: "Vote",
-            component: () => import("./Vote.vue"),
         },
     ],
 });
