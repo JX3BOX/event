@@ -1,45 +1,79 @@
 .jx3story-article-content {
-    background-image: url("@{kv_jx3story}/article/bg.png");
-    background-repeat: no-repeat;
-    background-position: center top;
-    margin: 0 auto;
-    position: relative;
-    background-size: contain;
-    overflow: hidden;
-    min-height: 140vh;
-
+    min-height: 100vh;
+    .lantern-group {
+        .pa;
+        top: -2px;
+    }
+    .mini-slogan {
+        .pa;
+        .db;
+        .lt(-66px,0);
+    }
     .m-main {
-        width: 2250px;
-        height: 1200px;
-        margin: 0 auto;
-        position: relative;
-        background-image: url("@{kv_jx3story}/article/scroll.png");
+        .flex;
+        .size(1600px, 700px);
+        padding: 120px 184px 150px 174px;
+        box-sizing: border-box;
+        margin: 100px auto 0;
+        background-image: url("@{kv_jx3story}/article/scroll.png?12");
         background-repeat: no-repeat;
         background-position: center top;
-        background-size: 100% 100%;
-        z-index: 1;
-    }
-
-    .article-content {
-        width: 1200px;
-        margin: 0 auto;
-        padding: 100px 50px;
-        min-height: 0px;
-    }
-
-    .lantern-group {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 300px;
-        height: 640px;
-        z-index: 10;
-    }
-
-    .mini-slogan {
-        display: block;
-        position: absolute;
-        .lt(-50px);
-        z-index: 10;
+        background-size: contain;
+        .m-stamp {
+            .flex;
+            flex-shrink: 0;
+            padding: 0 0 20px 20px;
+            align-items: flex-end;
+            .u-code {
+                .size(120px);
+            }
+            span {
+                .x;
+                .bold;
+                writing-mode: vertical-rl;
+                letter-spacing: 3px;
+            }
+        }
+        .m-post-content {
+            .scrollbar(6px);
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px 50px;
+            overflow-x: auto;
+        }
+        .m-post-list {
+            .full;
+            padding: 0 30px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            .u-item {
+                .flex;
+                height: 86%;
+                gap: 5px;
+                color: #333;
+                span {
+                    .fz(18px);
+                    .h(100%);
+                    .db;
+                    .x;
+                    .bold;
+                    .break(1);
+                    writing-mode: vertical-rl;
+                    letter-spacing: 3px;
+                }
+                .u-title {
+                    align-self: flex-start;
+                }
+                .u-name {
+                    align-self: flex-end;
+                }
+                &:hover {
+                    .pointer;
+                    color: #ff5733;
+                }
+            }
+        }
     }
 }
