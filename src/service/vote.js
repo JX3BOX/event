@@ -32,3 +32,8 @@ export function getVoteJudges() {
             return res.data.data.items;
         });
 }
+
+// 用户投票
+export function userPoll(id, params) {
+    return $next().post(`/api/next2/vote-program/program/${id}/vote`, params);
+}
