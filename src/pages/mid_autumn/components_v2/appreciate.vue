@@ -123,7 +123,7 @@
 
 <script>
 import color from "@/assets/data/color.json";
-import { getNewProgram, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
+import { getProgramDetail, getVoteItemQrcode, getVoteJudges } from "@/service/vote";
 import { __cdn, __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 import { cloneDeep, shuffle } from "lodash";
 const KEY = "poems";
@@ -144,6 +144,8 @@ export default {
             cdn: __cdn,
             bgStyle: null,
             root: __Root,
+
+            id: 12,
         };
     },
     watch: {
@@ -174,7 +176,7 @@ export default {
     methods: {
         load() {
             this.loading = true;
-            getNewProgram().then((res) => {
+            getProgramDetail(this.id).then((res) => {
                 this.list = shuffle(res.data.data.vote_items || []);
                 this.loading = false;
                 this.init();

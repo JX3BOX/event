@@ -1,43 +1,45 @@
-.content__title-image {
-    padding-top: 196px;
-    width: 1305px;
-    height: 568px;
+.jx3story-article-content {
+    background-image: url("@{kv_jx3story}/article/bg.png");
+    background-repeat: no-repeat;
+    background-position: center top;
     margin: 0 auto;
-    display: block;
-}
-
-.lantern-group {
     position: relative;
+    background-size: contain;
+    overflow: hidden;
+    min-height: 140vh;
 
-}
+    .m-main {
+        width: 2250px;
+        height: 1200px;
+        margin: 0 auto;
+        position: relative;
+        background-image: url("@{kv_jx3story}/article/scroll.png");
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 100% 100%;
+        z-index: 1;
+    }
 
-.content__lantern {
-    position: absolute;
-    cursor: pointer;
-}
+    .article-content {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 100px 50px;
+        min-height: 0px;
+    }
 
-.content__lantern--left {
-    top: 68px;
-    left: 44px;
-}
+    .lantern-group {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 300px;
+        height: 640px;
+        z-index: 10;
+    }
 
-.content__lantern--right {
-    top: 274px;
-    left: 136px;
-}
-
-
-
-.content__lantern-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;  /* 改为相对父元素宽度的60% */
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.content__lantern:hover .content__lantern-text {
-    transform: translate(-50%, -50%) scale(1.2);
+    .mini-slogan {
+        display: block;
+        position: absolute;
+        .lt(-50px);
+        z-index: 10;
+    }
 }
