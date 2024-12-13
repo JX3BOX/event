@@ -1,20 +1,19 @@
 <template>
     <div class="jx3story-event-content p-event-main">
         <!-- 灯笼 -->
-        <LanternGroup />
-
+        <LanternGroup /> 
         <!-- logo -->
         <router-link class="mini-slogan" to="/" @click.native="handleClick">
             <img class="event__sign" :src="getImgUrl('/eventcontent/eventc__sign.png')" alt="活动标志" />
         </router-link>
 
         <div class="m-main" v-loading="loading">
+            <!-- 活动介绍 -->
             <template v-if="key === 'event'"> <div class="m-content" v-html="content"></div></template>
+            <!-- 投票 -->
             <template v-if="key === 'vote'">
                 <div class="m-content m-content-vote">
-                    <!-- 添加标题 -->
                     <h2>2024年茶馆风月录投票榜</h2>
-
                     <table class="m-vote-table">
                         <thead>
                             <tr>
