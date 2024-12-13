@@ -7,7 +7,7 @@
             <img class="event__sign" :src="getImgUrl('/eventcontent/eventc__sign.png')" alt="活动标志" />
         </router-link>
 
-        <div class="m-main">
+        <div class="m-main" v-loading="loading">
             <div class="m-stamp">
                 <img :src="code" class="u-code" />
                 <span>—— 二零二肆年·冬</span>
