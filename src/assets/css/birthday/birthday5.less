@@ -921,6 +921,14 @@ body {
 
             .u-book {
                 width: 100%;
+                box-sizing: border-box;
+                border:2px solid #eee;
+            }
+
+            &.is-checked{
+                .u-book {
+                    border: 2px solid @color-link;
+                }
             }
         }
     }

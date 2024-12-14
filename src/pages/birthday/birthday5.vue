@@ -512,7 +512,6 @@
                             <el-image
                                 class="u-book"
                                 :src="imgSrc(`gift/gift-${item}.jpg`)"
-                                :preview-src-list="[imgSrc(`gift/gift-${item}.jpg`)]"
                             >
                             </el-image>
                         </el-radio>
