@@ -1,4 +1,4 @@
-import { $cms } from "@jx3box/jx3box-common/js/https";
+import { $cms, $pay } from "@jx3box/jx3box-common/js/https";
 
 // 检查用户是否拥有该勋章
 function medalCheck(params) {
@@ -31,4 +31,14 @@ function superAuthor(params) {
     });
 }
 
-export { medalCheck, medalReceive, superAuthor, decorationCheck, decorationReceive };
+// ------------------------------------------------------------
+// 获取地址列表
+function getAddress(params) {
+    return $pay().get(`/api/mall/ship-address`, params);
+}
+// 添加地址
+function addAddress(data) {
+    return $pay().post(`/api/mall/ship-address`, data);
+}
+
+export { medalCheck, medalReceive, superAuthor, decorationCheck, decorationReceive, addAddress, getAddress };

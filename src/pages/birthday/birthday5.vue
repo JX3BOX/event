@@ -19,12 +19,7 @@
             <div class="u-top__bg"></div>
             <div class="m-img-box">
                 <div v-for="(item, index) in 12" :key="index">
-                    <img
-                        class="u-img"
-                        :src="imgSrc(`0/${index}.png`)"
-                        alt=""
-                        @mouseover="playAudio(item)"
-                    />
+                    <img class="u-img" :src="imgSrc(`0/${index}.png`)" alt="" @mouseover="playAudio(item)" />
                 </div>
             </div>
             <img class="u-top-kv" :src="imgSrc(`0/top_kv.png`)" alt="" />
@@ -100,7 +95,20 @@
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" @click="getDecoration('calendar')" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            v-if="!userDecorationList.includes('calendar')"
+                                            class="u-tip__get"
+                                            @click="getDecoration('calendar')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -121,14 +129,27 @@
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·侧边栏</div>
-                                <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
+                                <div class="u-plate__sub">实装位置：魔盒帖子-页面左侧</div>
                                 <div class="m-plate__tip">
                                     <div>
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            class="u-tip__get"
+                                            v-if="!userDecorationList.includes('sidebar')"
+                                            @click="getDecoration('sidebar')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -149,14 +170,27 @@
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·圈人卡</div>
-                                <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
+                                <div class="u-plate__sub">实装位置：创作中心-魔盒资源-@人</div>
                                 <div class="m-plate__tip">
                                     <div>
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            class="u-tip__get"
+                                            v-if="!userDecorationList.includes('atcard')"
+                                            @click="getDecoration('atcard')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -177,14 +211,31 @@
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·个人主页</div>
-                                <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
+                                <div class="u-plate__sub">
+                                    实装位置：<br />
+                                    1.魔盒官网-个人主页<br />
+                                    2.剑三魔盒小程序-我的
+                                </div>
                                 <div class="m-plate__tip">
                                     <div>
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            class="u-tip__get"
+                                            v-if="!userDecorationList.includes('homebg')"
+                                            @click="getDecoration('homebg')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -205,14 +256,27 @@
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·评论</div>
-                                <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
+                                <div class="u-plate__sub">实装位置：创作中心-魔盒资源-@人</div>
                                 <div class="m-plate__tip">
                                     <div class="u-tip__box">
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            class="u-tip__get"
+                                            v-if="!userDecorationList.includes('comment')"
+                                            @click="getDecoration('comment')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -232,21 +296,34 @@
                         <div class="m-info m-card">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
-                                <div class="u-plate__title">魔盒5周年限定主题·评论</div>
-                                <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
+                                <div class="u-plate__title">魔盒5周年限魔卡</div>
+                                <div class="u-plate__sub">实装位置：魔盒论坛（魔吧）</div>
                                 <div class="m-plate__tip">
                                     <div class="u-tip__box">
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            class="u-tip__get"
+                                            v-if="!userDecorationList.includes('palu')"
+                                            @click="getDecoration('palu')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="m-plate__title">
-                            <div class="u-plate__title">魔盒5周年限定主题·评论</div>
+                            <div class="u-plate__title">魔盒5周年限魔卡</div>
                         </div>
                     </div>
 
@@ -260,25 +337,45 @@
                         <div class="m-info m-avatar">
                             <div class="m-plate__content"></div>
                             <div class="m-info-hover">
-                                <div class="u-plate__title">魔盒5周年限定主题·评论</div>
-                                <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
+                                <div class="u-plate__title">五周年限定头像框</div>
+                                <div class="u-plate__sub">实装位置：魔盒帖子-头像</div>
                                 <div class="m-plate__tip">
                                     <div class="u-tip__box">
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
                                         <div class="u-tip__time">领取时间：2024.12.28~2025.2.28</div>
                                     </div>
                                     <div>
-                                        <img class="u-tip__get" :src="imgSrc(`get.png`)" alt="" />
+                                        <img
+                                            class="u-tip__get"
+                                            v-if="!userDecorationList.includes('avatar')"
+                                            @click="getDecoration('avatar')"
+                                            :src="imgSrc(`get.png`)"
+                                            alt=""
+                                        />
+                                        <img
+                                            class="u-tip__get"
+                                            v-else
+                                            style="cursor: no-drop"
+                                            :src="imgSrc(`get1.png`)"
+                                            alt=""
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="m-plate__title">
-                            <div class="u-plate__title">魔盒5周年限定主题·评论</div>
+                            <div class="u-plate__title">五周年限定头像框</div>
                         </div>
                     </div>
 
-                    <img class="u-getAll" :src="imgSrc(`gets.png`)" alt="" />
+                    <img
+                        class="u-getAll"
+                        v-if="userDecorationList.length < 7"
+                        :src="imgSrc(`gets.png`)"
+                        @click="getDecoration('atcard,homebg,sidebar,calendar,comment,avatar,palu')"
+                        alt=""
+                    />
+                    <img class="u-getAll" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 4" :key="item">
@@ -293,11 +390,7 @@
                 <img class="u-title" :src="imgSrc(`4/title.svg`)" alt="" />
                 <div class="m-fun">
                     <div class="m-item" v-for="(item, index) in page4Arr" :key="index">
-                        <img
-                            class="u-fun__img"
-                            :src="imgSrc(`4/V${index + 1}.svg`)"
-                            alt=""
-                        />
+                        <img class="u-fun__img" :src="imgSrc(`4/V${index + 1}.svg`)" alt="" />
                         <div class="u-fun__label">{{ item }}</div>
                     </div>
                 </div>
@@ -319,8 +412,7 @@
                 <div class="m-info">
                     <img class="u-top" :src="imgSrc(`5/page-title.png`)" alt="" />
                     <div class="u-top__tip">[ 非活动时期 ]</div>
-                    <img class="u-points" @click="openNewWindow('/vip/premium')"
-                         :src="imgSrc(`5/points.png`)" alt="" />
+                    <img class="u-points" @click="openNewWindow('/vip/premium')" :src="imgSrc(`5/points.png`)" alt="" />
                     <div class="u-points__tip">错过再等一整年！</div>
                     <img class="u-box__logo" :src="imgSrc(`5/box-logo.png`)" alt="" />
                 </div>
@@ -348,11 +440,9 @@
                         </el-image>
                     </div>
                     <div class="u-book__tip">活动期间购买年费会员（可重复），即可领取一套精美笔记本（4选1）</div>
-                    <img class="u-open" @click="openNewWindow('/vip/premium')"
-                         :src="imgSrc(`6/open.svg`)" alt="" />
+                    <img class="u-open" @click="openNewWindow('/vip/premium')" :src="imgSrc(`6/open.svg`)" alt="" />
                     <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
-                    <img class="u-get" style="cursor: pointer" @click="openGetGift"
-                         :src="imgSrc(`get.png`)" alt="" />
+                    <img class="u-get" style="cursor: pointer" @click="openGetGift" :src="imgSrc(`get.png`)" alt="" />
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 5" :key="item">
@@ -415,44 +505,112 @@
 
         <!--领取礼品弹窗-->
         <el-dialog title="领取福利" :visible.sync="getGiftVisible">
-            <div>
-                <el-image
-                    class="u-book"
-                    v-for="item in 4"
-                    :key="item"
-                    :src="imgSrc(`gift/gift-${item}.jpg`)"
-                    :preview-src-list="[imgSrc(`gift/gift-${item}.jpg`)]"
-                >
-                </el-image>
-            </div>
-            <!--            <el-form :model="form">-->
-            <!--                <el-form-item label="活动名称" :label-width="formLabelWidth">-->
-            <!--                    <el-input v-model="form.name" autocomplete="off"></el-input>-->
-            <!--                </el-form-item>-->
-            <!--                <el-form-item label="活动区域" :label-width="formLabelWidth">-->
-            <!--                    <el-select v-model="form.region" placeholder="请选择活动区域">-->
-            <!--                        <el-option label="区域一" value="shanghai"></el-option>-->
-            <!--                        <el-option label="区域二" value="beijing"></el-option>-->
-            <!--                    </el-select>-->
-            <!--                </el-form-item>-->
-            <!--            </el-form>-->
+            <el-form :model="getGiftForm">
+                <el-form-item label="选择福利" prop="">
+                    <el-radio-group class="m-get-gift" v-model="getGiftForm.giftId">
+                        <el-radio class="m-get__radio" v-for="item in 4" :key="item" :label="item">
+                            <el-image
+                                class="u-book"
+                                :src="imgSrc(`gift/gift-${item}.jpg`)"
+                                :preview-src-list="[imgSrc(`gift/gift-${item}.jpg`)]"
+                            >
+                            </el-image>
+                        </el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="收货地址">
+                    <div class="m-get-gift-address">
+                        <el-select placeholder="请选择收货地址" v-model="getGiftForm.region">
+                            <el-option
+                                v-for="item in userAddress"
+                                :key="item.id"
+                                :label="`${item.contact_name}-${item.contact_phone}-${item.province}${item.city}${item.area}${item.address}`"
+                                :value="item.id"
+                            ></el-option>
+                        </el-select>
+                        <el-button
+                            @click="openAddAddress"
+                            type="primary"
+                            icon="el-icon-add-location"
+                            circle
+                        ></el-button>
+                    </div>
+                </el-form-item>
+            </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                <el-button @click="getGiftVisible = false">取 消</el-button>
+                <el-button type="primary" @click="getGiftVisible = false">确 定</el-button>
             </div>
+        </el-dialog>
+
+        <!-- 地址表单 -->
+        <el-dialog custom-class="m-address-dialog" :visible.sync="addAddressVisible" title="我的地址" width="750px">
+            <el-form :model="addAddressForm" :rules="addAddressRules" ref="addAddressRef" label-position="top">
+                <el-form-item label="联系人" prop="contact_name">
+                    <el-input placeholder="请输入名称" v-model="addAddressForm.contact_name"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号" prop="contact_phone">
+                    <el-input placeholder="请输入手机号" v-model="addAddressForm.contact_phone"></el-input>
+                </el-form-item>
+                <el-form-item label="联系地址" prop="address">
+                    <div class="m-line">
+                        <el-cascader
+                            class="u-address"
+                            v-model="address"
+                            :options="addressList"
+                            @change="addAddressCascaderChange"
+                        ></el-cascader>
+                        <el-input placeholder="详细地址" v-model="addAddressForm.address"></el-input>
+                    </div>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="m-footer">
+                <el-button @click="addAddressVisible = false">取 消</el-button>
+                <el-button type="primary" @click="addAddressSubmit">确 定</el-button>
+            </span>
         </el-dialog>
     </div>
 </template>
 
 <script>
 import _ from "lodash";
-import { medalCheck, superAuthor, medalReceive, decorationCheck, decorationReceive } from "@/service/birthday";
+import {
+    medalCheck,
+    superAuthor,
+    medalReceive,
+    decorationCheck,
+    decorationReceive,
+    addAddress,
+    getAddress,
+} from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
+import addressList from "@/assets/data/address.json";
 
 export default {
     components: {},
     inject: ["__imgRoot", "__Links"],
     data() {
+        const checkPhone = (rule, value, callback) => {
+            if (value) {
+                const num = /^[1][3,4,5,7,8][0-9]{9}$/;
+                if (!num.test(value)) {
+                    callback(new Error("请输入正确的手机号"));
+                } else {
+                    callback();
+                }
+            }
+        };
+        const checkAddress = (rule, value, callback) => {
+            if (value) {
+                if (this.addAddressForm.province) {
+                    callback();
+                } else {
+                    callback(new Error("请选择省市区"));
+                }
+            } else {
+                callback(new Error("请输入具体地址"));
+            }
+        };
         return {
             pageTabsColor: [
                 "linear-gradient(180deg, rgba(151, 71, 255, 0.50) 0%, rgba(151, 71, 255, 0.00) 100%)",
@@ -484,12 +642,35 @@ export default {
             getGiftVisible: false,
             isLogin: User.isLogin(),
             login_url: this.__Links.account.login + "?redirect=" + location.href,
+            userDecorationList: [],
+
+            getGiftForm: {
+                giftId: "",
+            },
+            userAddress: [],
+            address: "",
+            addressList,
+            addAddressVisible: false,
+            addAddressForm: {
+                contact_name: "",
+                contact_phone: "",
+                province: "",
+                city: "",
+                area: "",
+                address: "",
+            },
+            addAddressRules: {
+                contact_name: [{ required: true, message: "请输入联系人名称", trigger: "blur" }],
+                contact_phone: [{ required: true, validator: checkPhone, trigger: "blur" }],
+                address: [{ required: true, validator: checkAddress, trigger: "blur" }],
+            },
         };
     },
     watch: {},
     created() {
         this.checkMedal();
         this.checkDecoration();
+        this.getUserAddress();
         // 获取所有签约作者
         superAuthor().then((res) => {
             const tempList = res.data.data;
@@ -521,8 +702,7 @@ export default {
         element.removeEventListener("scroll", this.handleScroll);
     },
     methods: {
-        Init() {
-        },
+        Init() {},
         // 检查是否领取了勋章
         checkMedal() {
             this.checkLogin(true).then(() => {
@@ -549,11 +729,13 @@ export default {
         },
         // 检查限定装扮领取状态
         checkDecoration() {
-            decorationCheck({
-                key: "jx3box-birthday-5",
-                type: `atcard,homebg,sidebar,calendar,comment,avatar`,
-            }).then((res) => {
-
+            this.checkLogin(true).then(() => {
+                decorationCheck({
+                    key: "jx3box-birthday-5",
+                    type: `atcard,homebg,sidebar,calendar,comment,avatar,palu`,
+                }).then((res) => {
+                    this.userDecorationList = res.data.data;
+                });
             });
         },
         // 领取装扮
@@ -594,6 +776,48 @@ export default {
                             window.location.href = this.login_url;
                         });
                     }
+                }
+            });
+        },
+        // 获取用户地址列表
+        getUserAddress() {
+            this.checkLogin().then(() => {
+                getAddress().then((res) => {
+                    this.userAddress = res.data.data.list;
+                });
+            });
+        },
+        // 打开添加地址弹窗
+        openAddAddress() {
+            this.addAddressVisible = true;
+            this.addAddressForm = {
+                contact_name: "",
+                contact_phone: "",
+                province: "",
+                city: "",
+                area: "",
+                address: "",
+            };
+            this.address = "";
+        },
+        // 添加地址 地址变更
+        addAddressCascaderChange(list) {
+            this.addAddressForm.province = list[0];
+            this.addAddressForm.city = list[1];
+            this.addAddressForm.area = list[2];
+        },
+        // 添加地址
+        addAddressSubmit() {
+            this.$refs.addAddressRef.validate((valid) => {
+                if (valid) {
+                    addAddress(this.addAddressForm).then((res) => {
+                        this.addAddressVisible = false;
+                        this.$message({
+                            message: "添加成功",
+                            type: "success",
+                        });
+                        this.getUserAddress();
+                    });
                 }
             });
         },

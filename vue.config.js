@@ -50,7 +50,13 @@ module.exports = {
             "/api/cms": {
                 target: process.env["DEV_SERVER"] == "true" ? "http://localhost:7100" : "https://cms.jx3box.com",
             },
-
+            // 商城
+            "/api/mall": {
+                target: "https://pay.jx3box.com",
+                onProxyReq: function (request) {
+                    request.setHeader("origin", "");
+                },
+            },
             "/api": {
                 target: "https://next2.jx3box.com",
                 onProxyReq: function(request) {
