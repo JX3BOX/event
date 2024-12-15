@@ -58,9 +58,9 @@ export default {
 
 <style lang="less">
 .lantern-group {
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 0;
+    top: 60px;
     width: 300px;
     height: 640px;
 }
