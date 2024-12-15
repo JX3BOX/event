@@ -61,16 +61,16 @@
             "img": "https://cdn.jx3box.com/design/cover/cover_event/yxj_ce.jpg"
         },
         {
-            "name": "剑三萌宠节",
-            "link": "",
-            "month": "4",
-            "img": "https://cdn.jx3box.com/design/cover/cover_event/mengchongjie_ce.jpg"
-        },
-        {
             "name": "百强榜",
             "link": "/rank/",
             "month": "5",
             "img": "https://cdn.jx3box.com/design/cover/cover_event/jdt0_ce.png"
+        },
+        {
+            "name": "剑三萌宠节",
+            "link": "",
+            "month": "6",
+            "img": "https://cdn.jx3box.com/design/cover/cover_event/mengchongjie_ce.jpg"
         },
         {
             "name": "剑三高考",
@@ -86,13 +86,13 @@
         },
         {
             "name": "情缘杯",
-            "link": "",
+            "link": "/lover",
             "month": "8",
             "img": "https://cdn.jx3box.com/design/cover/cover_event/qyb0_ce.jpg"
         },
         {
             "name": "中秋诗词大会",
-            "link": "/event/mid_autumn/#/",
+            "link": "/event/mid_autumn/",
             "month": "9",
             "img": "https://cdn.jx3box.com/design/cover/cover_event/zhongqiushici3.1_ce.png"
         },
@@ -116,13 +116,13 @@
         },
         {
             "name": "年终总结",
-            "link": "/",
+            "link": "https://www.jx3box.com/community/4277",
             "month": "12",
-            "img": "https://cdn.jx3box.com/design/cover/cover_event/2024mohe_ce.png"
+            "img": "https://cdn.jx3box.com/design/cover/cover_event/nianzhong_ce.jpg"
         },
         {
             "name": "年度大事件",
-            "link": "/",
+            "link": "/event/bigbang",
             "month": "12",
             "img": "https://cdn.jx3box.com/design/cover/cover_event/bigbang_ce.png"
         },
@@ -130,7 +130,6 @@
             "name": "周年庆",
             "link": "/event/birthday",
             "month": "12",
-            "single": true,
             "img": "https://cdn.jx3box.com/design/cover/cover_event/2024mohe_ce.png"
         }
     ]

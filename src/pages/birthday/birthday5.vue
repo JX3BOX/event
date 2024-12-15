@@ -413,7 +413,7 @@
                     <img class="u-top" :src="imgSrc(`5/page-title.png`)" alt="" />
                     <div class="u-top__tip">[ 非活动时期 ]</div>
                     <img class="u-points" @click="openNewWindow('/vip/premium')" :src="imgSrc(`5/points.png`)" alt="" />
-                    <div class="u-points__tip">错过再等一整年！</div>
+                    <div class="u-points__tip" style="visibility: hidden;">错过再等一整年！</div>
                     <img class="u-box__logo" :src="imgSrc(`5/box-logo.png`)" alt="" />
                 </div>
             </div>
