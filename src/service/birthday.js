@@ -48,8 +48,8 @@ function addAddress(data) {
     return $pay().post(`/api/mall/ship-address`, data);
 }
 // 积分兑换会员
-function pointsExchangeVip(id, params) {
-    return $pay().get(`/api/mall/jx3box/event/${id}/points-exchange-vip`, params);
+function pointsExchangeVip(id, params) { 
+    return $pay().get(`/api/jx3box/event/${id}/points-exchange-vip`, params);
 }
 
 export {

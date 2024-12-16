@@ -863,7 +863,7 @@ export default {
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
                     type: "warning",
-                }).then(() => {
+                }).then(() => { 
                     pointsExchangeVip(1).then((res) => {
                         console.log(res);
                     });
