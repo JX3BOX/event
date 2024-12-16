@@ -10,23 +10,24 @@
 
 <script>
 import { postStat } from "@jx3box/jx3box-common/js/stat";
-import { __cdn, __Links } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __cdn, __Links, __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "App",
-    data: function() {
+    data: function () {
         return {};
     },
     provide: {
         __imgRoot: __cdn + "design/event/birthday/",
         __Links,
+        __imgPath,
     },
     computed: {
-        page_name: function() {
+        page_name: function () {
             return this.$route.name;
         },
     },
-    created: function() {
+    created: function () {
         // postStat("event", "celebration");
     },
 };

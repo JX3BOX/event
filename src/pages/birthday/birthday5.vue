@@ -54,7 +54,11 @@
             <div class="m-main">
                 <img class="u-title" :src="imgSrc(`2/title.svg`)" alt="" />
 
-                <img class="u-medal" :src="imgSrc(`Temp/yzk-200.png`)" alt="" />
+                <div class="m-medal-box">
+                    <!-- !TODO 更换线上勋章地址和发光图 -->
+                    <img class="u-medal" src="" alt="" />
+                    <img class="u-medal__mask" src="" alt="" />
+                </div>
                 <img
                     class="u-get"
                     v-if="!birthdayMedalCheck"
@@ -85,7 +89,12 @@
                         }"
                     >
                         <div class="m-info m-calendar">
-                            <div class="m-plate__content"></div>
+                            <div
+                                class="m-plate__content"
+                                :style="{
+                                    backgroundImage: `url(${imgSrc('3/calendar.png')})`,
+                                }"
+                            ></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·日历</div>
                                 <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
@@ -126,7 +135,12 @@
                         }"
                     >
                         <div class="m-info m-sidebar">
-                            <div class="m-plate__content"></div>
+                            <div
+                                class="m-plate__content"
+                                :style="{
+                                    backgroundImage: `url(${imgSrc('3/sidebar.png')})`,
+                                }"
+                            ></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·侧边栏</div>
                                 <div class="u-plate__sub">实装位置：魔盒帖子-页面左侧</div>
@@ -167,7 +181,12 @@
                         }"
                     >
                         <div class="m-info m-people__card">
-                            <div class="m-plate__content"></div>
+                            <div
+                                class="m-plate__content"
+                                :style="{
+                                    backgroundImage: `url(${imgSrc('3/atcard.png')})`,
+                                }"
+                            ></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·圈人卡</div>
                                 <div class="u-plate__sub">实装位置：创作中心-魔盒资源-@人</div>
@@ -208,7 +227,12 @@
                         }"
                     >
                         <div class="m-info m-personal">
-                            <div class="m-plate__content"></div>
+                            <div
+                                class="m-plate__content"
+                                :style="{
+                                    backgroundImage: `url(${imgSrc('3/homebg.png')})`,
+                                }"
+                            ></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·个人主页</div>
                                 <div class="u-plate__sub">
@@ -253,7 +277,12 @@
                         }"
                     >
                         <div class="m-info m-comment">
-                            <div class="m-plate__content"></div>
+                            <div
+                                class="m-plate__content"
+                                :style="{
+                                    backgroundImage: `url(${imgSrc('3/comment.png')})`,
+                                }"
+                            ></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·评论</div>
                                 <div class="u-plate__sub">实装位置：创作中心-魔盒资源-@人</div>
@@ -294,7 +323,12 @@
                         }"
                     >
                         <div class="m-info m-card">
-                            <div class="m-plate__content"></div>
+                            <div
+                                class="m-plate__content"
+                                :style="{
+                                    backgroundImage: `url(${imgSrc('3/palu.png')})`,
+                                }"
+                            ></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限魔卡</div>
                                 <div class="u-plate__sub">实装位置：魔盒论坛（魔吧）</div>
@@ -335,7 +369,11 @@
                         }"
                     >
                         <div class="m-info m-avatar">
-                            <div class="m-plate__content"></div>
+                            <div class="m-plate__content">
+                                <img class="u-user__avatar" :src="userInfo.user_avatar" alt="" />
+                                <!-- !TODO 更换cdn头像框地址 -->
+                                <img class="u-user__avatar-border" src="" alt="" />
+                            </div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">五周年限定头像框</div>
                                 <div class="u-plate__sub">实装位置：魔盒帖子-头像</div>
@@ -413,7 +451,7 @@
                     <img class="u-top" :src="imgSrc(`5/page-title.png`)" alt="" />
                     <div class="u-top__tip">[ 非活动时期 ]</div>
                     <img class="u-points" @click="openNewWindow('/vip/premium')" :src="imgSrc(`5/points.png`)" alt="" />
-                    <div class="u-points__tip" style="visibility: hidden;">错过再等一整年！</div>
+                    <div class="u-points__tip" style="visibility: hidden">错过再等一整年！</div>
                     <img class="u-box__logo" :src="imgSrc(`5/box-logo.png`)" alt="" />
                 </div>
             </div>
@@ -460,10 +498,12 @@
                         <img class="u-get__title" :src="imgSrc(`7/get_1.png`)" alt="" />
                         <div class="m-text">
                             <div class="u-text__title">使用200积分兑换1个月会员</div>
-                            <div class="u-text__sub">我的积分：1216</div>
-                            <div class="u-text__tip">（剩余领取次数：5）</div>
+                            <div class="u-text__sub">我的积分：{{ getVipInfo.points }}</div>
+                            <div class="u-text__tip">（剩余领取次数：{{ pointCashNum }}）</div>
                         </div>
-                        <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
+                        <!-- TODO测试用 -->
+                        <img class="u-get" @click="pointCash" :src="imgSrc(`get.png`)" alt="" />
+                        <!-- <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" /> -->
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_2.png`)" alt="" />
@@ -484,7 +524,7 @@
                                 <br />
                                 Lv6及以上可领取3个月
                             </div>
-                            <div class="u-text__sub">我的等级：5</div>
+                            <div class="u-text__sub">我的等级：{{ getVipInfo.level }}</div>
                             <div class="u-text__tip">（剩余领取次数：1）</div>
                         </div>
                         <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
@@ -509,11 +549,7 @@
                 <el-form-item label="选择福利" prop="">
                     <el-radio-group class="m-get-gift" v-model="getGiftForm.giftId">
                         <el-radio class="m-get__radio" v-for="item in 4" :key="item" :label="item">
-                            <el-image
-                                class="u-book"
-                                :src="imgSrc(`gift/gift-${item}.jpg`)"
-                            >
-                            </el-image>
+                            <el-image class="u-book" :src="imgSrc(`gift/gift-${item}.jpg`)"> </el-image>
                         </el-radio>
                     </el-radio-group>
                 </el-form-item>
@@ -581,13 +617,15 @@ import {
     decorationReceive,
     addAddress,
     getAddress,
+    getMyInfo,
+    pointsExchangeVip,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
 
 export default {
     components: {},
-    inject: ["__imgRoot", "__Links"],
+    inject: ["__imgRoot", "__Links", "__imgPath"],
     data() {
         const checkPhone = (rule, value, callback) => {
             if (value) {
@@ -663,13 +701,33 @@ export default {
                 contact_phone: [{ required: true, validator: checkPhone, trigger: "blur" }],
                 address: [{ required: true, validator: checkAddress, trigger: "blur" }],
             },
+
+            userInfo: {
+                uid: 8,
+                name: "匿名",
+                user_avatar: `${this.__imgPath}/image/common/avatar.png`,
+                user_avatar_frame: "default",
+                bio: "-",
+                sign: 0,
+            },
+            getVipInfo: {
+                points: 0,
+                created_time: "",
+                level: 0,
+            },
         };
+    },
+    computed: {
+        pointCashNum: function () {
+            return Math.floor(this.getVipInfo.points / 200);
+        },
     },
     watch: {},
     created() {
         this.checkMedal();
         this.checkDecoration();
         this.getUserAddress();
+        this.loadUserInfo();
         // 获取所有签约作者
         superAuthor().then((res) => {
             const tempList = res.data.data;
@@ -780,9 +838,35 @@ export default {
         },
         // 获取用户地址列表
         getUserAddress() {
-            this.checkLogin().then(() => {
+            this.checkLogin(true).then(() => {
                 getAddress().then((res) => {
                     this.userAddress = res.data.data.list;
+                });
+            });
+        },
+        loadUserInfo() {
+            this.checkLogin(true).then(() => {
+                User.getAsset().then((data) => {
+                    this.getVipInfo.points = data.points;
+                    this.getVipInfo.created_time = data.created_time;
+                });
+                getMyInfo().then((res) => {
+                    let userInfo = res.data.data;
+                    this.getVipInfo.level = User.getLevel(userInfo?.experience || 0);
+                });
+            });
+        },
+        // 使用积分兑换会员
+        pointCash() {
+            this.checkLogin().then(() => {
+                this.$confirm("是否使用200积分兑换一个月会员?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                }).then(() => {
+                    pointsExchangeVip(1).then((res) => {
+                        console.log(res);
+                    });
                 });
             });
         },
