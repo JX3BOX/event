@@ -501,18 +501,16 @@
                             <div class="u-text__sub">我的积分：{{ getVipInfo.points }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ pointCashNum }}）</div>
                         </div>
-                        <!-- TODO测试用 -->
                         <img class="u-get" @click="pointCash" :src="imgSrc(`get.png`)" alt="" />
-                        <!-- <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" /> -->
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_2.png`)" alt="" />
                         <div class="m-text">
                             <div class="u-text__title">于2021年12月28日之前注册的用户<br />可以领取3个月会员</div>
-                            <div class="u-text__sub">我的注册时间：2021年12月27日</div>
-                            <div class="u-text__tip">（剩余领取次数：1）</div>
+                            <div class="u-text__sub">我的注册时间：{{ getVipInfo.register_time }}</div>
+                            <div class="u-text__tip">（剩余领取次数：{{ oldUserVipNum }}）</div>
                         </div>
-                        <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
+                        <img class="u-get" @click="getOldUserVip" :src="imgSrc(`get.png`)" alt="" />
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_3.png`)" alt="" />
@@ -525,9 +523,15 @@
                                 Lv6及以上可领取3个月
                             </div>
                             <div class="u-text__sub">我的等级：{{ getVipInfo.level }}</div>
-                            <div class="u-text__tip">（剩余领取次数：1）</div>
+                            <div class="u-text__tip">（剩余领取次数：{{ activeUserVipNum }}）</div>
                         </div>
-                        <img class="u-get" :src="imgSrc(`get.png`)" alt="" />
+                        <img
+                            class="u-get"
+                            @click="getActiveUserVip"
+                            style="cursor: pointer"
+                            :src="imgSrc(`get.png`)"
+                            alt=""
+                        />
                     </div>
                 </div>
                 <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
@@ -619,6 +623,10 @@ import {
     getAddress,
     getMyInfo,
     pointsExchangeVip,
+    activityUserApplyVipChance,
+    activityUserApplyVipApplyVip,
+    oldUserApplyVipChance,
+    oldUserApplyVip,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
@@ -712,14 +720,35 @@ export default {
             },
             getVipInfo: {
                 points: 0,
-                created_time: "",
+                register_time: "",
+                oldUserGetNum: "",
+                isEarlier: false,
                 level: 0,
+                activeGetNum: 0,
             },
         };
     },
     computed: {
         pointCashNum: function () {
             return Math.floor(this.getVipInfo.points / 200);
+        },
+        activeUserVipNum: function () {
+            if (this.getVipInfo.activeGetNum == 1) {
+                return 0;
+            } else if (this.getVipInfo.level <= 3) {
+                return 0;
+            } else {
+                return 1;
+            }
+        },
+        oldUserVipNum: function () {
+            if (this.getVipInfo.oldUserGetNum == 1) {
+                return 0;
+            } else if (!this.getVipInfo.isEarlier) {
+                return 0;
+            } else {
+                return 1;
+            }
         },
     },
     watch: {},
@@ -728,6 +757,8 @@ export default {
         this.checkDecoration();
         this.getUserAddress();
         this.loadUserInfo();
+        this.getOldUserNum();
+        this.getActiveUserNum();
         // 获取所有签约作者
         superAuthor().then((res) => {
             const tempList = res.data.data;
@@ -816,7 +847,9 @@ export default {
         },
         // 打开领取礼品弹窗
         openGetGift() {
-            this.getGiftVisible = true;
+            this.checkLogin().then(() => {
+                this.getGiftVisible = true;
+            });
         },
         // 检查用户的登录状态
         checkLogin(noTip = false) {
@@ -848,10 +881,16 @@ export default {
             this.checkLogin(true).then(() => {
                 User.getAsset().then((data) => {
                     this.getVipInfo.points = data.points;
-                    this.getVipInfo.created_time = data.created_time;
                 });
                 getMyInfo().then((res) => {
                     let userInfo = res.data.data;
+                    const apiDateTime = new Date(userInfo.user_registered);
+                    this.getVipInfo.register_time = `${apiDateTime.getFullYear()}年${
+                        apiDateTime.getMonth() + 1
+                    }月${apiDateTime.getDate()}日`;
+                    const compareDateTime = new Date("2021-12-28T00:00:00.000Z");
+                    // 比较两个时间
+                    this.getVipInfo.isEarlier = apiDateTime < compareDateTime;
                     this.getVipInfo.level = User.getLevel(userInfo?.experience || 0);
                 });
             });
@@ -859,15 +898,90 @@ export default {
         // 使用积分兑换会员
         pointCash() {
             this.checkLogin().then(() => {
-                this.$confirm("是否使用200积分兑换一个月会员?", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "warning",
-                }).then(() => { 
-                    pointsExchangeVip(1).then((res) => {
-                        console.log(res);
+                if (this.pointCashNum) {
+                    this.$confirm("是否使用200积分兑换一个月会员?", "提示", {
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        type: "warning",
+                    }).then(() => {
+                        pointsExchangeVip(1).then((res) => {
+                            this.loadUserInfo();
+                            this.$message({
+                                message: "恭喜您，领取成功",
+                                type: "success",
+                            });
+                        });
                     });
+                }else{
+                    this.$message({
+                        message: "您的积分不足",
+                        type: "warning",
+                    });
+                }
+            });
+        },
+        // 查询活跃会员领取次数
+        getActiveUserNum() {
+            this.checkLogin(true).then(() => {
+                activityUserApplyVipChance(1).then((res) => {
+                    this.getVipInfo.activeGetNum = res.data.data.got;
                 });
+            });
+        },
+        // 用户领取活跃会员
+        getActiveUserVip() {
+            this.checkLogin().then(() => {
+                if (this.getVipInfo.activeGetNum) {
+                    this.$message({
+                        message: "您已经领取过活跃用户会员了",
+                        type: "warning",
+                    });
+                } else if (this.getVipInfo.level <= 3) {
+                    this.$message({
+                        message: "您的等级不够，无法领取活跃用户会员",
+                        type: "warning",
+                    });
+                } else {
+                    activityUserApplyVipApplyVip(1).then(() => {
+                        this.getActiveUserNum();
+                        this.$message({
+                            message: "恭喜您，领取成功",
+                            type: "success",
+                        });
+                    });
+                }
+            });
+        },
+        // 查询老用户会员领取次数
+        getOldUserNum() {
+            this.checkLogin(true).then(() => {
+                oldUserApplyVipChance(1).then((res) => {
+                    this.getVipInfo.oldUserGetNum = res.data.data.got;
+                });
+            });
+        },
+        // 用户领取老用户会员
+        getOldUserVip() {
+            this.checkLogin().then(() => {
+                if (this.getVipInfo.oldUserGetNum) {
+                    this.$message({
+                        message: "您已经领取过老用户会员了",
+                        type: "warning",
+                    });
+                } else if (!this.getVipInfo.isEarlier) {
+                    this.$message({
+                        message: "只有在2021年12月28日之前注册的用户才能领取老用户会员",
+                        type: "warning",
+                    });
+                } else {
+                    oldUserApplyVip(1).then(() => {
+                        this.getOldUserNum();
+                        this.$message({
+                            message: "恭喜您，领取成功",
+                            type: "success",
+                        });
+                    });
+                }
             });
         },
         // 打开添加地址弹窗

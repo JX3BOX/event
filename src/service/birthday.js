@@ -47,9 +47,26 @@ function getAddress(params) {
 function addAddress(data) {
     return $pay().post(`/api/mall/ship-address`, data);
 }
+// -------------------------------------------------
 // 积分兑换会员
-function pointsExchangeVip(id, params) { 
+function pointsExchangeVip(id, params) {
     return $pay().get(`/api/jx3box/event/${id}/points-exchange-vip`, params);
+}
+// 活跃会员已领取VIP次数
+function activityUserApplyVipChance(id, params) {
+    return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip/chance`, params);
+}
+// 活跃会员领取VIP
+function activityUserApplyVipApplyVip(id, params) {
+    return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip`, params);
+}
+// 老用户已领取VIP次数
+function oldUserApplyVipChance(id, params) {
+    return $pay().get(`/api/jx3box/event/${id}/old-user/apply-vip/chance`, params);
+}
+// 老用户领取VIP
+function oldUserApplyVip(id, params) {
+    return $pay().get(`/api/jx3box/event/${id}/old-user/apply-vip`, params);
 }
 
 export {
@@ -62,4 +79,8 @@ export {
     getAddress,
     getMyInfo,
     pointsExchangeVip,
+    activityUserApplyVipChance,
+    activityUserApplyVipApplyVip,
+    oldUserApplyVipChance,
+    oldUserApplyVip,
 };
