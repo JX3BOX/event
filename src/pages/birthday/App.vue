@@ -40,7 +40,7 @@ export default {
     position: relative;
     .scrollbar();
     box-sizing: border-box;
-    // height: calc(100vh);
+    height: calc(100vh);
     overflow-y: auto;
 }
 

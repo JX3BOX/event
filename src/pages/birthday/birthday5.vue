@@ -15,7 +15,7 @@
                 <img class="u-img" :src="imgSrc(`nav/8.svg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-0">
+        <div class="m-page-0" id="start">
             <div class="u-top__bg"></div>
             <div class="m-img-box">
                 <div v-for="(item, index) in 12" :key="index">
@@ -540,7 +540,7 @@
                 <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
             </div>
         </div>
-        <div class="m-page-8 m-page-layout">
+        <div class="m-page-8 m-page-layout" id="end">
             <div class="m-author">
                 <div class="m-author__list" v-for="(item, index) in authorList" :key="index">
                     <img class="u-author" v-for="author in item" :src="author.user_avatar" :key="author.ID" alt="" />
@@ -825,8 +825,8 @@ export default {
             this.loadGiftStatus()
         },
         // 跳转
-        goToAnchor() {
-            const anchor = this.$route.query.anchor;
+        goToAnchor(part) {
+            const anchor = part || this.$route.query.anchor;
             anchor && document.getElementById(anchor).scrollIntoView({
                 behavior: "smooth", // 平滑滚动
                 block: "start", // 滚动到元素的顶部
@@ -1144,7 +1144,6 @@ export default {
         },
         loadGiftStatus() {
             getEventGiftRecord(1).then((res) => {
-                console.log(res.data.data.list);
                 this.getGiftNum = res.data.data.list?.length || 0;
             });
         },
