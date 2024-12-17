@@ -40,7 +40,7 @@ export default {
     position: relative;
     .scrollbar();
     box-sizing: border-box;
-    height: calc(100vh);
+    // height: calc(100vh);
     overflow-y: auto;
 }
 
@@ -48,9 +48,9 @@ export default {
     transition: all 1s ease;
 }
 
-@media screen and (max-width: @ipad) {
-    .c-birthday {
-        min-width: 500px;
-    }
-}
+// @media screen and (max-width: @ipad) {
+//     .c-birthday {
+//         min-width: 500px;
+//     }
+// }
 </style>

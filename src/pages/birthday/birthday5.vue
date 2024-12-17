@@ -24,7 +24,7 @@
             </div>
             <img class="u-top-kv" :src="imgSrc(`0/top_kv.png`)" alt="" />
         </div>
-        <div class="m-page-1 m-page-layout">
+        <div class="m-page-1 m-page-layout" id="mv">
             <img class="u-mark" :src="imgSrc(`1/1.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`1/bg.jpg`)" alt="" />
             <div class="m-main">
@@ -48,7 +48,7 @@
                 <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-2 m-page-layout">
+        <div class="m-page-2 m-page-layout" id="medal">
             <img class="u-mark" :src="imgSrc(`2/2.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`2/bg.jpg`)" alt="" />
             <div class="m-main">
@@ -74,7 +74,7 @@
                 <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-3 m-page-layout">
+        <div class="m-page-3 m-page-layout" id="decoration">
             <img class="u-mark" :src="imgSrc(`3/3.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`3/bg.jpg`)" alt="" />
             <div class="m-main">
@@ -421,7 +421,7 @@
                 <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-4 m-page-layout">
+        <div class="m-page-4 m-page-layout" id="feature">
             <img class="u-mark" :src="imgSrc(`4/4.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`4/bg.jpg`)" alt="" />
             <div class="m-main">
@@ -442,7 +442,7 @@
                 <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-5 m-page-layout">
+        <div class="m-page-5 m-page-layout" id="buy">
             <img class="u-mark" :src="imgSrc(`5/5.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`5/bg.jpg`)" alt="" />
             <div class="m-main">
@@ -460,7 +460,7 @@
                 <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-6 m-page-layout">
+        <div class="m-page-6 m-page-layout" id="gift">
             <img class="u-mark" :src="imgSrc(`6/6.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`6/bg.png`)" alt="" />
             <div class="m-main">
@@ -491,7 +491,7 @@
                 <img class="u-code" :src="imgSrc(`miniprogram.jpg`)" alt="" />
             </div>
         </div>
-        <div class="m-page-7 m-page-layout">
+        <div class="m-page-7 m-page-layout" id="pro">
             <img class="u-mark" :src="imgSrc(`7/7.svg`)" alt="" />
             <img class="u-bg" :src="imgSrc(`7/bg.png`)" alt="" />
             <div class="m-main">
@@ -552,12 +552,7 @@
 
         <!--领取礼品弹窗-->
         <el-dialog title="领取赠礼" :visible.sync="getGiftVisible" class="m-gift-dialog">
-            <el-form
-                :model="getGiftForm"
-                :rules="getGiftRules"
-                ref="getGiftRef"
-                label-position="top"
-            >
+            <el-form :model="getGiftForm" :rules="getGiftRules" ref="getGiftRef" label-position="top">
                 <div class="u-gift-count">
                     当前可领取次数：<b class="u-count" :class="{ isValid: getGiftNum }">{{ getGiftNum || 0 }}</b>
                 </div>
@@ -593,7 +588,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="getGiftVisible = false">取 消</el-button>
-                <el-button type="primary" @click="getGiftSubmit">确 定</el-button>
+                <el-button type="primary" @click="getGiftSubmit" :disabled="!getGiftNum">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -646,6 +641,7 @@ import {
     mallGoodsAwardChanceSync,
     mallGoodsAwardChanceList,
     mallGoodsAwardApply,
+    getEventGiftRecord,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
@@ -716,6 +712,7 @@ export default {
                 mall_good_id: [{ required: true, message: "请选择福利", trigger: "change" }],
                 address_id: [{ required: true, message: "请选择收货地址", trigger: "change" }],
             },
+            getGiftNum: 0,
             mallGoodsAwardChanceId: "",
             userAddress: [],
             address: "",
@@ -757,7 +754,7 @@ export default {
     },
     computed: {
         pointCashNum: function () {
-            return Math.min(10, Math.floor(this.getVipInfo.points / 200));
+            return Math.min(5, Math.floor(this.getVipInfo.points / 200));
         },
         activeUserVipNum: function () {
             if (this.getVipInfo.activeGetNum == 1) {
@@ -815,13 +812,26 @@ export default {
         setTimeout(() => {
             this.moveSliderToItem(1);
         }, 500);
+
+        this.Init();
     },
     beforeDestroy() {
         const element = document.querySelector(".birthday");
         element.removeEventListener("scroll", this.handleScroll);
     },
     methods: {
-        Init() {},
+        Init() {
+            this.goToAnchor()
+            this.loadGiftStatus()
+        },
+        // 跳转
+        goToAnchor() {
+            const anchor = this.$route.query.anchor;
+            anchor && document.getElementById(anchor).scrollIntoView({
+                behavior: "smooth", // 平滑滚动
+                block: "start", // 滚动到元素的顶部
+            });
+        },
         // 检查是否领取了勋章
         checkMedal() {
             this.checkLogin(true).then(() => {
@@ -1131,6 +1141,12 @@ export default {
         },
         imgSrc(src) {
             return this.__imgRoot + src;
+        },
+        loadGiftStatus() {
+            getEventGiftRecord(1).then((res) => {
+                console.log(res.data.data.list);
+                this.getGiftNum = res.data.data.list?.length || 0;
+            });
         },
     },
 };

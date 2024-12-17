@@ -86,6 +86,16 @@ function eventRecordItem(id, params) {
     return $next().get(`/api/next2/event-record/item/${id}`, { params });
 }
 
+// 获取周年赠礼次数
+function getEventGiftRecord(id) {
+    return $pay().get(`/api/jx3box/event/${id}/pay-order-award/mall-goods-award/chance/list`, {
+        params: {
+            got: 0,
+        }
+    });
+
+}
+
 export {
     medalCheck,
     medalReceive,
@@ -104,4 +114,5 @@ export {
     mallGoodsAwardChanceSync,
     mallGoodsAwardChanceList,
     mallGoodsAwardApply,
+    getEventGiftRecord
 };
