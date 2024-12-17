@@ -470,10 +470,10 @@
                     <div class="m-book">
                         <el-image
                             class="u-book"
-                            v-for="item in 4"
-                            :key="item"
-                            :src="imgSrc(`gift/gift-${item}.jpg`)"
-                            :preview-src-list="[imgSrc(`gift/gift-${item}.jpg`)]"
+                            v-for="item in shopList"
+                            :key="item.id"
+                            :src="item.goods_images[0]"
+                            :preview-src-list="[item.goods_images[0]]"
                         >
                         </el-image>
                     </div>
@@ -549,17 +549,17 @@
 
         <!--领取礼品弹窗-->
         <el-dialog title="领取福利" :visible.sync="getGiftVisible">
-            <el-form :model="getGiftForm">
-                <el-form-item label="选择福利" prop="">
-                    <el-radio-group class="m-get-gift" v-model="getGiftForm.giftId">
-                        <el-radio class="m-get__radio" v-for="item in 4" :key="item" :label="item">
-                            <el-image class="u-book" :src="imgSrc(`gift/gift-${item}.jpg`)"> </el-image>
+            <el-form :model="getGiftForm" :rules="getGiftRules" ref="getGiftRef">
+                <el-form-item label="选择福利" prop="mall_good_id">
+                    <el-radio-group class="m-get-gift" v-model="getGiftForm.mall_good_id">
+                        <el-radio class="m-get__radio" v-for="item in shopList" :key="item.id" :label="item.id">
+                            <el-image class="u-book" :src="item.goods_images[0]"> </el-image>
                         </el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="收货地址">
+                <el-form-item label="收货地址" prop="address_id">
                     <div class="m-get-gift-address">
-                        <el-select placeholder="请选择收货地址" v-model="getGiftForm.region">
+                        <el-select placeholder="请选择收货地址" v-model="getGiftForm.address_id">
                             <el-option
                                 v-for="item in userAddress"
                                 :key="item.id"
@@ -578,7 +578,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="getGiftVisible = false">取 消</el-button>
-                <el-button type="primary" @click="getGiftVisible = false">确 定</el-button>
+                <el-button type="primary" @click="getGiftSubmit">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -627,6 +627,10 @@ import {
     activityUserApplyVipApplyVip,
     oldUserApplyVipChance,
     oldUserApplyVip,
+    eventRecordItem,
+    mallGoodsAwardChanceSync,
+    mallGoodsAwardChanceList,
+    mallGoodsAwardApply,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
@@ -690,8 +694,14 @@ export default {
             userDecorationList: [],
 
             getGiftForm: {
-                giftId: "",
+                mall_good_id: "",
+                address_id: "",
             },
+            getGiftRules: {
+                mall_good_id: [{ required: true, message: "请选择福利", trigger: "change" }],
+                address_id: [{ required: true, message: "请选择收货地址", trigger: "change" }],
+            },
+            mallGoodsAwardChanceId: "",
             userAddress: [],
             address: "",
             addressList,
@@ -726,6 +736,8 @@ export default {
                 level: 0,
                 activeGetNum: 0,
             },
+
+            shopList: [],
         };
     },
     computed: {
@@ -759,6 +771,10 @@ export default {
         this.loadUserInfo();
         this.getOldUserNum();
         this.getActiveUserNum();
+        // 获取可领取的福利商品信息
+        eventRecordItem(1).then((res) => {
+            this.shopList = res.data.data.mall_goods_list;
+        });
         // 获取所有签约作者
         superAuthor().then((res) => {
             const tempList = res.data.data;
@@ -848,7 +864,26 @@ export default {
         // 打开领取礼品弹窗
         openGetGift() {
             this.checkLogin().then(() => {
-                this.getGiftVisible = true;
+                const loading = this.$loading({
+                    lock: true,
+                    text: "Loading",
+                    spinner: "el-icon-loading",
+                    background: "rgba(0, 0, 0, 0.7)",
+                });
+                mallGoodsAwardChanceSync(1).then((res) => {
+                    mallGoodsAwardChanceList(1).then((res) => {
+                        loading.close();
+                        if (!res.data.data.list) {
+                            this.$message({
+                                message: "您的可用领取次数不足",
+                                type: "warning",
+                            });
+                        } else {
+                            this.getGiftVisible = true;
+                            this.mallGoodsAwardChanceId = res.data.data.list[0].id;
+                        }
+                    });
+                });
             });
         },
         // 检查用户的登录状态
@@ -912,7 +947,7 @@ export default {
                             });
                         });
                     });
-                }else{
+                } else {
                     this.$message({
                         message: "您的积分不足",
                         type: "warning",
@@ -996,6 +1031,20 @@ export default {
                 address: "",
             };
             this.address = "";
+        },
+        // 领取年费会员福利
+        getGiftSubmit() {
+            this.$refs.getGiftRef.validate((valid) => {
+                if (valid) {
+                    mallGoodsAwardApply(1, this.mallGoodsAwardChanceId, this.getGiftForm).then((res) => {
+                        this.getGiftVisible = false;
+                        this.$message({
+                            message: "恭喜您，领取成功",
+                            type: "success",
+                        });
+                    });
+                }
+            });
         },
         // 添加地址 地址变更
         addAddressCascaderChange(list) {

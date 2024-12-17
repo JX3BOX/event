@@ -1,4 +1,4 @@
-import { $cms, $pay } from "@jx3box/jx3box-common/js/https";
+import { $cms, $pay, $next } from "@jx3box/jx3box-common/js/https";
 
 // 检查用户是否拥有该勋章
 function medalCheck(params) {
@@ -41,32 +41,49 @@ function getMyInfo() {
 // ------------------------------------------------------------
 // 获取地址列表
 function getAddress(params) {
-    return $pay().get(`/api/mall/ship-address`, params);
+    return $pay().get(`/api/mall/ship-address`, { params });
 }
 // 添加地址
 function addAddress(data) {
     return $pay().post(`/api/mall/ship-address`, data);
 }
 // -------------------------------------------------
+// 同步年费会员福利可领取的次数
+function mallGoodsAwardChanceSync(id, data) {
+    return $pay().post(`/api/jx3box/event/${id}/pay-order-award/mall-goods-award/chance/sync`, data);
+}
+// 获取用户可以进行领取的年费会员福利列表
+function mallGoodsAwardChanceList(id, params) {
+    return $pay().get(`/api/jx3box/event/${id}/pay-order-award/mall-goods-award/chance/list`, { params });
+}
+// 领取年费会员福利
+function mallGoodsAwardApply(id, recordId, data) {
+    return $pay().post(`/api/jx3box/event/${id}/pay-order-award/mall-goods-award/award/${recordId}/apply`, data);
+}
 // 积分兑换会员
 function pointsExchangeVip(id, params) {
-    return $pay().get(`/api/jx3box/event/${id}/points-exchange-vip`, params);
+    return $pay().get(`/api/jx3box/event/${id}/points-exchange-vip`, { params });
 }
 // 活跃会员已领取VIP次数
 function activityUserApplyVipChance(id, params) {
-    return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip/chance`, params);
+    return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip/chance`, { params });
 }
 // 活跃会员领取VIP
 function activityUserApplyVipApplyVip(id, params) {
-    return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip`, params);
+    return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip`, { params });
 }
 // 老用户已领取VIP次数
 function oldUserApplyVipChance(id, params) {
-    return $pay().get(`/api/jx3box/event/${id}/old-user/apply-vip/chance`, params);
+    return $pay().get(`/api/jx3box/event/${id}/old-user/apply-vip/chance`, { params });
 }
 // 老用户领取VIP
 function oldUserApplyVip(id, params) {
-    return $pay().get(`/api/jx3box/event/${id}/old-user/apply-vip`, params);
+    return $pay().get(`/api/jx3box/event/${id}/old-user/apply-vip`, { params });
+}
+// -------------------------------------------------
+// 获取周年福利商品详情
+function eventRecordItem(id, params) {
+    return $next().get(`/api/next2/event-record/item/${id}`, { params });
 }
 
 export {
@@ -83,4 +100,8 @@ export {
     activityUserApplyVipApplyVip,
     oldUserApplyVipChance,
     oldUserApplyVip,
+    eventRecordItem,
+    mallGoodsAwardChanceSync,
+    mallGoodsAwardChanceList,
+    mallGoodsAwardApply,
 };
