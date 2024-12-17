@@ -477,7 +477,10 @@
                         >
                         </el-image>
                     </div>
-                    <div class="u-book__tip">活动期间购买年费会员（可重复），即可领取一套精美笔记本（4选1）</div>
+                    <div class="u-book__tip">
+                        活动期间购买年费会员，即可领取「一套」精美笔记本（每套4本）<br />
+                        （可重复购买与领取）
+                    </div>
                     <img class="u-open" @click="openNewWindow('/vip/premium')" :src="imgSrc(`6/open.svg`)" alt="" />
                     <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
                     <img class="u-get" style="cursor: pointer" @click="openGetGift" :src="imgSrc(`get.png`)" alt="" />
@@ -548,12 +551,24 @@
         </div>
 
         <!--领取礼品弹窗-->
-        <el-dialog title="领取福利" :visible.sync="getGiftVisible">
-            <el-form :model="getGiftForm" :rules="getGiftRules" ref="getGiftRef">
+        <el-dialog title="领取赠礼" :visible.sync="getGiftVisible" class="m-gift-dialog">
+            <el-form
+                :model="getGiftForm"
+                :rules="getGiftRules"
+                ref="getGiftRef"
+                label-position="top"
+            >
+                <div class="u-gift-count">
+                    当前可领取次数：<b class="u-count" :class="{ isValid: getGiftNum }">{{ getGiftNum || 0 }}</b>
+                </div>
                 <el-form-item label="选择福利" prop="mall_good_id">
+                    <div class="u-notice">
+                        注：将优先发送选择的主题，当主题无存货时，将随机发送其它主题或同款商品的其它风格。
+                    </div>
                     <el-radio-group class="m-get-gift" v-model="getGiftForm.mall_good_id">
                         <el-radio class="m-get__radio" v-for="item in shopList" :key="item.id" :label="item.id">
-                            <el-image class="u-book" :src="item.goods_images[0]"> </el-image>
+                            <el-image class="u-book" :src="item.goods_images[0]"></el-image>
+                            <span class="u-title">{{ item.title }}</span>
                         </el-radio>
                     </el-radio-group>
                 </el-form-item>
@@ -742,7 +757,7 @@ export default {
     },
     computed: {
         pointCashNum: function () {
-            return Math.floor(this.getVipInfo.points / 200);
+            return Math.min(10, Math.floor(this.getVipInfo.points / 200));
         },
         activeUserVipNum: function () {
             if (this.getVipInfo.activeGetNum == 1) {

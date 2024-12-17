@@ -730,6 +730,11 @@ body {
                     margin: 45px auto 0;
                     width: 1000px;
                     cursor: pointer;
+                    display: block;
+                    transition: 0.3s all ease-in-out;
+                    &:hover{
+                        transform: scale(1.05);
+                    }
                 }
 
                 .u-points__tip {
@@ -785,18 +790,25 @@ body {
                     .u-book {
                         width: 240px;
                         cursor: pointer;
+                        .r(6px);
                     }
                 }
 
                 .u-book__tip {
                     margin-top: 50px;
                     color: #fff;
+                    .fz(15px,2);
                 }
 
                 .u-open {
                     margin: 50px auto 0;
                     width: 226px;
                     cursor: pointer;
+                    transition: 0.2s all ease-in-out;
+                    &:hover{
+                        transform: scale(1.05);
+                        filter: brightness(1.08);
+                    }
                 }
 
                 .u-time {
@@ -1005,5 +1017,32 @@ body {
         .el-form--label-top .el-form-item__label {
             padding: 0;
         }
+    }
+}
+
+
+.m-gift-dialog{
+    .u-notice{
+        .fz(12px);
+        color:#a2b0c5;
+        margin-top:-20px;
+    }
+    .el-radio__input{
+        .none;
+    }
+    .u-title{
+        .db;
+        .x;
+        .fz(13px);
+        margin-top:15px;
+    }
+    .u-book{
+        .db;
+    }
+    .u-count.isValid{
+        color:green;
+    }
+    .el-dialog__body{
+        padding-top:5px;
     }
 }
