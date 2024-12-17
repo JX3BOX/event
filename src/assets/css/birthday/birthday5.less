@@ -314,10 +314,6 @@ body {
                         transition: 0.2s all;
                     }
 
-                    .m-plate__content {
-                        background-size: cover;
-                    }
-
                     .m-info {
                         display: flex;
 
@@ -367,9 +363,79 @@ body {
                             }
                         }
 
+                        .Skeleton {
+                            background-color: #f2f2f2;
+                            border-radius: 4px;
+                        }
+
                         &.m-calendar {
                             .m-plate__content {
-                                .size(369px, 355px);
+                                width: 369px;
+
+                                .m-welcome {
+                                    height: 110px;
+                                    position: relative;
+                                    .u-pic {
+                                        height: 100px;
+                                        width: 100%;
+                                    }
+                                    .u-hook {
+                                        .Skeleton();
+                                        .size(9px,36px);
+                                        position: absolute;
+                                        bottom: -15px;
+                                        &.u-hook-left {
+                                            left: 30px;
+                                        }
+                                        &.u-hook-right {
+                                            right: 30px;
+                                        }
+                                    }
+                                }
+                                .m-news {
+                                    background-color: white;
+                                    border-radius: 5px;
+                                    border: 1px solid #f1f1f4;
+                                    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.03);
+                                    .m-news-header {
+                                        height: 36px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: space-between;
+                                        padding: 0 10px;
+                                        border-bottom: 1px dashed #eee;
+                                        .u-left {
+                                            .Skeleton();
+                                            height: 19px;
+                                            width: 237px;
+                                        }
+                                        .u-right {
+                                            .Skeleton();
+                                            height: 16px;
+                                            width: 16px;
+                                        }
+                                    }
+                                    .m-news-list {
+                                        padding: 10px;
+                                        .u-item {
+                                            height: 28px;
+                                            display: flex;
+                                            align-items: center;
+                                            padding-left: 5px;
+                                            gap: 4px;
+                                            color: #f2f2f2;
+                                            .u-time {
+                                                .Skeleton();
+                                                width: 34px;
+                                                height: 16px;
+                                            }
+                                            .u-content {
+                                                .Skeleton();
+                                                height: 16px;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
 
@@ -377,6 +443,83 @@ body {
                             .m-plate__content {
                                 padding: 0 13px;
                                 .size(280px, 308px);
+                                .c-sidebar {
+                                    padding: 10px;
+                                    background-color: white;
+                                    border-radius: 5px;
+                                    height: 100%;
+                                    box-sizing: border-box;
+                                    
+                                    background-image: url(https://img.jx3box.com/decoration/images/dragon2024/sidebar.png);
+                                    background-repeat: no-repeat;
+                                    background-size: contain;
+                                    background-position: 100% 0;
+                                    
+                                    .m-author {
+                                        display: flex;
+                                        align-items: center;
+                                        .u-avatar__img {
+                                            .Skeleton();
+                                            .size(68px);
+                                            border-radius: 50%;
+                                            margin-right: 15px;
+                                        }
+                                        .u-info {
+                                            .u-name {
+                                                .Skeleton();
+                                                height: 19px;
+                                                width: 80px;
+                                            }
+                                            .u-extend {
+                                                height: 18px;
+                                                display: flex;
+                                                gap: 4px;
+                                                margin-top: 16px;
+                                                .u-extend__item {
+                                                    .Skeleton();
+                                                    width: 37px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .u-bio {
+                                        .Skeleton();
+                                        width: 80%;
+                                        margin-top: 10px;
+                                        height: 24px;
+                                    }
+                                    .u-interact {
+                                        display: flex;
+                                        gap: 8px;
+                                        .u-interact__item {
+                                            .Skeleton();
+                                            .size(71px,30px);
+                                            margin-top: 5px;
+                                        }
+                                    }
+                                    .c-author-link {
+                                        margin-top: 20px;
+                                        display: flex;
+                                        gap: 3px;
+                                        .u-link {
+                                            .Skeleton();
+                                            .size(18px);
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                    .c-author-label {
+                                        .Skeleton();
+                                        margin-top: 30px;
+                                        height: 16px;
+                                        width: 40%;
+                                    }
+                                    .m-author-teams {
+                                        margin-top: 10px;
+                                        .Skeleton();
+                                        .size(18px);
+                                        border-radius: 50%;
+                                    }
+                                }
                             }
                         }
 

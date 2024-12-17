@@ -89,12 +89,31 @@
                         }"
                     >
                         <div class="m-info m-calendar">
-                            <div
-                                class="m-plate__content"
-                                :style="{
-                                    backgroundImage: `url(${imgSrc('3/calendar.png')})`,
-                                }"
-                            ></div>
+                            <div class="m-plate__content">
+                                <div class="m-welcome">
+                                    <img class="u-pic" src="" alt="" />
+                                    <div class="u-hook u-hook-left"></div>
+                                    <div class="u-hook u-hook-right"></div>
+                                </div>
+                                <div class="m-news">
+                                    <div class="m-news-header">
+                                        <div class="u-left"></div>
+                                        <div class="u-right"></div>
+                                    </div>
+                                    <div class="m-news-list">
+                                        <div class="u-item" v-for="item in 5" :key="item">
+                                            <div class="u-time"></div>
+                                            <div>/</div>
+                                            <div
+                                                class="u-content"
+                                                :style="{
+                                                    width: `${Math.floor(Math.random() * (80 - 40 + 1) + 40)}%`,
+                                                }"
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·日历</div>
                                 <div class="u-plate__sub">实装位置：魔盒官网-首页-最新动态上方</div>
@@ -135,12 +154,31 @@
                         }"
                     >
                         <div class="m-info m-sidebar">
-                            <div
-                                class="m-plate__content"
-                                :style="{
-                                    backgroundImage: `url(${imgSrc('3/sidebar.png')})`,
-                                }"
-                            ></div>
+                            <div class="m-plate__content">
+                                <div class="c-sidebar">
+                                    <div class="m-author">
+                                        <div class="u-avatar__img"></div>
+                                        <div class="u-info">
+                                            <div class="u-name"></div>
+                                            <div class="u-extend">
+                                                <div class="u-extend__item"></div>
+                                                <div class="u-extend__item"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-bio"></div>
+                                    <div class="u-interact">
+                                        <div class="u-interact__item"></div>
+                                        <div class="u-interact__item"></div>
+                                    </div>
+                                    <div class="c-author-link">
+                                        <div class="u-link"></div>
+                                        <div class="u-link"></div>
+                                    </div>
+                                    <div class="c-author-label"></div>
+                                    <div class="m-author-teams"></div>
+                                </div>
+                            </div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·侧边栏</div>
                                 <div class="u-plate__sub">实装位置：魔盒帖子-页面左侧</div>
@@ -181,12 +219,7 @@
                         }"
                     >
                         <div class="m-info m-people__card">
-                            <div
-                                class="m-plate__content"
-                                :style="{
-                                    backgroundImage: `url(${imgSrc('3/atcard.png')})`,
-                                }"
-                            ></div>
+                            <div class="m-plate__content"></div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·圈人卡</div>
                                 <div class="u-plate__sub">实装位置：创作中心-魔盒资源-@人</div>
