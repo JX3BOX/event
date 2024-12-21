@@ -38,9 +38,19 @@
                     framespacing="0"
                     allowfullscreen="true"
                 ></iframe>
-                <div class="u-author">
-                    魔盒团队&签约作者<br />
-                    “年度巨献”
+                <div class="u-links">
+                    <a class="u-link" href=""
+                        >魔盒团队&签约作者<br />
+                        “年度巨献”</a
+                    >
+                    <a class="u-link" href=""
+                        >歌星纯享版<br />
+                        “天籁之声”</a
+                    >
+                    <a class="u-link" href=""
+                        >剑三练习生<br />
+                        赢黄金</a
+                    >
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 4" :key="item">
