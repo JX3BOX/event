@@ -1,7 +1,7 @@
 import { $next } from "@jx3box/jx3box-common/js/https";
 
 function getVoteInfo(id) {
-    return $next().get(`/api/next2vote-program/program/${id}/public`);
+    return $next().get(`/api/next2/vote-program/program/${id}/public`);
 }
 
 function getUserVoteStatus(eventId) {
