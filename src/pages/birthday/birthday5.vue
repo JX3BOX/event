@@ -43,14 +43,6 @@
                         >魔盒团队&签约作者<br />
                         “年度巨献”</a
                     >
-                    <a class="u-link" href=""
-                        >歌星纯享版<br />
-                        “天籁之声”</a
-                    >
-                    <a class="u-link" href=""
-                        >剑三练习生<br />
-                        赢黄金</a
-                    >
                 </div>
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 4" :key="item">
@@ -64,7 +56,7 @@
             <div class="m-main">
                 <img class="u-title" :src="imgSrc(`2/title.svg`)" alt="" />
 
-                <div class="m-medal-box"> 
+                <div class="m-medal-box">
                     <img class="u-medal" :src="imgSrc(`medal.png`)" alt="" />
                     <img class="u-medal__mask" :src="imgSrc(`medal-bg.png`)" alt="" />
                 </div>
