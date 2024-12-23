@@ -568,7 +568,8 @@
                     <img class="u-top" :src="imgSrc(`5/page-title.png`)" alt="" />
                     <div class="u-top__tip">[ 非活动时期 ]</div>
                     <img class="u-points" @click="openNewWindow('/vip/premium')" :src="imgSrc(`5/points.png`)" alt="" />
-                    <div class="u-points__tip" style="visibility: hidden">错过再等一整年！</div>
+                    <img class="u-open" @click="openNewWindow('/vip/premium')" :src="imgSrc(`6/open.svg`)" alt="" />
+                    <!-- <div class="u-points__tip" style="visibility: hidden">错过再等一整年！</div> -->
                     <img class="u-box__logo" :src="imgSrc(`5/box-logo.png`)" alt="" />
                 </div>
             </div>
@@ -595,10 +596,11 @@
                         </el-image>
                     </div>
                     <div class="u-book__tip">
-                        活动期间购买年费会员，即可领取「一套」精美笔记本（每套4本）<br />
-                        （可重复购买与领取）
+                        活动期间购买年费会员，即可领取「一套」精美笔记本（每套4本）
+                        <span class="u-tips">
+                            （可重复购买与领取）
+                        </span>
                     </div>
-                    <img class="u-open" @click="openNewWindow('/vip/premium')" :src="imgSrc(`6/open.svg`)" alt="" />
                     <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
                     <img class="u-get" style="cursor: pointer" @click="openGetGift" :src="imgSrc(`get.png`)" alt="" />
                 </div>

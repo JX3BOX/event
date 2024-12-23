@@ -227,8 +227,16 @@
         }
         .m-month-list {
             .flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            // flex-wrap: wrap;
             gap: 50px;
+
+            &.isSpecial{
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
             .u-item {
                 .pr;
                 .pointer;
