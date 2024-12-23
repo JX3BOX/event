@@ -39,7 +39,7 @@
                     allowfullscreen="true"
                 ></iframe> -->
                 <div class="u-links">
-                    <a class="u-link" href=""
+                    <a class="u-link" href="https://www.bilibili.com/video/BV1ypk4YcEA1/" target="_blank"
                         >魔盒团队&签约作者<br />
                         “年度巨献”</a
                     >
