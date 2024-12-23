@@ -31,7 +31,8 @@
                     <div class="u-month" v-if="item.month">{{ item.month }}月</div>
                     <div class="u-month" v-else>特殊活动</div>
                     <div class="m-month-list" :class="{
-                        isSingle: item.single
+                        isSingle: item.single,
+                        isSpecial : !item.month
                     }">
                         <a
                             class="u-item"
