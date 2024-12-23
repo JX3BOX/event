@@ -29,13 +29,18 @@
                             v-for="(item, index) in eventList"
                             :key="index"
                             class="scroll__item"
-                            :href="item.sub_title"
+                            target="_blank"
+                            :href="postLink(item.link_user_id)"
                         >
                             <div class="item__rank">{{ index + 1 }}</div>
                             <div class="item__content">
                                 <div class="item__title">
                                     <span class="title">{{ item.title }}</span>
-                                    <span class="tag">{{ item.tag }}</span>
+                                    <template v-if="item.sub_title">
+                                        <span class="u-tag" v-for="tag in item.sub_title.split('|')" :key="tag">
+                                            {{ tag }}
+                                        </span>
+                                    </template>
                                 </div>
                                 <p class="item__desc">{{ item.content }}</p>
                             </div>
@@ -64,8 +69,9 @@
 </template>
 
 <script>
-import lodash from "lodash";
+import { debounce } from "lodash";
 import { getVoteInfo, submitVote } from "@/service/bigbang";
+import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "EventsPage",
     inject: ["__imgRoot"],
@@ -85,8 +91,11 @@ export default {
         getImgUrl(name) {
             return this.__imgRoot + name;
         },
+        postLink(id) {
+            return __Root + "knowledge/view/" + id;
+        },
         showDecoration() {
-            return lodash.debounce(() => {
+            return debounce(() => {
                 const scrollDistance = window.scrollY; // 获取垂直滚动距离
                 const HEADER_HEIGHT = 800;
 
@@ -102,6 +111,7 @@ export default {
             return getVoteInfo(this.event_id)
                 .then((res) => {
                     this.eventList = res.data.data?.vote_items || []; // 待投票的事件列表
+                    console.log(this.eventList);
                     this.userStatus = res.data.data?.latest_vote_history_record?.vote_item_id_list || []; // 用户的投票状态
                     // 更新列表项的禁用状态
                     this.eventList.forEach((item) => {
@@ -122,7 +132,7 @@ export default {
                 this.$message.success("投票成功！");
                 item.amount += 1;
                 item.disabled = true;
-            })
+            });
         },
     },
     mounted() {
