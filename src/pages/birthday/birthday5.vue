@@ -64,10 +64,9 @@
             <div class="m-main">
                 <img class="u-title" :src="imgSrc(`2/title.svg`)" alt="" />
 
-                <div class="m-medal-box">
-                    <!-- !TODO 更换线上勋章地址和发光图 -->
-                    <img class="u-medal" src="" alt="" />
-                    <img class="u-medal__mask" src="" alt="" />
+                <div class="m-medal-box"> 
+                    <img class="u-medal" :src="imgSrc(`medal.png`)" alt="" />
+                    <img class="u-medal__mask" :src="imgSrc(`medal-bg.png`)" alt="" />
                 </div>
                 <img
                     class="u-get"
@@ -101,7 +100,7 @@
                         <div class="m-info m-calendar">
                             <div class="m-plate__content">
                                 <div class="m-welcome">
-                                    <img class="u-pic" src="" alt="" />
+                                    <img class="u-pic" :src="imgSrc(`calendar.png`)" alt="" />
                                     <div class="u-hook u-hook-left"></div>
                                     <div class="u-hook u-hook-right"></div>
                                 </div>
@@ -297,7 +296,7 @@
                             <div
                                 class="m-plate__content"
                                 :style="{
-                                    backgroundImage: `url(${imgSrc('3/homebg.png')})`,
+                                    backgroundImage: `url(${imgSrc('3/homebg.png?2024')})`,
                                 }"
                             ></div>
                             <div class="m-info-hover">
@@ -498,7 +497,7 @@
                             <div class="m-plate__content">
                                 <img class="u-user__avatar" :src="userInfo.user_avatar" alt="" />
                                 <!-- !TODO 更换cdn头像框地址 -->
-                                <img class="u-user__avatar-border" src="" alt="" />
+                                <img class="u-user__avatar-border" src="https://img.jx3box.com/avatar/images/jx3box-birthday-5/jx3box-birthday-5.svg" alt="" />
                             </div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">五周年限定头像框</div>
