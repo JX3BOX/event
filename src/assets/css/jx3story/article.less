@@ -21,9 +21,11 @@
         background-size: contain;
         .m-stamp {
             .flex;
+            width: 160px;
             flex-shrink: 0;
             padding: 0 0 20px 20px;
             align-items: flex-end;
+            justify-content: flex-end;
             .u-code {
                 .size(120px);
             }
@@ -43,14 +45,16 @@
         }
         .m-post-list {
             .full;
-            padding: 0 30px;
+            padding: 0 50px;
             box-sizing: border-box;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 30px;
             .u-item {
                 .flex;
                 height: 86%;
+                flex-shrink: 0;
                 gap: 5px;
                 color: #333;
                 span {

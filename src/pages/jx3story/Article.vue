@@ -9,7 +9,7 @@
 
         <div class="m-main" v-loading="loading">
             <div class="m-stamp">
-                <img :src="code" class="u-code" />
+                <!-- <img :src="code" class="u-code" /> -->
                 <span>—— 二零二肆年·冬</span>
             </div>
             <div class="m-post-content">
