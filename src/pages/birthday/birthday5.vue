@@ -31,7 +31,7 @@
                 <img class="u-title" :src="imgSrc(`1/title.svg`)" alt="" />
                 <iframe
                     class="u-video"
-                    src="//player.bilibili.com/player.html?isOutside=true&aid=113604586113129&bvid=BV1dxiiYtEnC&cid=27204256360&p=1"
+                    src="//player.bilibili.com/player.html?isOutside=true&aid=113554657249042&bvid=BV1VWBdYJEme&cid=27057127820&p=1"
                     scrolling="no"
                     border="0"
                     frameborder="no"
