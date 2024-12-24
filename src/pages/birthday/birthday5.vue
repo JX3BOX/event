@@ -29,7 +29,7 @@
             <img class="u-bg" :src="imgSrc(`1/bg.jpg`)" alt="" />
             <div class="m-main">
                 <img class="u-title" :src="imgSrc(`1/title.svg`)" alt="" />
-                <!-- <iframe
+                <iframe
                     class="u-video"
                     src="//player.bilibili.com/player.html?isOutside=true&aid=113554657249042&bvid=BV1VWBdYJEme&cid=27057127820&p=1"
                     scrolling="no"
@@ -37,7 +37,7 @@
                     frameborder="no"
                     framespacing="0"
                     allowfullscreen="true"
-                ></iframe> -->
+                ></iframe>
                 <div class="u-links">
                     <a class="u-link" href="https://www.bilibili.com/video/BV1ypk4YcEA1/" target="_blank"
                         >魔盒团队&签约作者<br />
