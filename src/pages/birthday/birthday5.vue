@@ -488,8 +488,11 @@
                         <div class="m-info m-avatar">
                             <div class="m-plate__content">
                                 <img class="u-user__avatar" :src="userInfo.user_avatar" alt="" />
-                                <!-- !TODO 更换cdn头像框地址 -->
-                                <img class="u-user__avatar-border" src="https://img.jx3box.com/avatar/images/jx3box-birthday-5/jx3box-birthday-5.svg" alt="" />
+                                <img
+                                    class="u-user__avatar-border"
+                                    src="https://img.jx3box.com/avatar/images/jx3box-birthday-5/jx3box-birthday-5.svg"
+                                    alt=""
+                                />
                             </div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">五周年限定头像框</div>
@@ -588,18 +591,16 @@
                     <div class="m-book">
                         <el-image
                             class="u-book"
-                            v-for="item in shopList"
+                            v-for="(item, index) in shopList"
                             :key="item.id"
                             :src="item.goods_images[0]"
-                            :preview-src-list="[item.goods_images[0]]"
+                            @click="openGetGift(item.id, index)"
                         >
                         </el-image>
                     </div>
                     <div class="u-book__tip">
                         活动期间购买年费会员，即可领取「一套」精美笔记本（每套4本）
-                        <span class="u-tips">
-                            （可重复购买与领取）
-                        </span>
+                        <span class="u-tips"> （可重复购买与领取） </span>
                     </div>
                     <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
                     <img class="u-get" style="cursor: pointer" @click="openGetGift" :src="imgSrc(`get.png`)" alt="" />
@@ -737,6 +738,14 @@
                 <el-button type="primary" @click="addAddressSubmit">确 定</el-button>
             </span>
         </el-dialog>
+
+        <!-- 查看大图 -->
+        <el-image-viewer
+            v-if="showShopImgViewer"
+            :initialIndex="showShopImgIndex"
+            :on-close="closeShopImgViewer"
+            :url-list="shopList.map((item) => item.goods_images[0])"
+        />
     </div>
 </template>
 
@@ -764,9 +773,12 @@ import {
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
+import ElImageViewer from "element-ui/packages/image/src/image-viewer";
 
 export default {
-    components: {},
+    components: {
+        ElImageViewer,
+    },
     inject: ["__imgRoot", "__Links", "__imgPath"],
     data() {
         const checkPhone = (rule, value, callback) => {
@@ -869,6 +881,7 @@ export default {
             },
 
             shopList: [],
+            showShopImgViewer: false,
         };
     },
     computed: {
@@ -1007,7 +1020,7 @@ export default {
             window.open(url, "_blank");
         },
         // 打开领取礼品弹窗
-        openGetGift() {
+        openGetGift(shopId, shopIndex) {
             this.checkLogin().then(() => {
                 const loading = this.$loading({
                     lock: true,
@@ -1019,17 +1032,26 @@ export default {
                     mallGoodsAwardChanceList(1).then((res) => {
                         loading.close();
                         if (!res.data.data.list) {
-                            this.$message({
-                                message: "您的可用领取次数不足",
-                                type: "warning",
-                            });
+                            if (this.getGiftForm.mall_good_id) {
+                                this.showShopImgViewer = true;
+                                this.showShopImgIndex = shopIndex;
+                            } else {
+                                this.$message({
+                                    message: "您的可用领取次数不足",
+                                    type: "warning",
+                                });
+                            }
                         } else {
                             this.getGiftVisible = true;
                             this.mallGoodsAwardChanceId = res.data.data.list[0].id;
+                            this.getGiftForm.mall_good_id = shopId || "";
                         }
                     });
                 });
             });
+        },
+        closeShopImgViewer() {
+            this.showShopImgViewer = false;
         },
         // 检查用户的登录状态
         checkLogin(noTip = false) {
