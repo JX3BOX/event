@@ -353,7 +353,7 @@
                             </div>
                             <div class="m-info-hover">
                                 <div class="u-plate__title">魔盒5周年限定主题·评论</div>
-                                <div class="u-plate__sub">实装位置：创作中心-魔盒资源-@人</div>
+                                <div class="u-plate__sub">实装位置：魔盒帖子-评论</div>
                                 <div class="m-plate__tip">
                                     <div class="u-tip__box">
                                         <div class="u-tip__title">仅限魔盒会员领取</div>
