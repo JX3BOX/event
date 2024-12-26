@@ -92,7 +92,7 @@
                         <div class="m-info m-calendar">
                             <div class="m-plate__content">
                                 <div class="m-welcome">
-                                    <img class="u-pic" :src="imgSrc(`calendar.png`)" alt="" />
+                                    <img class="u-pic" :src="imgSrc(`calendar.webp`)" alt="" />
                                     <div class="u-hook u-hook-left"></div>
                                     <div class="u-hook u-hook-right"></div>
                                 </div>
