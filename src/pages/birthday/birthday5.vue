@@ -627,7 +627,10 @@
                             <div class="u-text__sub">我的积分：{{ getVipInfo.points }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ pointCashNum }}）</div>
                         </div>
-                        <img class="u-get" @click="pointCash" :src="imgSrc(`get.png`)" alt="" />
+                        <div>
+                            <img class="u-get" @click="pointCash" :src="imgSrc(`get.png`)" alt="" v-if="pointCashNum" />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_2.png`)" alt="" />
@@ -636,7 +639,10 @@
                             <div class="u-text__sub">我的注册时间：{{ getVipInfo.register_time }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ oldUserVipNum }}）</div>
                         </div>
-                        <img class="u-get" @click="getOldUserVip" :src="imgSrc(`get.png`)" alt="" />
+                        <div>
+                            <img class="u-get" @click="getOldUserVip" :src="imgSrc(`get.png`)" alt="" v-if="oldUserVipNum" />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_3.png`)" alt="" />
@@ -651,13 +657,17 @@
                             <div class="u-text__sub">我的等级：{{ getVipInfo.level }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ activeUserVipNum }}）</div>
                         </div>
-                        <img
-                            class="u-get"
-                            @click="getActiveUserVip"
-                            style="cursor: pointer"
-                            :src="imgSrc(`get.png`)"
-                            alt=""
-                        />
+                        <div>
+                            <img
+                                class="u-get"
+                                @click="getActiveUserVip"
+                                style="cursor: pointer"
+                                :src="imgSrc(`get.png`)"
+                                alt=""
+                                v-if="activeUserVipNum"
+                            />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
                     </div>
                 </div>
                 <div class="m-info m-extra">
