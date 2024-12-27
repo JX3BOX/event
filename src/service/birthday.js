@@ -24,6 +24,17 @@ function decorationReceive(data) {
     return $cms().post("/api/cms/user/decoration/receive", data);
 }
 
+// 领取会员
+function receiveVip(params) {
+    return $cms().get("/api/cms/user/vip/receive", {
+        params,
+    })
+}
+
+function getWechatQrcode() {
+    return $cms().get(`/api/cms/wechat/mp/bind`);
+}
+
 // 获取签约作者列表
 function superAuthor(params) {
     return $cms().get("/api/cms/user/list/super_author", {
@@ -114,5 +125,8 @@ export {
     mallGoodsAwardChanceSync,
     mallGoodsAwardChanceList,
     mallGoodsAwardApply,
-    getEventGiftRecord
+    getEventGiftRecord,
+
+    receiveVip,
+    getWechatQrcode
 };

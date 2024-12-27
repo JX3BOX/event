@@ -657,6 +657,28 @@
                         />
                     </div>
                 </div>
+                <div class="m-info m-extra">
+                    <div class="m-item">
+                        <img class="u-get__title" :src="imgSrc(`7/get_3.png`)" alt="" />
+                        <div class="m-text">
+                            <div class="u-text__title">
+                                关注魔盒公众号，即可领取1个月会员
+                            </div>
+                            <!-- <div class="u-text__sub">：{{ getVipInfo.level }}</div>
+                            <div class="u-text__tip">（剩余领取次数：{{ activeUserVipNum }}）</div> -->
+                        </div>
+                        <div>
+                            <img
+                                class="u-get"
+                                v-if="!userDecorationList.includes('vip')"
+                                @click="getVip"
+                                :src="imgSrc(`get.png`)"
+                                alt=""
+                            />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
+                    </div>
+                </div>
                 <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
             </div>
         </div>
@@ -739,6 +761,9 @@
             </span>
         </el-dialog>
 
+        <!-- 绑定微信公众号 -->
+        <BindWxMp v-model="showBind" :is-wechat-verified="hasBindMp" @bind-success="getMyInfo" />
+
         <!-- 查看大图 -->
         <el-image-viewer
             v-if="showShopImgViewer"
@@ -770,14 +795,17 @@ import {
     mallGoodsAwardChanceList,
     mallGoodsAwardApply,
     getEventGiftRecord,
+    receiveVip
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
 import ElImageViewer from "element-ui/packages/image/src/image-viewer";
+import BindWxMp from "./components/BindWxMp.vue";
 
 export default {
     components: {
         ElImageViewer,
+        BindWxMp,
     },
     inject: ["__imgRoot", "__Links", "__imgPath"],
     data() {
@@ -882,6 +910,8 @@ export default {
 
             shopList: [],
             showShopImgViewer: false,
+
+            showBind: false,
         };
     },
     computed: {
@@ -906,6 +936,9 @@ export default {
                 return 1;
             }
         },
+        hasBindMp() {
+            return !!this.userInfo.wechat_mp_openid
+        }
     },
     watch: {},
     created() {
@@ -994,7 +1027,7 @@ export default {
             this.checkLogin(true).then(() => {
                 decorationCheck({
                     key: "jx3box-birthday-5",
-                    type: `atcard,homebg,sidebar,calendar,comment,avatar,palu`,
+                    type: `atcard,homebg,sidebar,calendar,comment,avatar,palu,vip`,
                 }).then((res) => {
                     this.userDecorationList = res.data.data;
                 });
@@ -1086,6 +1119,7 @@ export default {
                 });
                 getMyInfo().then((res) => {
                     let userInfo = res.data.data;
+                    this.userInfo = userInfo;
                     const apiDateTime = new Date(userInfo.user_registered);
                     this.getVipInfo.register_time = `${apiDateTime.getFullYear()}年${
                         apiDateTime.getMonth() + 1
@@ -1095,6 +1129,11 @@ export default {
                     this.getVipInfo.isEarlier = apiDateTime < compareDateTime;
                     this.getVipInfo.level = User.getLevel(userInfo?.experience || 0);
                 });
+            });
+        },
+        getMyInfo() {
+            getMyInfo().then((res) => {
+                this.userInfo = res.data.data;
             });
         },
         // 使用积分兑换会员
@@ -1118,6 +1157,29 @@ export default {
                     this.$message({
                         message: "您的积分不足",
                         type: "warning",
+                    });
+                }
+            });
+        },
+        // 关注微信公众号领取会员
+        getVip() {
+            this.checkLogin().then(() => {
+                if (this.hasBindMp) {
+                    receiveVip({ key: "jx3box-birthday-5" }).then(() => {
+                        this.$message({
+                            message: "恭喜您，领取成功",
+                            type: "success",
+                        });
+                    });
+                } else {
+                    // 提醒未关注并且跳转关注
+                    this.$confirm("请先关注公众号后再领取", "提示", {
+                        confirmButtonText: "前往关注",
+                        cancelButtonText: "取消",
+                        type: "warning",
+                    }).then(() => {
+                        this.showBind = true;
+                    }).catch(() => {
                     });
                 }
             });
