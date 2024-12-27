@@ -692,7 +692,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
+                <!-- <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div> -->
             </div>
         </div>
         <div class="m-page-8 m-page-layout" id="end">
@@ -806,6 +806,7 @@ import {
     mallGoodsAwardApply,
     getEventGiftRecord,
     receiveVip,
+    pointsExchangeVipChance,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
@@ -916,6 +917,7 @@ export default {
                 isEarlier: false,
                 level: 0,
                 activeGetNum: 0,
+                point_got: 0,
             },
 
             shopList: [],
@@ -924,7 +926,7 @@ export default {
     },
     computed: {
         pointCashNum: function () {
-            return Math.min(5, Math.floor(this.getVipInfo.points / 200));
+            return 5 - this.getVipInfo.point_got;
         },
         activeUserVipNum: function () {
             if (this.getVipInfo.activeGetNum == 1) {
@@ -956,6 +958,7 @@ export default {
         this.loadUserInfo();
         this.getOldUserNum();
         this.getActiveUserNum();
+        this.getPointCashNum();
         // 获取可领取的福利商品信息
         eventRecordItem(1).then((res) => {
             this.shopList = res.data.data.mall_goods_list;
@@ -1158,6 +1161,7 @@ export default {
                     }).then(() => {
                         pointsExchangeVip(1).then((res) => {
                             this.loadUserInfo();
+                            this.getPointCashNum();
                             this.$message({
                                 message: "恭喜您，领取成功",
                                 type: "success",
@@ -1170,6 +1174,12 @@ export default {
                         type: "warning",
                     });
                 }
+            });
+        },
+        // 查询积分兑换次数
+        getPointCashNum() {
+            pointsExchangeVipChance(1).then((res) => {
+                this.getVipInfo.point_got = res.data.data.got;
             });
         },
         // 关注微信公众号领取会员

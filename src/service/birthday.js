@@ -75,6 +75,10 @@ function mallGoodsAwardApply(id, recordId, data) {
 function pointsExchangeVip(id, params) {
     return $pay().get(`/api/jx3box/event/${id}/points-exchange-vip`, { params });
 }
+// 积分兑换会员-已领取次数
+function pointsExchangeVipChance(id, params) {
+    return $pay().get(`/api/jx3box/event/${id}/points-exchange-vip/chance`, { params });
+}
 // 活跃会员已领取VIP次数
 function activityUserApplyVipChance(id, params) {
     return $pay().get(`/api/jx3box/event/${id}/activity-user/apply-vip/chance`, { params });
@@ -126,6 +130,7 @@ export {
     mallGoodsAwardChanceList,
     mallGoodsAwardApply,
     getEventGiftRecord,
+    pointsExchangeVipChance,
 
     receiveVip,
     getWechatQrcode
