@@ -972,6 +972,7 @@ export default {
         // 获取可领取的福利商品信息
         eventRecordItem(1).then((res) => {
             this.shopList = res.data.data.mall_goods_list;
+            this.getGiftForm.mall_good_id = this.shopList[0].id;
         });
         // 获取所有签约作者
         superAuthor().then((res) => {
