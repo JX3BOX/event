@@ -1181,10 +1181,15 @@ export default {
                             message: "恭喜您，领取成功",
                             type: "success",
                         });
+
+                        this.userDecorationList.push("vip");
                     });
                 } else {
                     // 提醒未关注并且跳转关注
-
+                    this.$message({
+                        message: "您尚未绑定微信公众号，不能够领取哦",
+                        type: "warning",
+                    });
                 }
             });
         },
