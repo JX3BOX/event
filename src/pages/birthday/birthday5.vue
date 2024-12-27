@@ -60,7 +60,9 @@
                     <img class="u-medal" :src="imgSrc(`medal.png`)" alt="" />
                     <img class="u-medal__mask" :src="imgSrc(`medal-bg.png`)" alt="" />
                 </div>
-                <div class="m-medal-text">江湖相伴 感谢有你</div>
+                <!-- <div class="m-medal-text"> -->
+                    <!-- <img :src="imgSrc(`2/thx.svg`)" alt="" /> -->
+                <!-- </div> -->
                 <img
                     class="u-get"
                     v-if="!birthdayMedalCheck"
