@@ -668,7 +668,7 @@
                                 <div class="u-qrcode-dynamic" v-if="isLogin">
                                     <BindWxMp  @bind-success="getMyInfo" />
                                 </div>
-                                <div class="u-qrcode-static" v-else>
+                                <div class="u-qrcode-static" v-else @click="toLogin">
                                     <img :src="imgSrc(`wxmp.jpg`)" alt="微信公众号：剑三魔盒" />
                                     <i class="u-qrcode-mask"> 请先登录 </i>
                                 </div>
@@ -1104,11 +1104,14 @@ export default {
                             cancelButtonText: "取消",
                             type: "warning",
                         }).then(() => {
-                            window.location.href = this.login_url;
+                            User.toLogin();
                         });
                     }
                 }
             });
+        },
+        toLogin() {
+            User.toLogin();
         },
         // 获取用户地址列表
         getUserAddress() {
