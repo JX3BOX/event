@@ -666,9 +666,9 @@
                         <div class="m-text">
                             <div class="u-qrcode">
                                 <div class="u-qrcode-dynamic" v-if="isLogin">
-                                    <!-- TODO:已登录显示动态的 -->
+                                    <BindWxMp  @bind-success="getMyInfo" />
                                 </div>
-                                <div class="u-qrcode-static">
+                                <div class="u-qrcode-static" v-else>
                                     <img :src="imgSrc(`wxmp.jpg`)" alt="微信公众号：剑三魔盒" />
                                     <i class="u-qrcode-mask"> 请先登录 </i>
                                 </div>
@@ -679,7 +679,6 @@
                             </div>
                         </div>
                         <div>
-                            <!-- TODO:按钮状态 -->
                             <img
                                 class="u-get"
                                 v-if="!userDecorationList.includes('vip')"
@@ -772,9 +771,6 @@
                 <el-button type="primary" @click="addAddressSubmit">确 定</el-button>
             </span>
         </el-dialog>
-
-        <!-- 绑定微信公众号 -->
-        <BindWxMp v-model="showBind" :is-wechat-verified="hasBindMp" @bind-success="getMyInfo" />
 
         <!-- 查看大图 -->
         <el-image-viewer
@@ -922,8 +918,6 @@ export default {
 
             shopList: [],
             showShopImgViewer: false,
-
-            showBind: false,
         };
     },
     computed: {
@@ -1185,15 +1179,7 @@ export default {
                     });
                 } else {
                     // 提醒未关注并且跳转关注
-                    this.$confirm("请先关注公众号后再领取", "提示", {
-                        confirmButtonText: "前往关注",
-                        cancelButtonText: "取消",
-                        type: "warning",
-                    })
-                        .then(() => {
-                            this.showBind = true;
-                        })
-                        .catch(() => {});
+
                 }
             });
         },
