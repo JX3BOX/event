@@ -597,7 +597,7 @@
                             v-for="(item, index) in shopList"
                             :key="item.id"
                             :src="item.goods_images[0]"
-                            @click="openGetGift(item.id, index)"
+                            @click="openShopImgViewer(item.id, index)"
                         >
                         </el-image>
                     </div>
@@ -972,7 +972,7 @@ export default {
         // 获取可领取的福利商品信息
         eventRecordItem(1).then((res) => {
             this.shopList = res.data.data.mall_goods_list;
-            this.getGiftForm.mall_good_id = this.shopList[0].id;
+            // this.getGiftForm.mall_good_id = this.shopList[0].id;
         });
         // 获取所有签约作者
         superAuthor().then((res) => {
@@ -1075,7 +1075,7 @@ export default {
             window.open(url, "_blank");
         },
         // 打开领取礼品弹窗
-        openGetGift(shopId, shopIndex) {
+        openGetGift() {
             this.checkLogin().then(() => {
                 const loading = this.$loading({
                     lock: true,
@@ -1087,23 +1087,23 @@ export default {
                     mallGoodsAwardChanceList(1).then((res) => {
                         loading.close();
                         if (!res.data.data.list) {
-                            if (this.getGiftForm.mall_good_id) {
-                                this.showShopImgViewer = true;
-                                this.showShopImgIndex = shopIndex;
-                            } else {
-                                this.$message({
-                                    message: "您的可用领取次数不足",
-                                    type: "warning",
-                                });
-                            }
+                            this.$message({
+                                message: "您的可用领取次数不足",
+                                type: "warning",
+                            });
                         } else {
                             this.getGiftVisible = true;
                             this.mallGoodsAwardChanceId = res.data.data.list[0].id;
-                            this.getGiftForm.mall_good_id = shopId || "";
+                            this.getGiftForm.mall_good_id = this.shopList[0].id;
                         }
                     });
                 });
             });
+        },
+        // 预览商品图片
+        openShopImgViewer(shopId, shopIndex) {
+            this.showShopImgViewer = true;
+            this.showShopImgIndex = shopIndex;
         },
         closeShopImgViewer() {
             this.showShopImgViewer = false;
