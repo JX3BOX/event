@@ -676,6 +676,8 @@
                             <div class="u-text__title">
                                 <span class="u-title">关注魔盒公众号：<b>剑三魔盒</b></span>
                                 <span class="u-desc">即可免费领取1个月会员</span>
+                                <div class="u-text__sub">我的状态：{{ hasBindMp ? '已关注' : '未关注' }}</div>
+                            <div class="u-text__tip">（剩余领取次数：{{ userDecorationList.includes('vip') ? 0 : 1 }}）</div>
                             </div>
                         </div>
                         <div>
