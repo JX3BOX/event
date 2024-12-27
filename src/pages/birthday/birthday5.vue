@@ -60,6 +60,7 @@
                     <img class="u-medal" :src="imgSrc(`medal.png`)" alt="" />
                     <img class="u-medal__mask" :src="imgSrc(`medal-bg.png`)" alt="" />
                 </div>
+                <div class="m-medal-text">江湖相伴 感谢有你</div>
                 <img
                     class="u-get"
                     v-if="!birthdayMedalCheck"
@@ -552,10 +553,10 @@
                         <div class="u-fun__label">{{ item }}</div>
                     </div>
                 </div>
-                <div class="m-tips" style="visibility: hidden">
+                <!-- <div class="m-tips" style="visibility: hidden">
                     <div class="u-tips__title">这一次，普通用户也能体验</div>
                     <div class="u-tips__sub">[ 每项功能可试用X次 ]</div>
-                </div>
+                </div> -->
             </div>
             <div class="u-face" :class="`u-face-${item}`" v-for="(item, index) in 2" :key="item">
                 <img class="u-img" :src="imgSrc(`4/Ellipse${index}.png`)" alt="" />
@@ -659,15 +660,24 @@
                 </div>
                 <div class="m-info m-extra">
                     <div class="m-item">
-                        <img class="u-get__title" :src="imgSrc(`7/get_3.png`)" alt="" />
+                        <img class="u-get__title" :src="imgSrc(`7/get_4.svg`)" alt="" />
                         <div class="m-text">
-                            <div class="u-text__title">
-                                关注魔盒公众号，即可领取1个月会员
+                            <div class="u-qrcode">
+                                <div class="u-qrcode-dynamic" v-if="isLogin">
+                                    <!-- TODO:已登录显示动态的 -->
+                                </div>
+                                <div class="u-qrcode-static">
+                                    <img :src="imgSrc(`wxmp.jpg`)" alt="微信公众号：剑三魔盒" />
+                                    <i class="u-qrcode-mask"> 请先登录 </i>
+                                </div>
                             </div>
-                            <!-- <div class="u-text__sub">：{{ getVipInfo.level }}</div>
-                            <div class="u-text__tip">（剩余领取次数：{{ activeUserVipNum }}）</div> -->
+                            <div class="u-text__title">
+                                <span class="u-title">关注魔盒公众号：<b>剑三魔盒</b></span>
+                                <span class="u-desc">即可免费领取1个月会员</span>
+                            </div>
                         </div>
                         <div>
+                            <!-- TODO:按钮状态 -->
                             <img
                                 class="u-get"
                                 v-if="!userDecorationList.includes('vip')"
@@ -795,7 +805,7 @@ import {
     mallGoodsAwardChanceList,
     mallGoodsAwardApply,
     getEventGiftRecord,
-    receiveVip
+    receiveVip,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
@@ -937,8 +947,8 @@ export default {
             }
         },
         hasBindMp() {
-            return !!this.userInfo.wechat_mp_openid
-        }
+            return !!this.userInfo.wechat_mp_openid;
+        },
     },
     watch: {},
     created() {
@@ -1177,10 +1187,11 @@ export default {
                         confirmButtonText: "前往关注",
                         cancelButtonText: "取消",
                         type: "warning",
-                    }).then(() => {
-                        this.showBind = true;
-                    }).catch(() => {
-                    });
+                    })
+                        .then(() => {
+                            this.showBind = true;
+                        })
+                        .catch(() => {});
                 }
             });
         },

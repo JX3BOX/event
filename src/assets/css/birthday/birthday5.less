@@ -261,12 +261,21 @@ body {
                     transition: 0.2s all;
                 }
 
+
                 &:hover {
                     transform: scale(1.2);
                     .u-medal__mask {
                         transform: translate(-50%, -50%) scale(1.2);
                     }
                 }
+            }
+
+            .m-medal-text{
+                font-size:99px;
+                .x;
+                font-family: '楷体';
+                font-weight: 300;
+                color:#fff;
             }
 
             .u-get {
@@ -1258,7 +1267,60 @@ body {
             }
 
             .m-extra {
-                margin-top: 63px;
+                max-width: 1355px;
+                margin:63px auto 0 auto;
+
+                .m-item{
+                    .w(100%);
+                }
+                .u-qrcode{
+                    img{
+                        .size(140px);
+                        .r(6px);
+                    }
+
+                    .u-qrcode-static{
+                        .pr;
+
+                        .u-qrcode-mask{
+                            .pa;
+                            .lt(0);.size(100%);
+                            background-color:rgba(255,255,255,.8);
+                            filter:blur(500%);
+                            color:#000;
+                            font-size: 15px;
+                            .bold;
+                            font-style: normal;
+                            .flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+
+
+                .m-text{
+                    // height: 300px !important;
+                    flex-direction: row !important;
+                    .u-text__title{
+                        .x(left);
+                        padding-left:20px;
+
+                        .u-title{
+                            .bold;
+                            .fz(16px);
+                            .db;
+
+                            b{
+                                color:#fff477;
+                            }
+                        }
+
+                        .u-desc{
+                            .fz(14px);
+                        }
+                    }
+                }
             }
 
             .u-time {
