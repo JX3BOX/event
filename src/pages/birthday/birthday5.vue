@@ -597,7 +597,7 @@
                             v-for="(item, index) in shopList"
                             :key="item.id"
                             :src="item.goods_images[0]"
-                            @click="openGetGift(item.id, index)"
+                            @click="openShopImgViewer(item.id, index)"
                         >
                         </el-image>
                     </div>
@@ -627,7 +627,10 @@
                             <div class="u-text__sub">我的积分：{{ getVipInfo.points }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ pointCashNum }}）</div>
                         </div>
-                        <img class="u-get" @click="pointCash" :src="imgSrc(`get.png`)" alt="" />
+                        <div>
+                            <img class="u-get" @click="pointCash" :src="imgSrc(`get.png`)" alt="" v-if="pointCashNum" />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_2.png`)" alt="" />
@@ -636,7 +639,10 @@
                             <div class="u-text__sub">我的注册时间：{{ getVipInfo.register_time }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ oldUserVipNum }}）</div>
                         </div>
-                        <img class="u-get" @click="getOldUserVip" :src="imgSrc(`get.png`)" alt="" />
+                        <div>
+                            <img class="u-get" @click="getOldUserVip" :src="imgSrc(`get.png`)" alt="" v-if="oldUserVipNum" />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
                     </div>
                     <div class="m-item">
                         <img class="u-get__title" :src="imgSrc(`7/get_3.png`)" alt="" />
@@ -651,13 +657,17 @@
                             <div class="u-text__sub">我的等级：{{ getVipInfo.level }}</div>
                             <div class="u-text__tip">（剩余领取次数：{{ activeUserVipNum }}）</div>
                         </div>
-                        <img
-                            class="u-get"
-                            @click="getActiveUserVip"
-                            style="cursor: pointer"
-                            :src="imgSrc(`get.png`)"
-                            alt=""
-                        />
+                        <div>
+                            <img
+                                class="u-get"
+                                @click="getActiveUserVip"
+                                style="cursor: pointer"
+                                :src="imgSrc(`get.png`)"
+                                alt=""
+                                v-if="activeUserVipNum"
+                            />
+                            <img class="u-get" v-else style="cursor: no-drop" :src="imgSrc(`get1.png`)" alt="" />
+                        </div>
                     </div>
                 </div>
                 <div class="m-info m-extra">
@@ -692,7 +702,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div>
+                <!-- <div class="u-time">[ 活动时间：2024.12.28~2025.2.28 ]</div> -->
             </div>
         </div>
         <div class="m-page-8 m-page-layout" id="end">
@@ -806,6 +816,7 @@ import {
     mallGoodsAwardApply,
     getEventGiftRecord,
     receiveVip,
+    pointsExchangeVipChance,
 } from "@/service/birthday";
 import User from "@jx3box/jx3box-common/js/user";
 import addressList from "@/assets/data/address.json";
@@ -916,6 +927,7 @@ export default {
                 isEarlier: false,
                 level: 0,
                 activeGetNum: 0,
+                point_got: 0,
             },
 
             shopList: [],
@@ -924,7 +936,7 @@ export default {
     },
     computed: {
         pointCashNum: function () {
-            return Math.min(5, Math.floor(this.getVipInfo.points / 200));
+            return 5 - this.getVipInfo.point_got;
         },
         activeUserVipNum: function () {
             if (this.getVipInfo.activeGetNum == 1) {
@@ -956,9 +968,11 @@ export default {
         this.loadUserInfo();
         this.getOldUserNum();
         this.getActiveUserNum();
+        this.getPointCashNum();
         // 获取可领取的福利商品信息
         eventRecordItem(1).then((res) => {
             this.shopList = res.data.data.mall_goods_list;
+            // this.getGiftForm.mall_good_id = this.shopList[0].id;
         });
         // 获取所有签约作者
         superAuthor().then((res) => {
@@ -1061,7 +1075,7 @@ export default {
             window.open(url, "_blank");
         },
         // 打开领取礼品弹窗
-        openGetGift(shopId, shopIndex) {
+        openGetGift() {
             this.checkLogin().then(() => {
                 const loading = this.$loading({
                     lock: true,
@@ -1073,23 +1087,23 @@ export default {
                     mallGoodsAwardChanceList(1).then((res) => {
                         loading.close();
                         if (!res.data.data.list) {
-                            if (this.getGiftForm.mall_good_id) {
-                                this.showShopImgViewer = true;
-                                this.showShopImgIndex = shopIndex;
-                            } else {
-                                this.$message({
-                                    message: "您的可用领取次数不足",
-                                    type: "warning",
-                                });
-                            }
+                            this.$message({
+                                message: "您的可用领取次数不足",
+                                type: "warning",
+                            });
                         } else {
                             this.getGiftVisible = true;
                             this.mallGoodsAwardChanceId = res.data.data.list[0].id;
-                            this.getGiftForm.mall_good_id = shopId || "";
+                            this.getGiftForm.mall_good_id = this.shopList[0].id;
                         }
                     });
                 });
             });
+        },
+        // 预览商品图片
+        openShopImgViewer(shopId, shopIndex) {
+            this.showShopImgViewer = true;
+            this.showShopImgIndex = shopIndex;
         },
         closeShopImgViewer() {
             this.showShopImgViewer = false;
@@ -1158,6 +1172,7 @@ export default {
                     }).then(() => {
                         pointsExchangeVip(1).then((res) => {
                             this.loadUserInfo();
+                            this.getPointCashNum();
                             this.$message({
                                 message: "恭喜您，领取成功",
                                 type: "success",
@@ -1170,6 +1185,12 @@ export default {
                         type: "warning",
                     });
                 }
+            });
+        },
+        // 查询积分兑换次数
+        getPointCashNum() {
+            pointsExchangeVipChance(1).then((res) => {
+                this.getVipInfo.point_got = res.data.data.got;
             });
         },
         // 关注微信公众号领取会员

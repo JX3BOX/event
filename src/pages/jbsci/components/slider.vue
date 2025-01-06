@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { orderBy } from "lodash";
 export default {
     name: "slider",
     props: ["data"],
@@ -30,7 +31,8 @@ export default {
             immediate: true,
             handler: function (slider) {
                 if (slider) {
-                    this.slider = slider;
+                    console.log(slider);
+                    this.slider = orderBy(slider, ["power"], ["desc"]);
                 }
             },
         },

@@ -100,7 +100,7 @@ export default {
             handler: function ({ sci, cover, season }) {
                 if (sci) {
                     const list = this.resultArray(sci);
-                    this.sci = sci;
+                    this.sci = sci; 
                     this.seasons = season.reduce((acc, cur) => {
                         const { power, icon } = cur;
                         if (!acc[icon]) {
@@ -108,7 +108,7 @@ export default {
                         }
                         acc[icon][power] = cur;
                         return acc;
-                    }, {});
+                    }, {}); 
                     this.cover = cover.reduce((acc, cur) => {
                         if (cur.icon && acc[cur.icon]) {
                             acc[cur.icon][cur.title] = cur.img;
@@ -198,7 +198,7 @@ export default {
                 this.coverYear = false;
             } else {
                 this.coverYear = true;
-                const _cover = this.cover[this.filter.year];
+                const _cover = this.cover[this.filter.year]; 
                 const school = (bgcolor && Object.keys(_cover).filter((item) => item.includes(bgcolor))[0]) || "通用";
                 cover = _cover[school];
             }
