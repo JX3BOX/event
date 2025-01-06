@@ -65,7 +65,7 @@ export default {
             immediate: true,
             handler: function (authors) {
                 if (authors && authors.length) {
-                    this.year = uniq(authors.map((item) => item.icon)).sort((a, b) => a - b);
+                    this.year = uniq(authors.map((item) => item.icon)).sort((a, b) => b - a);
                     this.authors = authors.reduce((acc, cur) => {
                         const { icon } = cur;
                         if (!acc[icon]) acc[icon] = [];
